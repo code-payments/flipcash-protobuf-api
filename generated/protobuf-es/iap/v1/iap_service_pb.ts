@@ -119,12 +119,20 @@ export enum OnPurchaseCompletedResponse_Result {
    * @generated from enum value: INVALID_RECEIPT = 2;
    */
   INVALID_RECEIPT = 2,
+
+  /**
+   * Returned if the at least one field in the payment metadata is invalid
+   *
+   * @generated from enum value: INVALID_METADATA = 3;
+   */
+  INVALID_METADATA = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(OnPurchaseCompletedResponse_Result)
 proto3.util.setEnumType(OnPurchaseCompletedResponse_Result, "flipcash.iap.v1.OnPurchaseCompletedResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "DENIED" },
   { no: 2, name: "INVALID_RECEIPT" },
+  { no: 3, name: "INVALID_METADATA" },
 ]);
 
 /**
