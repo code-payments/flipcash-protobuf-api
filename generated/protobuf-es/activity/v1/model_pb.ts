@@ -96,9 +96,9 @@ export class Notification extends Message<Notification> {
   /**
    * If a payment applies, the amount that was paid
    *
-   * @generated from field: flipcash.common.v1.PaymentAmount amount = 3;
+   * @generated from field: flipcash.common.v1.PaymentAmount payment_amount = 3;
    */
-  amount?: PaymentAmount;
+  paymentAmount?: PaymentAmount;
 
   /**
    * The timestamp of this notification
@@ -142,7 +142,7 @@ export class Notification extends Message<Notification> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: NotificationId },
     { no: 2, name: "localized_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "amount", kind: "message", T: PaymentAmount },
+    { no: 3, name: "payment_amount", kind: "message", T: PaymentAmount },
     { no: 4, name: "ts", kind: "message", T: Timestamp },
     { no: 5, name: "welcome_bonus", kind: "message", T: WelcomeBonusNotificationMetadata, oneof: "additional_metadata" },
     { no: 6, name: "gave_usdc", kind: "message", T: GaveUsdcNotificationMetadata, oneof: "additional_metadata" },
