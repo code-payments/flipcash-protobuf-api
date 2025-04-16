@@ -8,6 +8,7 @@ The APIs and models for communication between Flipcash clients and server.
 ## Services
 
 - [Account](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/account/v1/account_service.proto)
+- [Activity Feed](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/activity/v1/activity_feed_service.proto)
 - [IAP](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/iap/v1/iap_service.proto)
 - [Push](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/push/v1/push_service.proto)
 
