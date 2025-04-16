@@ -66,3 +66,15 @@ enum Platform {
     APPLE   = 1;
     GOOGLE  = 2;
 }
+
+// PaymentAmount defines an amount of USDC with currency exchange data
+message PaymentAmount {
+    // ISO 4217 alpha-3 currency code the payment was made in
+    string currency = 1 [(validate.rules).string = { pattern: "^[a-z]{3,4}$" }];
+
+    // The amount in the native currency that was paid
+    double native_amount = 2 [(validate.rules).double.gt = 0];
+
+    // The amount in quarks of USDC that was paid
+    uint64 quarks = 3 [(validate.rules).uint64.gt = 0];
+}

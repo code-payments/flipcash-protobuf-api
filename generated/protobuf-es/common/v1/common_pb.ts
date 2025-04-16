@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
 
 /**
  * @generated from enum flipcash.common.v1.Platform
@@ -279,6 +279,63 @@ export class AppInstallId extends Message<AppInstallId> {
 
   static equals(a: AppInstallId | PlainMessage<AppInstallId> | undefined, b: AppInstallId | PlainMessage<AppInstallId> | undefined): boolean {
     return proto3.util.equals(AppInstallId, a, b);
+  }
+}
+
+/**
+ * PaymentAmount defines an amount of USDC with currency exchange data
+ *
+ * @generated from message flipcash.common.v1.PaymentAmount
+ */
+export class PaymentAmount extends Message<PaymentAmount> {
+  /**
+   * ISO 4217 alpha-3 currency code the payment was made in
+   *
+   * @generated from field: string currency = 1;
+   */
+  currency = "";
+
+  /**
+   * The amount in the native currency that was paid
+   *
+   * @generated from field: double native_amount = 2;
+   */
+  nativeAmount = 0;
+
+  /**
+   * The amount in quarks of USDC that was paid
+   *
+   * @generated from field: uint64 quarks = 3;
+   */
+  quarks = protoInt64.zero;
+
+  constructor(data?: PartialMessage<PaymentAmount>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.PaymentAmount";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "currency", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "native_amount", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 3, name: "quarks", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaymentAmount {
+    return new PaymentAmount().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaymentAmount {
+    return new PaymentAmount().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaymentAmount {
+    return new PaymentAmount().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PaymentAmount | PlainMessage<PaymentAmount> | undefined, b: PaymentAmount | PlainMessage<PaymentAmount> | undefined): boolean {
+    return proto3.util.equals(PaymentAmount, a, b);
   }
 }
 
