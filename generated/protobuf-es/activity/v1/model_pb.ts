@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { PaymentAmount } from "../../common/v1/common_pb";
+import { PaymentAmount, PublicKey } from "../../common/v1/common_pb";
 
 /**
  * ActivityFeedType enables multiple activity feeds, where notifications may be
@@ -134,6 +134,12 @@ export class Notification extends Message<Notification> {
      */
     value: WithdrewUsdcNotificationMetadata;
     case: "withdrewUsdc";
+  } | {
+    /**
+     * @generated from field: flipcash.activity.v1.SentUsdcNotificationMetadata sent_usdc = 9;
+     */
+    value: SentUsdcNotificationMetadata;
+    case: "sentUsdc";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Notification>) {
@@ -152,6 +158,7 @@ export class Notification extends Message<Notification> {
     { no: 6, name: "gave_usdc", kind: "message", T: GaveUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 7, name: "received_usdc", kind: "message", T: ReceivedUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 8, name: "withdrew_usdc", kind: "message", T: WithdrewUsdcNotificationMetadata, oneof: "additional_metadata" },
+    { no: 9, name: "sent_usdc", kind: "message", T: SentUsdcNotificationMetadata, oneof: "additional_metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Notification {
@@ -292,6 +299,53 @@ export class WithdrewUsdcNotificationMetadata extends Message<WithdrewUsdcNotifi
 
   static equals(a: WithdrewUsdcNotificationMetadata | PlainMessage<WithdrewUsdcNotificationMetadata> | undefined, b: WithdrewUsdcNotificationMetadata | PlainMessage<WithdrewUsdcNotificationMetadata> | undefined): boolean {
     return proto3.util.equals(WithdrewUsdcNotificationMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.activity.v1.SentUsdcNotificationMetadata
+ */
+export class SentUsdcNotificationMetadata extends Message<SentUsdcNotificationMetadata> {
+  /**
+   * The vault of the gift card account that was created for the cash link
+   *
+   * @generated from field: flipcash.common.v1.PublicKey vault = 1;
+   */
+  vault?: PublicKey;
+
+  /**
+   * Whether the cancel action can be initiated by the user
+   *
+   * @generated from field: bool can_initiate_cancel_action = 2;
+   */
+  canInitiateCancelAction = false;
+
+  constructor(data?: PartialMessage<SentUsdcNotificationMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.SentUsdcNotificationMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "vault", kind: "message", T: PublicKey },
+    { no: 2, name: "can_initiate_cancel_action", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SentUsdcNotificationMetadata {
+    return new SentUsdcNotificationMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SentUsdcNotificationMetadata {
+    return new SentUsdcNotificationMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SentUsdcNotificationMetadata {
+    return new SentUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SentUsdcNotificationMetadata | PlainMessage<SentUsdcNotificationMetadata> | undefined, b: SentUsdcNotificationMetadata | PlainMessage<SentUsdcNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(SentUsdcNotificationMetadata, a, b);
   }
 }
 

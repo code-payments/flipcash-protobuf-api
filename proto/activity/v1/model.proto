@@ -41,6 +41,7 @@ message Notification {
         GaveUsdcNotificationMetadata     gave_usdc     = 6;
         ReceivedUsdcNotificationMetadata received_usdc = 7;
         WithdrewUsdcNotificationMetadata withdrew_usdc = 8;
+        SentUsdcNotificationMetadata     sent_usdc     = 9;
     }
 }
 
@@ -54,6 +55,14 @@ message ReceivedUsdcNotificationMetadata {
 }
 
 message WithdrewUsdcNotificationMetadata {
+}
+
+message SentUsdcNotificationMetadata {
+    // The vault of the gift card account that was created for the cash link
+    common.v1.PublicKey vault = 1 [(validate.rules).message.required = true];
+
+    // Whether the cancel action can be initiated by the user
+    bool can_initiate_cancel_action = 2;
 }
 
 // ActivityFeedType enables multiple activity feeds, where notifications may be
