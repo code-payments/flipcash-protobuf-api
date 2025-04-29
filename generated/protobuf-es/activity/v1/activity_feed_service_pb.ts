@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
 import { ActivityFeedType, Notification } from "./model_pb";
-import { Auth } from "../../common/v1/common_pb";
+import { Auth, QueryOptions } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.activity.v1.GetLatestNotificationsRequest
@@ -120,6 +120,120 @@ export enum GetLatestNotificationsResponse_Result {
 }
 // Retrieve enum metadata with: proto3.getEnumType(GetLatestNotificationsResponse_Result)
 proto3.util.setEnumType(GetLatestNotificationsResponse_Result, "flipcash.activity.v1.GetLatestNotificationsResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "DENIED" },
+]);
+
+/**
+ * @generated from message flipcash.activity.v1.GetPagedNotificationsRequest
+ */
+export class GetPagedNotificationsRequest extends Message<GetPagedNotificationsRequest> {
+  /**
+   * The activity feed to fetch notifications from
+   *
+   * @generated from field: flipcash.activity.v1.ActivityFeedType type = 1;
+   */
+  type = ActivityFeedType.UNKNOWN;
+
+  /**
+   * @generated from field: flipcash.common.v1.QueryOptions query_options = 2;
+   */
+  queryOptions?: QueryOptions;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<GetPagedNotificationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.GetPagedNotificationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(ActivityFeedType) },
+    { no: 2, name: "query_options", kind: "message", T: QueryOptions },
+    { no: 3, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPagedNotificationsRequest {
+    return new GetPagedNotificationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPagedNotificationsRequest {
+    return new GetPagedNotificationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPagedNotificationsRequest {
+    return new GetPagedNotificationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPagedNotificationsRequest | PlainMessage<GetPagedNotificationsRequest> | undefined, b: GetPagedNotificationsRequest | PlainMessage<GetPagedNotificationsRequest> | undefined): boolean {
+    return proto3.util.equals(GetPagedNotificationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.activity.v1.GetPagedNotificationsResponse
+ */
+export class GetPagedNotificationsResponse extends Message<GetPagedNotificationsResponse> {
+  /**
+   * @generated from field: flipcash.activity.v1.GetPagedNotificationsResponse.Result result = 1;
+   */
+  result = GetPagedNotificationsResponse_Result.OK;
+
+  /**
+   * @generated from field: repeated flipcash.activity.v1.Notification notifications = 2;
+   */
+  notifications: Notification[] = [];
+
+  constructor(data?: PartialMessage<GetPagedNotificationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.GetPagedNotificationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(GetPagedNotificationsResponse_Result) },
+    { no: 2, name: "notifications", kind: "message", T: Notification, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPagedNotificationsResponse {
+    return new GetPagedNotificationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPagedNotificationsResponse {
+    return new GetPagedNotificationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPagedNotificationsResponse {
+    return new GetPagedNotificationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPagedNotificationsResponse | PlainMessage<GetPagedNotificationsResponse> | undefined, b: GetPagedNotificationsResponse | PlainMessage<GetPagedNotificationsResponse> | undefined): boolean {
+    return proto3.util.equals(GetPagedNotificationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.activity.v1.GetPagedNotificationsResponse.Result
+ */
+export enum GetPagedNotificationsResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: DENIED = 1;
+   */
+  DENIED = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(GetPagedNotificationsResponse_Result)
+proto3.util.setEnumType(GetPagedNotificationsResponse_Result, "flipcash.activity.v1.GetPagedNotificationsResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "DENIED" },
 ]);

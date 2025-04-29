@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetLatestNotificationsRequest, GetLatestNotificationsResponse } from "./activity_feed_service_pb";
+import { GetLatestNotificationsRequest, GetLatestNotificationsResponse, GetPagedNotificationsRequest, GetPagedNotificationsResponse } from "./activity_feed_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,6 +22,17 @@ export const ActivityFeed = {
       name: "GetLatestNotifications",
       I: GetLatestNotificationsRequest,
       O: GetLatestNotificationsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetPagedNotifications gets all notifications using a paging API.
+     *
+     * @generated from rpc flipcash.activity.v1.ActivityFeed.GetPagedNotifications
+     */
+    getPagedNotifications: {
+      name: "GetPagedNotifications",
+      I: GetPagedNotificationsRequest,
+      O: GetPagedNotificationsResponse,
       kind: MethodKind.Unary,
     },
   }

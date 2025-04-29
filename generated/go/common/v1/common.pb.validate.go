@@ -765,6 +765,257 @@ var _ interface {
 
 var _PaymentAmount_Currency_Pattern = regexp.MustCompile("^[a-z]{3,4}$")
 
+// Validate checks the field values on PagingToken with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PagingToken) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PagingToken with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PagingTokenMultiError, or
+// nil if none found.
+func (m *PagingToken) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PagingToken) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := len(m.GetValue()); l < 1 || l > 128 {
+		err := PagingTokenValidationError{
+			field:  "Value",
+			reason: "value length must be between 1 and 128 bytes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return PagingTokenMultiError(errors)
+	}
+
+	return nil
+}
+
+// PagingTokenMultiError is an error wrapping multiple validation errors
+// returned by PagingToken.ValidateAll() if the designated constraints aren't met.
+type PagingTokenMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PagingTokenMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PagingTokenMultiError) AllErrors() []error { return m }
+
+// PagingTokenValidationError is the validation error returned by
+// PagingToken.Validate if the designated constraints aren't met.
+type PagingTokenValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PagingTokenValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PagingTokenValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PagingTokenValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PagingTokenValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PagingTokenValidationError) ErrorName() string { return "PagingTokenValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PagingTokenValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPagingToken.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PagingTokenValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PagingTokenValidationError{}
+
+// Validate checks the field values on QueryOptions with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *QueryOptions) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on QueryOptions with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in QueryOptionsMultiError, or
+// nil if none found.
+func (m *QueryOptions) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *QueryOptions) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPageSize() > 1024 {
+		err := QueryOptionsValidationError{
+			field:  "PageSize",
+			reason: "value must be less than or equal to 1024",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPagingToken()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, QueryOptionsValidationError{
+					field:  "PagingToken",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, QueryOptionsValidationError{
+					field:  "PagingToken",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPagingToken()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return QueryOptionsValidationError{
+				field:  "PagingToken",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Order
+
+	if len(errors) > 0 {
+		return QueryOptionsMultiError(errors)
+	}
+
+	return nil
+}
+
+// QueryOptionsMultiError is an error wrapping multiple validation errors
+// returned by QueryOptions.ValidateAll() if the designated constraints aren't met.
+type QueryOptionsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m QueryOptionsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m QueryOptionsMultiError) AllErrors() []error { return m }
+
+// QueryOptionsValidationError is the validation error returned by
+// QueryOptions.Validate if the designated constraints aren't met.
+type QueryOptionsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e QueryOptionsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e QueryOptionsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e QueryOptionsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e QueryOptionsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e QueryOptionsValidationError) ErrorName() string { return "QueryOptionsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e QueryOptionsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sQueryOptions.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = QueryOptionsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = QueryOptionsValidationError{}
+
 // Validate checks the field values on Auth_KeyPair with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

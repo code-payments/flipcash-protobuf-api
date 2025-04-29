@@ -71,9 +71,7 @@ func (ActivityFeedType) EnumDescriptor() ([]byte, []int) {
 	return file_activity_v1_model_proto_rawDescGZIP(), []int{0}
 }
 
-// The ID of the notification, which is guaranteed to be consistent for grouped
-// events. Updates to a notification with the same ID should result in re-ordering
-// within the activity feed using the latest content.
+// The ID of the notification
 type NotificationId struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

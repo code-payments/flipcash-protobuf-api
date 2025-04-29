@@ -33,9 +33,7 @@ proto3.util.setEnumType(ActivityFeedType, "flipcash.activity.v1.ActivityFeedType
 ]);
 
 /**
- * The ID of the notification, which is guaranteed to be consistent for grouped
- * events. Updates to a notification with the same ID should result in re-ordering
- * within the activity feed using the latest content.
+ * The ID of the notification
  *
  * @generated from message flipcash.activity.v1.NotificationId
  */

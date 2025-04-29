@@ -339,3 +339,119 @@ export class PaymentAmount extends Message<PaymentAmount> {
   }
 }
 
+/**
+ * @generated from message flipcash.common.v1.PagingToken
+ */
+export class PagingToken extends Message<PagingToken> {
+  /**
+   * @generated from field: bytes value = 1;
+   */
+  value = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<PagingToken>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.PagingToken";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "value", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PagingToken {
+    return new PagingToken().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PagingToken {
+    return new PagingToken().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PagingToken {
+    return new PagingToken().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PagingToken | PlainMessage<PagingToken> | undefined, b: PagingToken | PlainMessage<PagingToken> | undefined): boolean {
+    return proto3.util.equals(PagingToken, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.common.v1.QueryOptions
+ */
+export class QueryOptions extends Message<QueryOptions> {
+  /**
+   * PageSize limits the maximum page size of a response.
+   *
+   * Server may choose to return less items. If <= 0,
+   * server may select an arbitrary default page size.
+   *
+   * @generated from field: int32 page_size = 1;
+   */
+  pageSize = 0;
+
+  /**
+   * PagingToken is a token that can be extracted from the
+   * identifier of a collection.
+   *
+   * @generated from field: flipcash.common.v1.PagingToken paging_token = 2;
+   */
+  pagingToken?: PagingToken;
+
+  /**
+   * Order is the order of elements, if applicable.
+   *
+   * @generated from field: flipcash.common.v1.QueryOptions.Order order = 3;
+   */
+  order = QueryOptions_Order.ASC;
+
+  constructor(data?: PartialMessage<QueryOptions>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.QueryOptions";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "page_size", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "paging_token", kind: "message", T: PagingToken },
+    { no: 3, name: "order", kind: "enum", T: proto3.getEnumType(QueryOptions_Order) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryOptions {
+    return new QueryOptions().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryOptions {
+    return new QueryOptions().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryOptions {
+    return new QueryOptions().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: QueryOptions | PlainMessage<QueryOptions> | undefined, b: QueryOptions | PlainMessage<QueryOptions> | undefined): boolean {
+    return proto3.util.equals(QueryOptions, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.common.v1.QueryOptions.Order
+ */
+export enum QueryOptions_Order {
+  /**
+   * @generated from enum value: ASC = 0;
+   */
+  ASC = 0,
+
+  /**
+   * @generated from enum value: DESC = 1;
+   */
+  DESC = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(QueryOptions_Order)
+proto3.util.setEnumType(QueryOptions_Order, "flipcash.common.v1.QueryOptions.Order", [
+  { no: 0, name: "ASC" },
+  { no: 1, name: "DESC" },
+]);
+

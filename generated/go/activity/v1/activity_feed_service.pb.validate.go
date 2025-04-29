@@ -353,3 +353,351 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetLatestNotificationsResponseValidationError{}
+
+// Validate checks the field values on GetPagedNotificationsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPagedNotificationsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPagedNotificationsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPagedNotificationsRequestMultiError, or nil if none found.
+func (m *GetPagedNotificationsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPagedNotificationsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if _, ok := _GetPagedNotificationsRequest_Type_InLookup[m.GetType()]; !ok {
+		err := GetPagedNotificationsRequestValidationError{
+			field:  "Type",
+			reason: "value must be in list [TRANSACTION_HISTORY]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetQueryOptions() == nil {
+		err := GetPagedNotificationsRequestValidationError{
+			field:  "QueryOptions",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetQueryOptions()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetPagedNotificationsRequestValidationError{
+					field:  "QueryOptions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetPagedNotificationsRequestValidationError{
+					field:  "QueryOptions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetQueryOptions()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetPagedNotificationsRequestValidationError{
+				field:  "QueryOptions",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetAuth() == nil {
+		err := GetPagedNotificationsRequestValidationError{
+			field:  "Auth",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetPagedNotificationsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetPagedNotificationsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetPagedNotificationsRequestValidationError{
+				field:  "Auth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetPagedNotificationsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPagedNotificationsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetPagedNotificationsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetPagedNotificationsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPagedNotificationsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPagedNotificationsRequestMultiError) AllErrors() []error { return m }
+
+// GetPagedNotificationsRequestValidationError is the validation error returned
+// by GetPagedNotificationsRequest.Validate if the designated constraints
+// aren't met.
+type GetPagedNotificationsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPagedNotificationsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPagedNotificationsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPagedNotificationsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPagedNotificationsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPagedNotificationsRequestValidationError) ErrorName() string {
+	return "GetPagedNotificationsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPagedNotificationsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPagedNotificationsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPagedNotificationsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPagedNotificationsRequestValidationError{}
+
+var _GetPagedNotificationsRequest_Type_InLookup = map[ActivityFeedType]struct{}{
+	1: {},
+}
+
+// Validate checks the field values on GetPagedNotificationsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPagedNotificationsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPagedNotificationsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetPagedNotificationsResponseMultiError, or nil if none found.
+func (m *GetPagedNotificationsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPagedNotificationsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(m.GetNotifications()) > 1024 {
+		err := GetPagedNotificationsResponseValidationError{
+			field:  "Notifications",
+			reason: "value must contain no more than 1024 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetNotifications() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetPagedNotificationsResponseValidationError{
+						field:  fmt.Sprintf("Notifications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetPagedNotificationsResponseValidationError{
+						field:  fmt.Sprintf("Notifications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetPagedNotificationsResponseValidationError{
+					field:  fmt.Sprintf("Notifications[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetPagedNotificationsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPagedNotificationsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetPagedNotificationsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type GetPagedNotificationsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPagedNotificationsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPagedNotificationsResponseMultiError) AllErrors() []error { return m }
+
+// GetPagedNotificationsResponseValidationError is the validation error
+// returned by GetPagedNotificationsResponse.Validate if the designated
+// constraints aren't met.
+type GetPagedNotificationsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPagedNotificationsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPagedNotificationsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPagedNotificationsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPagedNotificationsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPagedNotificationsResponseValidationError) ErrorName() string {
+	return "GetPagedNotificationsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPagedNotificationsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPagedNotificationsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPagedNotificationsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPagedNotificationsResponseValidationError{}
