@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import { ActivityFeedType, Notification } from "./model_pb";
+import { ActivityFeedType, Notification, NotificationId } from "./model_pb";
 import { Auth, QueryOptions } from "../../common/v1/common_pb";
 
 /**
@@ -236,5 +236,117 @@ export enum GetPagedNotificationsResponse_Result {
 proto3.util.setEnumType(GetPagedNotificationsResponse_Result, "flipcash.activity.v1.GetPagedNotificationsResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "DENIED" },
+]);
+
+/**
+ * @generated from message flipcash.activity.v1.GetBatchNotificationsRequest
+ */
+export class GetBatchNotificationsRequest extends Message<GetBatchNotificationsRequest> {
+  /**
+   * @generated from field: repeated flipcash.activity.v1.NotificationId ids = 1;
+   */
+  ids: NotificationId[] = [];
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<GetBatchNotificationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.GetBatchNotificationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ids", kind: "message", T: NotificationId, repeated: true },
+    { no: 2, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBatchNotificationsRequest {
+    return new GetBatchNotificationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBatchNotificationsRequest {
+    return new GetBatchNotificationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBatchNotificationsRequest {
+    return new GetBatchNotificationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBatchNotificationsRequest | PlainMessage<GetBatchNotificationsRequest> | undefined, b: GetBatchNotificationsRequest | PlainMessage<GetBatchNotificationsRequest> | undefined): boolean {
+    return proto3.util.equals(GetBatchNotificationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.activity.v1.GetBatchNotificationsResponse
+ */
+export class GetBatchNotificationsResponse extends Message<GetBatchNotificationsResponse> {
+  /**
+   * @generated from field: flipcash.activity.v1.GetBatchNotificationsResponse.Result result = 1;
+   */
+  result = GetBatchNotificationsResponse_Result.OK;
+
+  /**
+   * @generated from field: repeated flipcash.activity.v1.Notification notifications = 2;
+   */
+  notifications: Notification[] = [];
+
+  constructor(data?: PartialMessage<GetBatchNotificationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.GetBatchNotificationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(GetBatchNotificationsResponse_Result) },
+    { no: 2, name: "notifications", kind: "message", T: Notification, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBatchNotificationsResponse {
+    return new GetBatchNotificationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBatchNotificationsResponse {
+    return new GetBatchNotificationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBatchNotificationsResponse {
+    return new GetBatchNotificationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBatchNotificationsResponse | PlainMessage<GetBatchNotificationsResponse> | undefined, b: GetBatchNotificationsResponse | PlainMessage<GetBatchNotificationsResponse> | undefined): boolean {
+    return proto3.util.equals(GetBatchNotificationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.activity.v1.GetBatchNotificationsResponse.Result
+ */
+export enum GetBatchNotificationsResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: DENIED = 1;
+   */
+  DENIED = 1,
+
+  /**
+   * @generated from enum value: NOT_FOUND = 2;
+   */
+  NOT_FOUND = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(GetBatchNotificationsResponse_Result)
+proto3.util.setEnumType(GetBatchNotificationsResponse_Result, "flipcash.activity.v1.GetBatchNotificationsResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "DENIED" },
+  { no: 2, name: "NOT_FOUND" },
 ]);
 

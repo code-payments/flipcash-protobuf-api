@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetLatestNotificationsRequest, GetLatestNotificationsResponse, GetPagedNotificationsRequest, GetPagedNotificationsResponse } from "./activity_feed_service_pb";
+import { GetBatchNotificationsRequest, GetBatchNotificationsResponse, GetLatestNotificationsRequest, GetLatestNotificationsResponse, GetPagedNotificationsRequest, GetPagedNotificationsResponse } from "./activity_feed_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -33,6 +33,17 @@ export const ActivityFeed = {
       name: "GetPagedNotifications",
       I: GetPagedNotificationsRequest,
       O: GetPagedNotificationsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetBatchNotifications gets a batch of notifications by ID.
+     *
+     * @generated from rpc flipcash.activity.v1.ActivityFeed.GetBatchNotifications
+     */
+    getBatchNotifications: {
+      name: "GetBatchNotifications",
+      I: GetBatchNotificationsRequest,
+      O: GetBatchNotificationsResponse,
       kind: MethodKind.Unary,
     },
   }

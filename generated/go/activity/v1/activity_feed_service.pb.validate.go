@@ -701,3 +701,341 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPagedNotificationsResponseValidationError{}
+
+// Validate checks the field values on GetBatchNotificationsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetBatchNotificationsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetBatchNotificationsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetBatchNotificationsRequestMultiError, or nil if none found.
+func (m *GetBatchNotificationsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetBatchNotificationsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := len(m.GetIds()); l < 1 || l > 1024 {
+		err := GetBatchNotificationsRequestValidationError{
+			field:  "Ids",
+			reason: "value must contain between 1 and 1024 items, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetIds() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetBatchNotificationsRequestValidationError{
+						field:  fmt.Sprintf("Ids[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetBatchNotificationsRequestValidationError{
+						field:  fmt.Sprintf("Ids[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetBatchNotificationsRequestValidationError{
+					field:  fmt.Sprintf("Ids[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.GetAuth() == nil {
+		err := GetBatchNotificationsRequestValidationError{
+			field:  "Auth",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetBatchNotificationsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetBatchNotificationsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetBatchNotificationsRequestValidationError{
+				field:  "Auth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetBatchNotificationsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetBatchNotificationsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetBatchNotificationsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetBatchNotificationsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetBatchNotificationsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetBatchNotificationsRequestMultiError) AllErrors() []error { return m }
+
+// GetBatchNotificationsRequestValidationError is the validation error returned
+// by GetBatchNotificationsRequest.Validate if the designated constraints
+// aren't met.
+type GetBatchNotificationsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBatchNotificationsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBatchNotificationsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBatchNotificationsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBatchNotificationsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBatchNotificationsRequestValidationError) ErrorName() string {
+	return "GetBatchNotificationsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetBatchNotificationsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBatchNotificationsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBatchNotificationsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBatchNotificationsRequestValidationError{}
+
+// Validate checks the field values on GetBatchNotificationsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetBatchNotificationsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetBatchNotificationsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetBatchNotificationsResponseMultiError, or nil if none found.
+func (m *GetBatchNotificationsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetBatchNotificationsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(m.GetNotifications()) > 1024 {
+		err := GetBatchNotificationsResponseValidationError{
+			field:  "Notifications",
+			reason: "value must contain no more than 1024 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetNotifications() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetBatchNotificationsResponseValidationError{
+						field:  fmt.Sprintf("Notifications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetBatchNotificationsResponseValidationError{
+						field:  fmt.Sprintf("Notifications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetBatchNotificationsResponseValidationError{
+					field:  fmt.Sprintf("Notifications[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetBatchNotificationsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetBatchNotificationsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetBatchNotificationsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type GetBatchNotificationsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetBatchNotificationsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetBatchNotificationsResponseMultiError) AllErrors() []error { return m }
+
+// GetBatchNotificationsResponseValidationError is the validation error
+// returned by GetBatchNotificationsResponse.Validate if the designated
+// constraints aren't met.
+type GetBatchNotificationsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBatchNotificationsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBatchNotificationsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBatchNotificationsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBatchNotificationsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBatchNotificationsResponseValidationError) ErrorName() string {
+	return "GetBatchNotificationsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetBatchNotificationsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBatchNotificationsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBatchNotificationsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBatchNotificationsResponseValidationError{}

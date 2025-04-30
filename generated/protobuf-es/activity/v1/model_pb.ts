@@ -33,6 +33,39 @@ proto3.util.setEnumType(ActivityFeedType, "flipcash.activity.v1.ActivityFeedType
 ]);
 
 /**
+ * NotificationState determines the mutability of a notification, and whether
+ * client should attempt to refetch state.
+ *
+ * @generated from enum flipcash.activity.v1.NotificationState
+ */
+export enum NotificationState {
+  /**
+   * @generated from enum value: NOTIFICATION_STATE_UNKNOWN = 0;
+   */
+  UNKNOWN = 0,
+
+  /**
+   * Notification state will change based on some app action in the future
+   *
+   * @generated from enum value: NOTIFICATION_STATE_PENDING = 1;
+   */
+  PENDING = 1,
+
+  /**
+   * Notification state will not change
+   *
+   * @generated from enum value: NOTIFICATION_STATE_COMPLETED = 2;
+   */
+  COMPLETED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(NotificationState)
+proto3.util.setEnumType(NotificationState, "flipcash.activity.v1.NotificationState", [
+  { no: 0, name: "NOTIFICATION_STATE_UNKNOWN" },
+  { no: 1, name: "NOTIFICATION_STATE_PENDING" },
+  { no: 2, name: "NOTIFICATION_STATE_COMPLETED" },
+]);
+
+/**
  * The ID of the notification
  *
  * @generated from message flipcash.activity.v1.NotificationId
@@ -106,6 +139,13 @@ export class Notification extends Message<Notification> {
   ts?: Timestamp;
 
   /**
+   * The state of this notification
+   *
+   * @generated from field: flipcash.activity.v1.NotificationState state = 10;
+   */
+  state = NotificationState.UNKNOWN;
+
+  /**
    * Additional metadata for this notification specific to the notification
    *
    * @generated from oneof flipcash.activity.v1.Notification.additional_metadata
@@ -154,6 +194,7 @@ export class Notification extends Message<Notification> {
     { no: 2, name: "localized_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "payment_amount", kind: "message", T: PaymentAmount },
     { no: 4, name: "ts", kind: "message", T: Timestamp },
+    { no: 10, name: "state", kind: "enum", T: proto3.getEnumType(NotificationState) },
     { no: 5, name: "welcome_bonus", kind: "message", T: WelcomeBonusNotificationMetadata, oneof: "additional_metadata" },
     { no: 6, name: "gave_usdc", kind: "message", T: GaveUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 7, name: "received_usdc", kind: "message", T: ReceivedUsdcNotificationMetadata, oneof: "additional_metadata" },

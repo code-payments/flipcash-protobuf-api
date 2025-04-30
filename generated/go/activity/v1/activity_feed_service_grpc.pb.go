@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	ActivityFeed_GetLatestNotifications_FullMethodName = "/flipcash.activity.v1.ActivityFeed/GetLatestNotifications"
 	ActivityFeed_GetPagedNotifications_FullMethodName  = "/flipcash.activity.v1.ActivityFeed/GetPagedNotifications"
+	ActivityFeed_GetBatchNotifications_FullMethodName  = "/flipcash.activity.v1.ActivityFeed/GetBatchNotifications"
 )
 
 // ActivityFeedClient is the client API for ActivityFeed service.
@@ -32,6 +33,8 @@ type ActivityFeedClient interface {
 	GetLatestNotifications(ctx context.Context, in *GetLatestNotificationsRequest, opts ...grpc.CallOption) (*GetLatestNotificationsResponse, error)
 	// GetPagedNotifications gets all notifications using a paging API.
 	GetPagedNotifications(ctx context.Context, in *GetPagedNotificationsRequest, opts ...grpc.CallOption) (*GetPagedNotificationsResponse, error)
+	// GetBatchNotifications gets a batch of notifications by ID.
+	GetBatchNotifications(ctx context.Context, in *GetBatchNotificationsRequest, opts ...grpc.CallOption) (*GetBatchNotificationsResponse, error)
 }
 
 type activityFeedClient struct {
@@ -62,6 +65,16 @@ func (c *activityFeedClient) GetPagedNotifications(ctx context.Context, in *GetP
 	return out, nil
 }
 
+func (c *activityFeedClient) GetBatchNotifications(ctx context.Context, in *GetBatchNotificationsRequest, opts ...grpc.CallOption) (*GetBatchNotificationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetBatchNotificationsResponse)
+	err := c.cc.Invoke(ctx, ActivityFeed_GetBatchNotifications_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ActivityFeedServer is the server API for ActivityFeed service.
 // All implementations must embed UnimplementedActivityFeedServer
 // for forward compatibility.
@@ -71,6 +84,8 @@ type ActivityFeedServer interface {
 	GetLatestNotifications(context.Context, *GetLatestNotificationsRequest) (*GetLatestNotificationsResponse, error)
 	// GetPagedNotifications gets all notifications using a paging API.
 	GetPagedNotifications(context.Context, *GetPagedNotificationsRequest) (*GetPagedNotificationsResponse, error)
+	// GetBatchNotifications gets a batch of notifications by ID.
+	GetBatchNotifications(context.Context, *GetBatchNotificationsRequest) (*GetBatchNotificationsResponse, error)
 	mustEmbedUnimplementedActivityFeedServer()
 }
 
@@ -86,6 +101,9 @@ func (UnimplementedActivityFeedServer) GetLatestNotifications(context.Context, *
 }
 func (UnimplementedActivityFeedServer) GetPagedNotifications(context.Context, *GetPagedNotificationsRequest) (*GetPagedNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPagedNotifications not implemented")
+}
+func (UnimplementedActivityFeedServer) GetBatchNotifications(context.Context, *GetBatchNotificationsRequest) (*GetBatchNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBatchNotifications not implemented")
 }
 func (UnimplementedActivityFeedServer) mustEmbedUnimplementedActivityFeedServer() {}
 func (UnimplementedActivityFeedServer) testEmbeddedByValue()                      {}
@@ -144,6 +162,24 @@ func _ActivityFeed_GetPagedNotifications_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ActivityFeed_GetBatchNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBatchNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ActivityFeedServer).GetBatchNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ActivityFeed_GetBatchNotifications_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ActivityFeedServer).GetBatchNotifications(ctx, req.(*GetBatchNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ActivityFeed_ServiceDesc is the grpc.ServiceDesc for ActivityFeed service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -158,6 +194,10 @@ var ActivityFeed_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPagedNotifications",
 			Handler:    _ActivityFeed_GetPagedNotifications_Handler,
+		},
+		{
+			MethodName: "GetBatchNotifications",
+			Handler:    _ActivityFeed_GetBatchNotifications_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -259,6 +259,17 @@ func (m *Notification) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if _, ok := _Notification_State_NotInLookup[m.GetState()]; ok {
+		err := NotificationValidationError{
+			field:  "State",
+			reason: "value must not be in list [NOTIFICATION_STATE_UNKNOWN]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	switch v := m.AdditionalMetadata.(type) {
 	case *Notification_WelcomeBonus:
 		if v == nil {
@@ -545,6 +556,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = NotificationValidationError{}
+
+var _Notification_State_NotInLookup = map[NotificationState]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on WelcomeBonusNotificationMetadata with
 // the rules defined in the proto definition for this message. If any rules
