@@ -190,7 +190,7 @@ export class Metadata extends Message<Metadata> {
   currency = "";
 
   /**
-   * @generated from field: float amount = 3;
+   * @generated from field: double amount = 3;
    */
   amount = 0;
 
@@ -204,7 +204,7 @@ export class Metadata extends Message<Metadata> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "product", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "currency", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "amount", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "amount", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
