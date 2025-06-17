@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package flipcash.pool.v1;
+
+option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/pool/v1;poolpb";
+option java_package = "com.codeinc.flipcash.gen.pool.v1";
+option objc_class_prefix = "FPBPoolV1";
+
+import "common/v1/common.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+// PoolId uniquely identifies a pool via a rendezvous public key
+message PoolId {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
+    }];
+}
+
+// Pool metadata
+message PoolMetadata {
+    PoolId id = 1 [(validate.rules).message.required = true];
+
+    // The user ID that created this pool
+    common.v1.UserId creator = 2 [(validate.rules).message.required = true];
+
+    // The pool name, which should ask a yes/no question to bet against
+    string name = 3 [(validate.rules).string = {
+        min_len: 1
+        max_len: 256
+    }];
+
+    // The buy in amount for a bet
+    common.v1.FiatPaymentAmount buy_in = 4 [(validate.rules).message.required = true];
+
+    // Destination where bet payments will be made to fund the pool
+    common.v1.PublicKey funding_destination = 5 [(validate.rules).message.required = true];
+
+    // Is the pool currently open to take bets?
+    bool is_open = 6;
+
+    // Timestamp pool was created at
+    google.protobuf.Timestamp created_at = 7 [(validate.rules).timestamp.required = true];
+    
+    // Signature of the PoolMetadata message with the rendezvous public key of the pool
+    common.v1.Signature rendezvous_signature = 8 [(validate.rules).message.required = true];
+
+    // The set of bets (with verified payment) made against this pool
+    repeated BetMetadata bets = 9;
+}
+
+// BetId uniquely identifies a bet via an intent ID
+message BetId {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
+    }];
+}
+
+// Bet metadata
+message BetMetadata {
+    BetId bet_id = 1 [(validate.rules).message.required = true];
+
+    // The user making the bet, which is unique for a given pool
+    common.v1.UserId user_id = 2 [(validate.rules).message.required = true];
+
+    // The yes/no outcome the user has bet against
+    bool selected_outcome = 3;
+
+    // The destination where payout will be made if the user selected the correct
+    // outcome.
+    common.v1.PublicKey payout_destination = 4 [(validate.rules).message.required = true];
+
+    // Timestamp the bet was made
+    google.protobuf.Timestamp ts = 5 [(validate.rules).timestamp.required = true];
+
+    // Signature of the BetMetadata message with the rendezvous public key of the pool
+    common.v1.Signature rendezvous_signature = 6 [(validate.rules).message.required = true];
+}

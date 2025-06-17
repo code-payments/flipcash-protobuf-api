@@ -283,11 +283,11 @@ export class AppInstallId extends Message<AppInstallId> {
 }
 
 /**
- * PaymentAmount defines an amount of USDC with currency exchange data
+ * UsdcPaymentAmount defines an amount of USDC with currency exchange data
  *
- * @generated from message flipcash.common.v1.PaymentAmount
+ * @generated from message flipcash.common.v1.UsdcPaymentAmount
  */
-export class PaymentAmount extends Message<PaymentAmount> {
+export class UsdcPaymentAmount extends Message<UsdcPaymentAmount> {
   /**
    * ISO 4217 alpha-3 currency code the payment was made in
    *
@@ -309,33 +309,82 @@ export class PaymentAmount extends Message<PaymentAmount> {
    */
   quarks = protoInt64.zero;
 
-  constructor(data?: PartialMessage<PaymentAmount>) {
+  constructor(data?: PartialMessage<UsdcPaymentAmount>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.common.v1.PaymentAmount";
+  static readonly typeName = "flipcash.common.v1.UsdcPaymentAmount";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "currency", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "native_amount", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 3, name: "quarks", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaymentAmount {
-    return new PaymentAmount().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UsdcPaymentAmount {
+    return new UsdcPaymentAmount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaymentAmount {
-    return new PaymentAmount().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UsdcPaymentAmount {
+    return new UsdcPaymentAmount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaymentAmount {
-    return new PaymentAmount().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UsdcPaymentAmount {
+    return new UsdcPaymentAmount().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PaymentAmount | PlainMessage<PaymentAmount> | undefined, b: PaymentAmount | PlainMessage<PaymentAmount> | undefined): boolean {
-    return proto3.util.equals(PaymentAmount, a, b);
+  static equals(a: UsdcPaymentAmount | PlainMessage<UsdcPaymentAmount> | undefined, b: UsdcPaymentAmount | PlainMessage<UsdcPaymentAmount> | undefined): boolean {
+    return proto3.util.equals(UsdcPaymentAmount, a, b);
+  }
+}
+
+/**
+ * FiatPaymentAmount defines an amount of fiat
+ *
+ * @generated from message flipcash.common.v1.FiatPaymentAmount
+ */
+export class FiatPaymentAmount extends Message<FiatPaymentAmount> {
+  /**
+   * ISO 4217 alpha-3 currency code the payment was made in
+   *
+   * @generated from field: string currency = 1;
+   */
+  currency = "";
+
+  /**
+   * The amount in the native currency that was paid
+   *
+   * @generated from field: double native_amount = 2;
+   */
+  nativeAmount = 0;
+
+  constructor(data?: PartialMessage<FiatPaymentAmount>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.FiatPaymentAmount";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "currency", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "native_amount", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FiatPaymentAmount {
+    return new FiatPaymentAmount().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FiatPaymentAmount {
+    return new FiatPaymentAmount().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FiatPaymentAmount {
+    return new FiatPaymentAmount().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FiatPaymentAmount | PlainMessage<FiatPaymentAmount> | undefined, b: FiatPaymentAmount | PlainMessage<FiatPaymentAmount> | undefined): boolean {
+    return proto3.util.equals(FiatPaymentAmount, a, b);
   }
 }
 

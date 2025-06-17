@@ -630,30 +630,30 @@ var _ interface {
 	ErrorName() string
 } = AppInstallIdValidationError{}
 
-// Validate checks the field values on PaymentAmount with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *PaymentAmount) Validate() error {
+// Validate checks the field values on UsdcPaymentAmount with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UsdcPaymentAmount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on PaymentAmount with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in PaymentAmountMultiError, or
-// nil if none found.
-func (m *PaymentAmount) ValidateAll() error {
+// ValidateAll checks the field values on UsdcPaymentAmount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UsdcPaymentAmountMultiError, or nil if none found.
+func (m *UsdcPaymentAmount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *PaymentAmount) validate(all bool) error {
+func (m *UsdcPaymentAmount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if !_PaymentAmount_Currency_Pattern.MatchString(m.GetCurrency()) {
-		err := PaymentAmountValidationError{
+	if !_UsdcPaymentAmount_Currency_Pattern.MatchString(m.GetCurrency()) {
+		err := UsdcPaymentAmountValidationError{
 			field:  "Currency",
 			reason: "value does not match regex pattern \"^[a-z]{3,4}$\"",
 		}
@@ -664,7 +664,7 @@ func (m *PaymentAmount) validate(all bool) error {
 	}
 
 	if m.GetNativeAmount() <= 0 {
-		err := PaymentAmountValidationError{
+		err := UsdcPaymentAmountValidationError{
 			field:  "NativeAmount",
 			reason: "value must be greater than 0",
 		}
@@ -675,7 +675,7 @@ func (m *PaymentAmount) validate(all bool) error {
 	}
 
 	if m.GetQuarks() <= 0 {
-		err := PaymentAmountValidationError{
+		err := UsdcPaymentAmountValidationError{
 			field:  "Quarks",
 			reason: "value must be greater than 0",
 		}
@@ -686,19 +686,19 @@ func (m *PaymentAmount) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return PaymentAmountMultiError(errors)
+		return UsdcPaymentAmountMultiError(errors)
 	}
 
 	return nil
 }
 
-// PaymentAmountMultiError is an error wrapping multiple validation errors
-// returned by PaymentAmount.ValidateAll() if the designated constraints
+// UsdcPaymentAmountMultiError is an error wrapping multiple validation errors
+// returned by UsdcPaymentAmount.ValidateAll() if the designated constraints
 // aren't met.
-type PaymentAmountMultiError []error
+type UsdcPaymentAmountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m PaymentAmountMultiError) Error() string {
+func (m UsdcPaymentAmountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -707,11 +707,11 @@ func (m PaymentAmountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m PaymentAmountMultiError) AllErrors() []error { return m }
+func (m UsdcPaymentAmountMultiError) AllErrors() []error { return m }
 
-// PaymentAmountValidationError is the validation error returned by
-// PaymentAmount.Validate if the designated constraints aren't met.
-type PaymentAmountValidationError struct {
+// UsdcPaymentAmountValidationError is the validation error returned by
+// UsdcPaymentAmount.Validate if the designated constraints aren't met.
+type UsdcPaymentAmountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -719,22 +719,24 @@ type PaymentAmountValidationError struct {
 }
 
 // Field function returns field value.
-func (e PaymentAmountValidationError) Field() string { return e.field }
+func (e UsdcPaymentAmountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e PaymentAmountValidationError) Reason() string { return e.reason }
+func (e UsdcPaymentAmountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e PaymentAmountValidationError) Cause() error { return e.cause }
+func (e UsdcPaymentAmountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e PaymentAmountValidationError) Key() bool { return e.key }
+func (e UsdcPaymentAmountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PaymentAmountValidationError) ErrorName() string { return "PaymentAmountValidationError" }
+func (e UsdcPaymentAmountValidationError) ErrorName() string {
+	return "UsdcPaymentAmountValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e PaymentAmountValidationError) Error() string {
+func (e UsdcPaymentAmountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -746,14 +748,14 @@ func (e PaymentAmountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPaymentAmount.%s: %s%s",
+		"invalid %sUsdcPaymentAmount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PaymentAmountValidationError{}
+var _ error = UsdcPaymentAmountValidationError{}
 
 var _ interface {
 	Field() string
@@ -761,9 +763,135 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PaymentAmountValidationError{}
+} = UsdcPaymentAmountValidationError{}
 
-var _PaymentAmount_Currency_Pattern = regexp.MustCompile("^[a-z]{3,4}$")
+var _UsdcPaymentAmount_Currency_Pattern = regexp.MustCompile("^[a-z]{3,4}$")
+
+// Validate checks the field values on FiatPaymentAmount with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *FiatPaymentAmount) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FiatPaymentAmount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FiatPaymentAmountMultiError, or nil if none found.
+func (m *FiatPaymentAmount) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FiatPaymentAmount) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if !_FiatPaymentAmount_Currency_Pattern.MatchString(m.GetCurrency()) {
+		err := FiatPaymentAmountValidationError{
+			field:  "Currency",
+			reason: "value does not match regex pattern \"^[a-z]{3,4}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetNativeAmount() <= 0 {
+		err := FiatPaymentAmountValidationError{
+			field:  "NativeAmount",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return FiatPaymentAmountMultiError(errors)
+	}
+
+	return nil
+}
+
+// FiatPaymentAmountMultiError is an error wrapping multiple validation errors
+// returned by FiatPaymentAmount.ValidateAll() if the designated constraints
+// aren't met.
+type FiatPaymentAmountMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FiatPaymentAmountMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FiatPaymentAmountMultiError) AllErrors() []error { return m }
+
+// FiatPaymentAmountValidationError is the validation error returned by
+// FiatPaymentAmount.Validate if the designated constraints aren't met.
+type FiatPaymentAmountValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FiatPaymentAmountValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FiatPaymentAmountValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FiatPaymentAmountValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FiatPaymentAmountValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FiatPaymentAmountValidationError) ErrorName() string {
+	return "FiatPaymentAmountValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FiatPaymentAmountValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFiatPaymentAmount.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FiatPaymentAmountValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FiatPaymentAmountValidationError{}
+
+var _FiatPaymentAmount_Currency_Pattern = regexp.MustCompile("^[a-z]{3,4}$")
 
 // Validate checks the field values on PagingToken with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

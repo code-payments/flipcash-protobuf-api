@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { PaymentAmount, PublicKey } from "../../common/v1/common_pb";
+import { PublicKey, UsdcPaymentAmount } from "../../common/v1/common_pb";
 
 /**
  * ActivityFeedType enables multiple activity feeds, where notifications may be
@@ -127,9 +127,9 @@ export class Notification extends Message<Notification> {
   /**
    * If a payment applies, the amount that was paid
    *
-   * @generated from field: flipcash.common.v1.PaymentAmount payment_amount = 3;
+   * @generated from field: flipcash.common.v1.UsdcPaymentAmount payment_amount = 3;
    */
-  paymentAmount?: PaymentAmount;
+  paymentAmount?: UsdcPaymentAmount;
 
   /**
    * The timestamp of this notification
@@ -198,7 +198,7 @@ export class Notification extends Message<Notification> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: NotificationId },
     { no: 2, name: "localized_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "payment_amount", kind: "message", T: PaymentAmount },
+    { no: 3, name: "payment_amount", kind: "message", T: UsdcPaymentAmount },
     { no: 4, name: "ts", kind: "message", T: Timestamp },
     { no: 10, name: "state", kind: "enum", T: proto3.getEnumType(NotificationState) },
     { no: 5, name: "welcome_bonus", kind: "message", T: WelcomeBonusNotificationMetadata, oneof: "additional_metadata" },
