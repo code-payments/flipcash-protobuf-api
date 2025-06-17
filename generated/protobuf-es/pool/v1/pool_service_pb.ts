@@ -55,6 +55,11 @@ export class CreatePoolRequest extends Message<CreatePoolRequest> {
  * @generated from message flipcash.pool.v1.CreatePoolResponse
  */
 export class CreatePoolResponse extends Message<CreatePoolResponse> {
+  /**
+   * @generated from field: flipcash.pool.v1.CreatePoolResponse.Result result = 1;
+   */
+  result = CreatePoolResponse_Result.OK;
+
   constructor(data?: PartialMessage<CreatePoolResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -63,6 +68,7 @@ export class CreatePoolResponse extends Message<CreatePoolResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.CreatePoolResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(CreatePoolResponse_Result) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreatePoolResponse {
@@ -150,6 +156,11 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
  */
 export class GetPoolResponse extends Message<GetPoolResponse> {
   /**
+   * @generated from field: flipcash.pool.v1.GetPoolResponse.Result result = 1;
+   */
+  result = GetPoolResponse_Result.OK;
+
+  /**
    * @generated from field: flipcash.pool.v1.PoolMetadata pool = 2;
    */
   pool?: PoolMetadata;
@@ -162,6 +173,7 @@ export class GetPoolResponse extends Message<GetPoolResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.GetPoolResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(GetPoolResponse_Result) },
     { no: 2, name: "pool", kind: "message", T: PoolMetadata },
   ]);
 
@@ -255,6 +267,11 @@ export class MakeBetRequest extends Message<MakeBetRequest> {
  * @generated from message flipcash.pool.v1.MakeBetResponse
  */
 export class MakeBetResponse extends Message<MakeBetResponse> {
+  /**
+   * @generated from field: flipcash.pool.v1.MakeBetResponse.Result result = 1;
+   */
+  result = MakeBetResponse_Result.OK;
+
   constructor(data?: PartialMessage<MakeBetResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -263,6 +280,7 @@ export class MakeBetResponse extends Message<MakeBetResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.MakeBetResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(MakeBetResponse_Result) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MakeBetResponse {

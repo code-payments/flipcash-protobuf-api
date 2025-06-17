@@ -239,6 +239,8 @@ func (m *CreatePoolResponse) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Result
+
 	if len(errors) > 0 {
 		return CreatePoolResponseMultiError(errors)
 	}
@@ -469,6 +471,8 @@ func (m *GetPoolResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Result
 
 	if all {
 		switch v := interface{}(m.GetPool()).(type) {
@@ -818,6 +822,8 @@ func (m *MakeBetResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Result
 
 	if len(errors) > 0 {
 		return MakeBetResponseMultiError(errors)

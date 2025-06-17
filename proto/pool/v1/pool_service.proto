@@ -35,6 +35,7 @@ message CreatePoolRequest {
 }
 
 message CreatePoolResponse {
+    Result result = 1;
     enum Result {
         OK                         = 0;
         RENDEZVOUS_EXISTS          = 1;
@@ -47,6 +48,7 @@ message GetPoolRequest {
 }
 
 message GetPoolResponse {
+    Result result = 1;
     enum Result {
         OK        = 0;
         NOT_FOUND = 1;
@@ -64,6 +66,7 @@ message MakeBetRequest {
 }
 
 message MakeBetResponse {
+    Result result = 1;
     enum Result {
         OK               = 0;
         POOL_NOT_FOUND   = 1;
