@@ -34,9 +34,13 @@ type PoolClient interface {
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
-	// payment where intent ID == bet ID and payment amount == buy in. Bets without
-	// payment, or with invalid intents, will not be visible in the PoolMetadata
-	// when calling GetPool.
+	// payment where:
+	//  1. Intent ID == Bet.id
+	//  2. Payment amount == PoolMetadata.buy_in
+	//  3. Payment destination == PoolMetadata.funding_destination
+	//
+	// Bets without payment, or with invalid intents, will not be visible in the
+	// PoolMetadata when calling GetPool.
 	MakeBet(ctx context.Context, in *MakeBetRequest, opts ...grpc.CallOption) (*MakeBetResponse, error)
 }
 
@@ -88,9 +92,13 @@ type PoolServer interface {
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
-	// payment where intent ID == bet ID and payment amount == buy in. Bets without
-	// payment, or with invalid intents, will not be visible in the PoolMetadata
-	// when calling GetPool.
+	// payment where:
+	//  1. Intent ID == Bet.id
+	//  2. Payment amount == PoolMetadata.buy_in
+	//  3. Payment destination == PoolMetadata.funding_destination
+	//
+	// Bets without payment, or with invalid intents, will not be visible in the
+	// PoolMetadata when calling GetPool.
 	MakeBet(context.Context, *MakeBetRequest) (*MakeBetResponse, error)
 	mustEmbedUnimplementedPoolServer()
 }
