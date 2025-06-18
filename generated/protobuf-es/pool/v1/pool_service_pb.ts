@@ -456,15 +456,15 @@ export enum MakeBetResponse_Result {
   POOL_CLOSED = 2,
 
   /**
-   * @generated from enum value: BET_ALREADY_MADE = 3;
+   * @generated from enum value: MULTIPLE_BETS = 3;
    */
-  BET_ALREADY_MADE = 3,
+  MULTIPLE_BETS = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(MakeBetResponse_Result)
 proto3.util.setEnumType(MakeBetResponse_Result, "flipcash.pool.v1.MakeBetResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "POOL_NOT_FOUND" },
   { no: 2, name: "POOL_CLOSED" },
-  { no: 3, name: "BET_ALREADY_MADE" },
+  { no: 3, name: "MULTIPLE_BETS" },
 ]);
 

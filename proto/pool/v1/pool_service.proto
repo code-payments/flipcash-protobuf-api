@@ -100,6 +100,6 @@ message MakeBetResponse {
         OK               = 0;
         POOL_NOT_FOUND   = 1;
         POOL_CLOSED      = 2;
-        BET_ALREADY_MADE = 3;
+        MULTIPLE_BETS    = 3;
     }
 }
