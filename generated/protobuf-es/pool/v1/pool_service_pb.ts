@@ -5,8 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import { BetMetadata, PoolId, PoolMetadata } from "./model_pb";
-import { Auth } from "../../common/v1/common_pb";
+import { PoolId, PoolMetadata, Resolution, SignedBetMetadata } from "./model_pb";
+import { Auth, Signature } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.pool.v1.CreatePoolRequest
@@ -18,7 +18,12 @@ export class CreatePoolRequest extends Message<CreatePoolRequest> {
   pool?: PoolMetadata;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 2;
+   */
+  rendezvousSignature?: Signature;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 3;
    */
   auth?: Auth;
 
@@ -31,7 +36,8 @@ export class CreatePoolRequest extends Message<CreatePoolRequest> {
   static readonly typeName = "flipcash.pool.v1.CreatePoolRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "pool", kind: "message", T: PoolMetadata },
-    { no: 2, name: "auth", kind: "message", T: Auth },
+    { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
+    { no: 3, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreatePoolRequest {
@@ -215,6 +221,124 @@ proto3.util.setEnumType(GetPoolResponse_Result, "flipcash.pool.v1.GetPoolRespons
 ]);
 
 /**
+ * @generated from message flipcash.pool.v1.DeclarePoolOutcomeRequest
+ */
+export class DeclarePoolOutcomeRequest extends Message<DeclarePoolOutcomeRequest> {
+  /**
+   * @generated from field: flipcash.pool.v1.Resolution resolution = 1;
+   */
+  resolution?: Resolution;
+
+  /**
+   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 2;
+   */
+  newRendezvousSignature?: Signature;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<DeclarePoolOutcomeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.DeclarePoolOutcomeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "resolution", kind: "message", T: Resolution },
+    { no: 2, name: "new_rendezvous_signature", kind: "message", T: Signature },
+    { no: 3, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeclarePoolOutcomeRequest {
+    return new DeclarePoolOutcomeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeclarePoolOutcomeRequest {
+    return new DeclarePoolOutcomeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeclarePoolOutcomeRequest {
+    return new DeclarePoolOutcomeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeclarePoolOutcomeRequest | PlainMessage<DeclarePoolOutcomeRequest> | undefined, b: DeclarePoolOutcomeRequest | PlainMessage<DeclarePoolOutcomeRequest> | undefined): boolean {
+    return proto3.util.equals(DeclarePoolOutcomeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.DeclarePoolOutcomeResponse
+ */
+export class DeclarePoolOutcomeResponse extends Message<DeclarePoolOutcomeResponse> {
+  /**
+   * @generated from field: flipcash.pool.v1.DeclarePoolOutcomeResponse.Result result = 1;
+   */
+  result = DeclarePoolOutcomeResponse_Result.OK;
+
+  constructor(data?: PartialMessage<DeclarePoolOutcomeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.DeclarePoolOutcomeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(DeclarePoolOutcomeResponse_Result) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeclarePoolOutcomeResponse {
+    return new DeclarePoolOutcomeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeclarePoolOutcomeResponse {
+    return new DeclarePoolOutcomeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeclarePoolOutcomeResponse {
+    return new DeclarePoolOutcomeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeclarePoolOutcomeResponse | PlainMessage<DeclarePoolOutcomeResponse> | undefined, b: DeclarePoolOutcomeResponse | PlainMessage<DeclarePoolOutcomeResponse> | undefined): boolean {
+    return proto3.util.equals(DeclarePoolOutcomeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.pool.v1.DeclarePoolOutcomeResponse.Result
+ */
+export enum DeclarePoolOutcomeResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: DENIED = 1;
+   */
+  DENIED = 1,
+
+  /**
+   * @generated from enum value: NOT_FOUND = 2;
+   */
+  NOT_FOUND = 2,
+
+  /**
+   * @generated from enum value: DIFFERENT_OUTCOME_DECLARED = 3;
+   */
+  DIFFERENT_OUTCOME_DECLARED = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(DeclarePoolOutcomeResponse_Result)
+proto3.util.setEnumType(DeclarePoolOutcomeResponse_Result, "flipcash.pool.v1.DeclarePoolOutcomeResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "DENIED" },
+  { no: 2, name: "NOT_FOUND" },
+  { no: 3, name: "DIFFERENT_OUTCOME_DECLARED" },
+]);
+
+/**
  * @generated from message flipcash.pool.v1.MakeBetRequest
  */
 export class MakeBetRequest extends Message<MakeBetRequest> {
@@ -224,12 +348,17 @@ export class MakeBetRequest extends Message<MakeBetRequest> {
   poolId?: PoolId;
 
   /**
-   * @generated from field: flipcash.pool.v1.BetMetadata bet = 2;
+   * @generated from field: flipcash.pool.v1.SignedBetMetadata bet = 2;
    */
-  bet?: BetMetadata;
+  bet?: SignedBetMetadata;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 3;
+   */
+  rendezvousSignature?: Signature;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 4;
    */
   auth?: Auth;
 
@@ -242,8 +371,9 @@ export class MakeBetRequest extends Message<MakeBetRequest> {
   static readonly typeName = "flipcash.pool.v1.MakeBetRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "pool_id", kind: "message", T: PoolId },
-    { no: 2, name: "bet", kind: "message", T: BetMetadata },
-    { no: 3, name: "auth", kind: "message", T: Auth },
+    { no: 2, name: "bet", kind: "message", T: SignedBetMetadata },
+    { no: 3, name: "rendezvous_signature", kind: "message", T: Signature },
+    { no: 4, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MakeBetRequest {

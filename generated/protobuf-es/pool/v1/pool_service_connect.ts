@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreatePoolRequest, CreatePoolResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse } from "./pool_service_pb";
+import { CreatePoolRequest, CreatePoolResponse, DeclarePoolOutcomeRequest, DeclarePoolOutcomeResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse } from "./pool_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -32,6 +32,19 @@ export const Pool = {
       name: "GetPool",
       I: GetPoolRequest,
       O: GetPoolResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
+     * pool by calling this RPC first, then SubmitIntent to distribute pool funds
+     * to the winning participants.
+     *
+     * @generated from rpc flipcash.pool.v1.Pool.DeclarePoolOutcome
+     */
+    declarePoolOutcome: {
+      name: "DeclarePoolOutcome",
+      I: DeclarePoolOutcomeRequest,
+      O: DeclarePoolOutcomeResponse,
       kind: MethodKind.Unary,
     },
     /**

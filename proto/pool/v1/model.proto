@@ -18,9 +18,20 @@ message PoolId {
     }];
 }
 
-// Pool metadata
-message PoolMetadata {
-    PoolId id = 1 [(validate.rules).message.required = true];
+// Resolution is a resolution to a pool that declares the winning outcome chosen
+// by the pool creator
+message Resolution {
+    oneof kind {
+        option (validate.required) = true;
+
+        // The yes/no outcome the creator has chosen as the winning outcome
+        bool boolean_resolution = 1;
+    }
+}
+
+// Pool metadata signed by the rendezvous key
+message SignedPoolMetadata {
+     PoolId id = 1 [(validate.rules).message.required = true];
 
     // The user ID that created this pool
     common.v1.UserId creator = 2 [(validate.rules).message.required = true];
@@ -40,14 +51,22 @@ message PoolMetadata {
     // Is the pool currently open to take bets?
     bool is_open = 6;
 
+    // The pool resolution, if one is made
+    Resolution resolution = 7;
+
     // Timestamp pool was created at
-    google.protobuf.Timestamp created_at = 7 [(validate.rules).timestamp.required = true];
+    google.protobuf.Timestamp created_at = 8 [(validate.rules).timestamp.required = true];
+}
+
+// Pool metadata
+message PoolMetadata {
+    SignedPoolMetadata verified_metadata = 1 [(validate.rules).message.required = true];
     
-    // Signature of the PoolMetadata message with the rendezvous public key of the pool
-    common.v1.Signature rendezvous_signature = 8 [(validate.rules).message.required = true];
+    // Signature of the SignedPoolMetadata message with the rendezvous public key of the pool
+    common.v1.Signature rendezvous_signature = 2 [(validate.rules).message.required = true];
 
     // The set of bets (with verified payment) made against this pool
-    repeated BetMetadata bets = 9;
+    repeated BetMetadata bets = 3;
 }
 
 // BetId uniquely identifies a bet via an intent ID
@@ -58,15 +77,25 @@ message BetId {
     }];
 }
 
-// Bet metadata
-message BetMetadata {
+// BetOutcome is the user's outcome that they bet against
+message BetOutcome {
+    oneof kind {
+        option (validate.required) = true;
+
+        // The yes/no outcome the user has bet against
+        bool boolean_outcome = 1;
+    }
+}
+
+// Bet metadata signed by the rendezvous key
+message SignedBetMetadata {
     BetId bet_id = 1 [(validate.rules).message.required = true];
 
     // The user making the bet, which is unique for a given pool
     common.v1.UserId user_id = 2 [(validate.rules).message.required = true];
 
-    // The yes/no outcome the user has bet against
-    bool selected_outcome = 3;
+    // The outcome the user has bet against
+    BetOutcome selected_outcome = 3 [(validate.rules).message.required = true];
 
     // The destination where payout will be made if the user selected the correct
     // outcome.
@@ -74,7 +103,12 @@ message BetMetadata {
 
     // Timestamp the bet was made
     google.protobuf.Timestamp ts = 5 [(validate.rules).timestamp.required = true];
+}
 
-    // Signature of the BetMetadata message with the rendezvous public key of the pool
-    common.v1.Signature rendezvous_signature = 6 [(validate.rules).message.required = true];
+// Bet metadata
+message BetMetadata {
+    SignedBetMetadata verified_metadata = 1 [(validate.rules).message.required = true];
+
+     // Signature of the SignedBetMetadata message with the rendezvous public key of the pool
+    common.v1.Signature rendezvous_signature = 2 [(validate.rules).message.required = true];
 }

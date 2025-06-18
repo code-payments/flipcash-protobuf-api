@@ -144,6 +144,449 @@ var _ interface {
 	ErrorName() string
 } = PoolIdValidationError{}
 
+// Validate checks the field values on Resolution with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Resolution) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Resolution with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ResolutionMultiError, or
+// nil if none found.
+func (m *Resolution) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Resolution) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofKindPresent := false
+	switch v := m.Kind.(type) {
+	case *Resolution_BooleanResolution:
+		if v == nil {
+			err := ResolutionValidationError{
+				field:  "Kind",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofKindPresent = true
+		// no validation rules for BooleanResolution
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofKindPresent {
+		err := ResolutionValidationError{
+			field:  "Kind",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ResolutionMultiError(errors)
+	}
+
+	return nil
+}
+
+// ResolutionMultiError is an error wrapping multiple validation errors
+// returned by Resolution.ValidateAll() if the designated constraints aren't met.
+type ResolutionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResolutionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResolutionMultiError) AllErrors() []error { return m }
+
+// ResolutionValidationError is the validation error returned by
+// Resolution.Validate if the designated constraints aren't met.
+type ResolutionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResolutionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResolutionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResolutionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResolutionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResolutionValidationError) ErrorName() string { return "ResolutionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ResolutionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResolution.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResolutionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResolutionValidationError{}
+
+// Validate checks the field values on SignedPoolMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SignedPoolMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SignedPoolMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SignedPoolMetadataMultiError, or nil if none found.
+func (m *SignedPoolMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SignedPoolMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() == nil {
+		err := SignedPoolMetadataValidationError{
+			field:  "Id",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Id",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedPoolMetadataValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetCreator() == nil {
+		err := SignedPoolMetadataValidationError{
+			field:  "Creator",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Creator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Creator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedPoolMetadataValidationError{
+				field:  "Creator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 256 {
+		err := SignedPoolMetadataValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 256 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetBuyIn() == nil {
+		err := SignedPoolMetadataValidationError{
+			field:  "BuyIn",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBuyIn()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "BuyIn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "BuyIn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBuyIn()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedPoolMetadataValidationError{
+				field:  "BuyIn",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetFundingDestination() == nil {
+		err := SignedPoolMetadataValidationError{
+			field:  "FundingDestination",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetFundingDestination()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "FundingDestination",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "FundingDestination",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFundingDestination()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedPoolMetadataValidationError{
+				field:  "FundingDestination",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for IsOpen
+
+	if all {
+		switch v := interface{}(m.GetResolution()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Resolution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedPoolMetadataValidationError{
+					field:  "Resolution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResolution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedPoolMetadataValidationError{
+				field:  "Resolution",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetCreatedAt() == nil {
+		err := SignedPoolMetadataValidationError{
+			field:  "CreatedAt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SignedPoolMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// SignedPoolMetadataMultiError is an error wrapping multiple validation errors
+// returned by SignedPoolMetadata.ValidateAll() if the designated constraints
+// aren't met.
+type SignedPoolMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SignedPoolMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SignedPoolMetadataMultiError) AllErrors() []error { return m }
+
+// SignedPoolMetadataValidationError is the validation error returned by
+// SignedPoolMetadata.Validate if the designated constraints aren't met.
+type SignedPoolMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignedPoolMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignedPoolMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignedPoolMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignedPoolMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignedPoolMetadataValidationError) ErrorName() string {
+	return "SignedPoolMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignedPoolMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignedPoolMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignedPoolMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignedPoolMetadataValidationError{}
+
 // Validate checks the field values on PoolMetadata with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -166,9 +609,9 @@ func (m *PoolMetadata) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetId() == nil {
+	if m.GetVerifiedMetadata() == nil {
 		err := PoolMetadataValidationError{
-			field:  "Id",
+			field:  "VerifiedMetadata",
 			reason: "value is required",
 		}
 		if !all {
@@ -178,11 +621,11 @@ func (m *PoolMetadata) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetId()).(type) {
+		switch v := interface{}(m.GetVerifiedMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, PoolMetadataValidationError{
-					field:  "Id",
+					field:  "VerifiedMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -190,164 +633,20 @@ func (m *PoolMetadata) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, PoolMetadataValidationError{
-					field:  "Id",
+					field:  "VerifiedMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetVerifiedMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return PoolMetadataValidationError{
-				field:  "Id",
+				field:  "VerifiedMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
-	}
-
-	if m.GetCreator() == nil {
-		err := PoolMetadataValidationError{
-			field:  "Creator",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetCreator()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "Creator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "Creator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetCreator()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PoolMetadataValidationError{
-				field:  "Creator",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 256 {
-		err := PoolMetadataValidationError{
-			field:  "Name",
-			reason: "value length must be between 1 and 256 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if m.GetBuyIn() == nil {
-		err := PoolMetadataValidationError{
-			field:  "BuyIn",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetBuyIn()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "BuyIn",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "BuyIn",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetBuyIn()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PoolMetadataValidationError{
-				field:  "BuyIn",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetFundingDestination() == nil {
-		err := PoolMetadataValidationError{
-			field:  "FundingDestination",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetFundingDestination()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "FundingDestination",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PoolMetadataValidationError{
-					field:  "FundingDestination",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetFundingDestination()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PoolMetadataValidationError{
-				field:  "FundingDestination",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for IsOpen
-
-	if m.GetCreatedAt() == nil {
-		err := PoolMetadataValidationError{
-			field:  "CreatedAt",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
 	}
 
 	if m.GetRendezvousSignature() == nil {
@@ -610,6 +909,407 @@ var _ interface {
 	ErrorName() string
 } = BetIdValidationError{}
 
+// Validate checks the field values on BetOutcome with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BetOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BetOutcome with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in BetOutcomeMultiError, or
+// nil if none found.
+func (m *BetOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BetOutcome) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofKindPresent := false
+	switch v := m.Kind.(type) {
+	case *BetOutcome_BooleanOutcome:
+		if v == nil {
+			err := BetOutcomeValidationError{
+				field:  "Kind",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofKindPresent = true
+		// no validation rules for BooleanOutcome
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofKindPresent {
+		err := BetOutcomeValidationError{
+			field:  "Kind",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return BetOutcomeMultiError(errors)
+	}
+
+	return nil
+}
+
+// BetOutcomeMultiError is an error wrapping multiple validation errors
+// returned by BetOutcome.ValidateAll() if the designated constraints aren't met.
+type BetOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BetOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BetOutcomeMultiError) AllErrors() []error { return m }
+
+// BetOutcomeValidationError is the validation error returned by
+// BetOutcome.Validate if the designated constraints aren't met.
+type BetOutcomeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BetOutcomeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BetOutcomeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BetOutcomeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BetOutcomeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BetOutcomeValidationError) ErrorName() string { return "BetOutcomeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e BetOutcomeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBetOutcome.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BetOutcomeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BetOutcomeValidationError{}
+
+// Validate checks the field values on SignedBetMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SignedBetMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SignedBetMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SignedBetMetadataMultiError, or nil if none found.
+func (m *SignedBetMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SignedBetMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetBetId() == nil {
+		err := SignedBetMetadataValidationError{
+			field:  "BetId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBetId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "BetId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "BetId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedBetMetadataValidationError{
+				field:  "BetId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetUserId() == nil {
+		err := SignedBetMetadataValidationError{
+			field:  "UserId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "UserId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "UserId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedBetMetadataValidationError{
+				field:  "UserId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetSelectedOutcome() == nil {
+		err := SignedBetMetadataValidationError{
+			field:  "SelectedOutcome",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetSelectedOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "SelectedOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "SelectedOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSelectedOutcome()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedBetMetadataValidationError{
+				field:  "SelectedOutcome",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPayoutDestination() == nil {
+		err := SignedBetMetadataValidationError{
+			field:  "PayoutDestination",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPayoutDestination()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "PayoutDestination",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SignedBetMetadataValidationError{
+					field:  "PayoutDestination",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPayoutDestination()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignedBetMetadataValidationError{
+				field:  "PayoutDestination",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetTs() == nil {
+		err := SignedBetMetadataValidationError{
+			field:  "Ts",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SignedBetMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// SignedBetMetadataMultiError is an error wrapping multiple validation errors
+// returned by SignedBetMetadata.ValidateAll() if the designated constraints
+// aren't met.
+type SignedBetMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SignedBetMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SignedBetMetadataMultiError) AllErrors() []error { return m }
+
+// SignedBetMetadataValidationError is the validation error returned by
+// SignedBetMetadata.Validate if the designated constraints aren't met.
+type SignedBetMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignedBetMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignedBetMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignedBetMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignedBetMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignedBetMetadataValidationError) ErrorName() string {
+	return "SignedBetMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignedBetMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignedBetMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignedBetMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignedBetMetadataValidationError{}
+
 // Validate checks the field values on BetMetadata with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -632,9 +1332,9 @@ func (m *BetMetadata) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetBetId() == nil {
+	if m.GetVerifiedMetadata() == nil {
 		err := BetMetadataValidationError{
-			field:  "BetId",
+			field:  "VerifiedMetadata",
 			reason: "value is required",
 		}
 		if !all {
@@ -644,11 +1344,11 @@ func (m *BetMetadata) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetBetId()).(type) {
+		switch v := interface{}(m.GetVerifiedMetadata()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, BetMetadataValidationError{
-					field:  "BetId",
+					field:  "VerifiedMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -656,113 +1356,20 @@ func (m *BetMetadata) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, BetMetadataValidationError{
-					field:  "BetId",
+					field:  "VerifiedMetadata",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetBetId()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetVerifiedMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return BetMetadataValidationError{
-				field:  "BetId",
+				field:  "VerifiedMetadata",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
-	}
-
-	if m.GetUserId() == nil {
-		err := BetMetadataValidationError{
-			field:  "UserId",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetUserId()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, BetMetadataValidationError{
-					field:  "UserId",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, BetMetadataValidationError{
-					field:  "UserId",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUserId()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return BetMetadataValidationError{
-				field:  "UserId",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for SelectedOutcome
-
-	if m.GetPayoutDestination() == nil {
-		err := BetMetadataValidationError{
-			field:  "PayoutDestination",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetPayoutDestination()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, BetMetadataValidationError{
-					field:  "PayoutDestination",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, BetMetadataValidationError{
-					field:  "PayoutDestination",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetPayoutDestination()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return BetMetadataValidationError{
-				field:  "PayoutDestination",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetTs() == nil {
-		err := BetMetadataValidationError{
-			field:  "Ts",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
 	}
 
 	if m.GetRendezvousSignature() == nil {

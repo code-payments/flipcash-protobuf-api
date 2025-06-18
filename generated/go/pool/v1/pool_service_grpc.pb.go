@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Pool_CreatePool_FullMethodName = "/flipcash.pool.v1.Pool/CreatePool"
-	Pool_GetPool_FullMethodName    = "/flipcash.pool.v1.Pool/GetPool"
-	Pool_MakeBet_FullMethodName    = "/flipcash.pool.v1.Pool/MakeBet"
+	Pool_CreatePool_FullMethodName         = "/flipcash.pool.v1.Pool/CreatePool"
+	Pool_GetPool_FullMethodName            = "/flipcash.pool.v1.Pool/GetPool"
+	Pool_DeclarePoolOutcome_FullMethodName = "/flipcash.pool.v1.Pool/DeclarePoolOutcome"
+	Pool_MakeBet_FullMethodName            = "/flipcash.pool.v1.Pool/MakeBet"
 )
 
 // PoolClient is the client API for Pool service.
@@ -32,6 +33,10 @@ type PoolClient interface {
 	CreatePool(ctx context.Context, in *CreatePoolRequest, opts ...grpc.CallOption) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
+	// DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
+	// pool by calling this RPC first, then SubmitIntent to distribute pool funds
+	// to the winning participants.
+	DeclarePoolOutcome(ctx context.Context, in *DeclarePoolOutcomeRequest, opts ...grpc.CallOption) (*DeclarePoolOutcomeResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
 	// payment where:
@@ -72,6 +77,16 @@ func (c *poolClient) GetPool(ctx context.Context, in *GetPoolRequest, opts ...gr
 	return out, nil
 }
 
+func (c *poolClient) DeclarePoolOutcome(ctx context.Context, in *DeclarePoolOutcomeRequest, opts ...grpc.CallOption) (*DeclarePoolOutcomeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeclarePoolOutcomeResponse)
+	err := c.cc.Invoke(ctx, Pool_DeclarePoolOutcome_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *poolClient) MakeBet(ctx context.Context, in *MakeBetRequest, opts ...grpc.CallOption) (*MakeBetResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(MakeBetResponse)
@@ -90,6 +105,10 @@ type PoolServer interface {
 	CreatePool(context.Context, *CreatePoolRequest) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
+	// DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
+	// pool by calling this RPC first, then SubmitIntent to distribute pool funds
+	// to the winning participants.
+	DeclarePoolOutcome(context.Context, *DeclarePoolOutcomeRequest) (*DeclarePoolOutcomeResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
 	// payment where:
@@ -115,6 +134,9 @@ func (UnimplementedPoolServer) CreatePool(context.Context, *CreatePoolRequest) (
 }
 func (UnimplementedPoolServer) GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPool not implemented")
+}
+func (UnimplementedPoolServer) DeclarePoolOutcome(context.Context, *DeclarePoolOutcomeRequest) (*DeclarePoolOutcomeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeclarePoolOutcome not implemented")
 }
 func (UnimplementedPoolServer) MakeBet(context.Context, *MakeBetRequest) (*MakeBetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeBet not implemented")
@@ -176,6 +198,24 @@ func _Pool_GetPool_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Pool_DeclarePoolOutcome_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeclarePoolOutcomeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PoolServer).DeclarePoolOutcome(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Pool_DeclarePoolOutcome_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PoolServer).DeclarePoolOutcome(ctx, req.(*DeclarePoolOutcomeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Pool_MakeBet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MakeBetRequest)
 	if err := dec(in); err != nil {
@@ -208,6 +248,10 @@ var Pool_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPool",
 			Handler:    _Pool_GetPool_Handler,
+		},
+		{
+			MethodName: "DeclarePoolOutcome",
+			Handler:    _Pool_DeclarePoolOutcome_Handler,
 		},
 		{
 			MethodName: "MakeBet",

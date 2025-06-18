@@ -47,11 +47,59 @@ export class PoolId extends Message<PoolId> {
 }
 
 /**
- * Pool metadata
+ * Resolution is a resolution to a pool that declares the winning outcome chosen
+ * by the pool creator
  *
- * @generated from message flipcash.pool.v1.PoolMetadata
+ * @generated from message flipcash.pool.v1.Resolution
  */
-export class PoolMetadata extends Message<PoolMetadata> {
+export class Resolution extends Message<Resolution> {
+  /**
+   * @generated from oneof flipcash.pool.v1.Resolution.kind
+   */
+  kind: {
+    /**
+     * The yes/no outcome the creator has chosen as the winning outcome
+     *
+     * @generated from field: bool boolean_resolution = 1;
+     */
+    value: boolean;
+    case: "booleanResolution";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<Resolution>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.Resolution";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "boolean_resolution", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Resolution {
+    return new Resolution().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Resolution {
+    return new Resolution().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Resolution {
+    return new Resolution().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Resolution | PlainMessage<Resolution> | undefined, b: Resolution | PlainMessage<Resolution> | undefined): boolean {
+    return proto3.util.equals(Resolution, a, b);
+  }
+}
+
+/**
+ * Pool metadata signed by the rendezvous key
+ *
+ * @generated from message flipcash.pool.v1.SignedPoolMetadata
+ */
+export class SignedPoolMetadata extends Message<SignedPoolMetadata> {
   /**
    * @generated from field: flipcash.pool.v1.PoolId id = 1;
    */
@@ -93,23 +141,76 @@ export class PoolMetadata extends Message<PoolMetadata> {
   isOpen = false;
 
   /**
+   * The pool resolution, if one is made
+   *
+   * @generated from field: flipcash.pool.v1.Resolution resolution = 7;
+   */
+  resolution?: Resolution;
+
+  /**
    * Timestamp pool was created at
    *
-   * @generated from field: google.protobuf.Timestamp created_at = 7;
+   * @generated from field: google.protobuf.Timestamp created_at = 8;
    */
   createdAt?: Timestamp;
 
+  constructor(data?: PartialMessage<SignedPoolMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.SignedPoolMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "message", T: PoolId },
+    { no: 2, name: "creator", kind: "message", T: UserId },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "buy_in", kind: "message", T: FiatPaymentAmount },
+    { no: 5, name: "funding_destination", kind: "message", T: PublicKey },
+    { no: 6, name: "is_open", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "resolution", kind: "message", T: Resolution },
+    { no: 8, name: "created_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignedPoolMetadata {
+    return new SignedPoolMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignedPoolMetadata {
+    return new SignedPoolMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignedPoolMetadata {
+    return new SignedPoolMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SignedPoolMetadata | PlainMessage<SignedPoolMetadata> | undefined, b: SignedPoolMetadata | PlainMessage<SignedPoolMetadata> | undefined): boolean {
+    return proto3.util.equals(SignedPoolMetadata, a, b);
+  }
+}
+
+/**
+ * Pool metadata
+ *
+ * @generated from message flipcash.pool.v1.PoolMetadata
+ */
+export class PoolMetadata extends Message<PoolMetadata> {
   /**
-   * Signature of the PoolMetadata message with the rendezvous public key of the pool
+   * @generated from field: flipcash.pool.v1.SignedPoolMetadata verified_metadata = 1;
+   */
+  verifiedMetadata?: SignedPoolMetadata;
+
+  /**
+   * Signature of the SignedPoolMetadata message with the rendezvous public key of the pool
    *
-   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 8;
+   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 2;
    */
   rendezvousSignature?: Signature;
 
   /**
    * The set of bets (with verified payment) made against this pool
    *
-   * @generated from field: repeated flipcash.pool.v1.BetMetadata bets = 9;
+   * @generated from field: repeated flipcash.pool.v1.BetMetadata bets = 3;
    */
   bets: BetMetadata[] = [];
 
@@ -121,15 +222,9 @@ export class PoolMetadata extends Message<PoolMetadata> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.PoolMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "message", T: PoolId },
-    { no: 2, name: "creator", kind: "message", T: UserId },
-    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "buy_in", kind: "message", T: FiatPaymentAmount },
-    { no: 5, name: "funding_destination", kind: "message", T: PublicKey },
-    { no: 6, name: "is_open", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "created_at", kind: "message", T: Timestamp },
-    { no: 8, name: "rendezvous_signature", kind: "message", T: Signature },
-    { no: 9, name: "bets", kind: "message", T: BetMetadata, repeated: true },
+    { no: 1, name: "verified_metadata", kind: "message", T: SignedPoolMetadata },
+    { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
+    { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolMetadata {
@@ -189,11 +284,58 @@ export class BetId extends Message<BetId> {
 }
 
 /**
- * Bet metadata
+ * BetOutcome is the user's outcome that they bet against
  *
- * @generated from message flipcash.pool.v1.BetMetadata
+ * @generated from message flipcash.pool.v1.BetOutcome
  */
-export class BetMetadata extends Message<BetMetadata> {
+export class BetOutcome extends Message<BetOutcome> {
+  /**
+   * @generated from oneof flipcash.pool.v1.BetOutcome.kind
+   */
+  kind: {
+    /**
+     * The yes/no outcome the user has bet against
+     *
+     * @generated from field: bool boolean_outcome = 1;
+     */
+    value: boolean;
+    case: "booleanOutcome";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<BetOutcome>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.BetOutcome";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "boolean_outcome", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetOutcome {
+    return new BetOutcome().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BetOutcome {
+    return new BetOutcome().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BetOutcome {
+    return new BetOutcome().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BetOutcome | PlainMessage<BetOutcome> | undefined, b: BetOutcome | PlainMessage<BetOutcome> | undefined): boolean {
+    return proto3.util.equals(BetOutcome, a, b);
+  }
+}
+
+/**
+ * Bet metadata signed by the rendezvous key
+ *
+ * @generated from message flipcash.pool.v1.SignedBetMetadata
+ */
+export class SignedBetMetadata extends Message<SignedBetMetadata> {
   /**
    * @generated from field: flipcash.pool.v1.BetId bet_id = 1;
    */
@@ -207,11 +349,11 @@ export class BetMetadata extends Message<BetMetadata> {
   userId?: UserId;
 
   /**
-   * The yes/no outcome the user has bet against
+   * The outcome the user has bet against
    *
-   * @generated from field: bool selected_outcome = 3;
+   * @generated from field: flipcash.pool.v1.BetOutcome selected_outcome = 3;
    */
-  selectedOutcome = false;
+  selectedOutcome?: BetOutcome;
 
   /**
    * The destination where payout will be made if the user selected the correct
@@ -228,10 +370,53 @@ export class BetMetadata extends Message<BetMetadata> {
    */
   ts?: Timestamp;
 
+  constructor(data?: PartialMessage<SignedBetMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.SignedBetMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bet_id", kind: "message", T: BetId },
+    { no: 2, name: "user_id", kind: "message", T: UserId },
+    { no: 3, name: "selected_outcome", kind: "message", T: BetOutcome },
+    { no: 4, name: "payout_destination", kind: "message", T: PublicKey },
+    { no: 5, name: "ts", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignedBetMetadata {
+    return new SignedBetMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignedBetMetadata {
+    return new SignedBetMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignedBetMetadata {
+    return new SignedBetMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SignedBetMetadata | PlainMessage<SignedBetMetadata> | undefined, b: SignedBetMetadata | PlainMessage<SignedBetMetadata> | undefined): boolean {
+    return proto3.util.equals(SignedBetMetadata, a, b);
+  }
+}
+
+/**
+ * Bet metadata
+ *
+ * @generated from message flipcash.pool.v1.BetMetadata
+ */
+export class BetMetadata extends Message<BetMetadata> {
   /**
-   * Signature of the BetMetadata message with the rendezvous public key of the pool
+   * @generated from field: flipcash.pool.v1.SignedBetMetadata verified_metadata = 1;
+   */
+  verifiedMetadata?: SignedBetMetadata;
+
+  /**
+   * Signature of the SignedBetMetadata message with the rendezvous public key of the pool
    *
-   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 6;
+   * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 2;
    */
   rendezvousSignature?: Signature;
 
@@ -243,12 +428,8 @@ export class BetMetadata extends Message<BetMetadata> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.BetMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "bet_id", kind: "message", T: BetId },
-    { no: 2, name: "user_id", kind: "message", T: UserId },
-    { no: 3, name: "selected_outcome", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "payout_destination", kind: "message", T: PublicKey },
-    { no: 5, name: "ts", kind: "message", T: Timestamp },
-    { no: 6, name: "rendezvous_signature", kind: "message", T: Signature },
+    { no: 1, name: "verified_metadata", kind: "message", T: SignedBetMetadata },
+    { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetMetadata {

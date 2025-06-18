@@ -97,6 +97,46 @@ func (m *CreatePoolRequest) validate(all bool) error {
 		}
 	}
 
+	if m.GetRendezvousSignature() == nil {
+		err := CreatePoolRequestValidationError{
+			field:  "RendezvousSignature",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetRendezvousSignature()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreatePoolRequestValidationError{
+					field:  "RendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreatePoolRequestValidationError{
+					field:  "RendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRendezvousSignature()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreatePoolRequestValidationError{
+				field:  "RendezvousSignature",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if m.GetAuth() == nil {
 		err := CreatePoolRequestValidationError{
 			field:  "Auth",
@@ -581,6 +621,332 @@ var _ interface {
 	ErrorName() string
 } = GetPoolResponseValidationError{}
 
+// Validate checks the field values on DeclarePoolOutcomeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeclarePoolOutcomeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeclarePoolOutcomeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeclarePoolOutcomeRequestMultiError, or nil if none found.
+func (m *DeclarePoolOutcomeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetResolution() == nil {
+		err := DeclarePoolOutcomeRequestValidationError{
+			field:  "Resolution",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetResolution()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "Resolution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "Resolution",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResolution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeclarePoolOutcomeRequestValidationError{
+				field:  "Resolution",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetNewRendezvousSignature() == nil {
+		err := DeclarePoolOutcomeRequestValidationError{
+			field:  "NewRendezvousSignature",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetNewRendezvousSignature()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "NewRendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "NewRendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNewRendezvousSignature()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeclarePoolOutcomeRequestValidationError{
+				field:  "NewRendezvousSignature",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetAuth() == nil {
+		err := DeclarePoolOutcomeRequestValidationError{
+			field:  "Auth",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeclarePoolOutcomeRequestValidationError{
+				field:  "Auth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DeclarePoolOutcomeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeclarePoolOutcomeRequestMultiError is an error wrapping multiple validation
+// errors returned by DeclarePoolOutcomeRequest.ValidateAll() if the
+// designated constraints aren't met.
+type DeclarePoolOutcomeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeclarePoolOutcomeRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeclarePoolOutcomeRequestMultiError) AllErrors() []error { return m }
+
+// DeclarePoolOutcomeRequestValidationError is the validation error returned by
+// DeclarePoolOutcomeRequest.Validate if the designated constraints aren't met.
+type DeclarePoolOutcomeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeclarePoolOutcomeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeclarePoolOutcomeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeclarePoolOutcomeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeclarePoolOutcomeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeclarePoolOutcomeRequestValidationError) ErrorName() string {
+	return "DeclarePoolOutcomeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeclarePoolOutcomeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeclarePoolOutcomeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeclarePoolOutcomeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeclarePoolOutcomeRequestValidationError{}
+
+// Validate checks the field values on DeclarePoolOutcomeResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeclarePoolOutcomeResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeclarePoolOutcomeResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeclarePoolOutcomeResponseMultiError, or nil if none found.
+func (m *DeclarePoolOutcomeResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeclarePoolOutcomeResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return DeclarePoolOutcomeResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeclarePoolOutcomeResponseMultiError is an error wrapping multiple
+// validation errors returned by DeclarePoolOutcomeResponse.ValidateAll() if
+// the designated constraints aren't met.
+type DeclarePoolOutcomeResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeclarePoolOutcomeResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeclarePoolOutcomeResponseMultiError) AllErrors() []error { return m }
+
+// DeclarePoolOutcomeResponseValidationError is the validation error returned
+// by DeclarePoolOutcomeResponse.Validate if the designated constraints aren't met.
+type DeclarePoolOutcomeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeclarePoolOutcomeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeclarePoolOutcomeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeclarePoolOutcomeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeclarePoolOutcomeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeclarePoolOutcomeResponseValidationError) ErrorName() string {
+	return "DeclarePoolOutcomeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeclarePoolOutcomeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeclarePoolOutcomeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeclarePoolOutcomeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeclarePoolOutcomeResponseValidationError{}
+
 // Validate checks the field values on MakeBetRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -677,6 +1043,46 @@ func (m *MakeBetRequest) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return MakeBetRequestValidationError{
 				field:  "Bet",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetRendezvousSignature() == nil {
+		err := MakeBetRequestValidationError{
+			field:  "RendezvousSignature",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetRendezvousSignature()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MakeBetRequestValidationError{
+					field:  "RendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MakeBetRequestValidationError{
+					field:  "RendezvousSignature",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRendezvousSignature()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MakeBetRequestValidationError{
+				field:  "RendezvousSignature",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
