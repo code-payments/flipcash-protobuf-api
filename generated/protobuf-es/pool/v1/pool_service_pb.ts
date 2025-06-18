@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import { PoolId, PoolMetadata, Resolution, SignedBetMetadata } from "./model_pb";
+import { PoolId, PoolMetadata, Resolution, SignedBetMetadata, SignedPoolMetadata } from "./model_pb";
 import { Auth, Signature } from "../../common/v1/common_pb";
 
 /**
@@ -13,9 +13,9 @@ import { Auth, Signature } from "../../common/v1/common_pb";
  */
 export class CreatePoolRequest extends Message<CreatePoolRequest> {
   /**
-   * @generated from field: flipcash.pool.v1.PoolMetadata pool = 1;
+   * @generated from field: flipcash.pool.v1.SignedPoolMetadata pool = 1;
    */
-  pool?: PoolMetadata;
+  pool?: SignedPoolMetadata;
 
   /**
    * @generated from field: flipcash.common.v1.Signature rendezvous_signature = 2;
@@ -35,7 +35,7 @@ export class CreatePoolRequest extends Message<CreatePoolRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.CreatePoolRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pool", kind: "message", T: PoolMetadata },
+    { no: 1, name: "pool", kind: "message", T: SignedPoolMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "auth", kind: "message", T: Auth },
   ]);

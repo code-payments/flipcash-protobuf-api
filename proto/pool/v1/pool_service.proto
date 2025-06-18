@@ -34,7 +34,7 @@ service Pool {
 }
 
 message CreatePoolRequest {
-    PoolMetadata pool = 1 [(validate.rules).message.required = true];
+    SignedPoolMetadata pool = 1 [(validate.rules).message.required = true];
 
     common.v1.Signature rendezvous_signature = 2 [(validate.rules).message.required = true];
 
