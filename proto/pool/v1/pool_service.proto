@@ -65,11 +65,13 @@ message GetPoolResponse {
 }
 
 message DeclarePoolOutcomeRequest {
-    Resolution resolution = 1 [(validate.rules).message.required = true];
+    PoolId id = 1 [(validate.rules).message.required = true];
+    
+    Resolution resolution = 2 [(validate.rules).message.required = true];
 
-    common.v1.Signature new_rendezvous_signature = 2 [(validate.rules).message.required = true];
+    common.v1.Signature new_rendezvous_signature = 3 [(validate.rules).message.required = true];
 
-    common.v1.Auth auth = 3 [(validate.rules).message.required = true];
+    common.v1.Auth auth = 4 [(validate.rules).message.required = true];
 }
 
 message DeclarePoolOutcomeResponse {

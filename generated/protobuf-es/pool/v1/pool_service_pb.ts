@@ -225,17 +225,22 @@ proto3.util.setEnumType(GetPoolResponse_Result, "flipcash.pool.v1.GetPoolRespons
  */
 export class DeclarePoolOutcomeRequest extends Message<DeclarePoolOutcomeRequest> {
   /**
-   * @generated from field: flipcash.pool.v1.Resolution resolution = 1;
+   * @generated from field: flipcash.pool.v1.PoolId id = 1;
+   */
+  id?: PoolId;
+
+  /**
+   * @generated from field: flipcash.pool.v1.Resolution resolution = 2;
    */
   resolution?: Resolution;
 
   /**
-   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 2;
+   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 3;
    */
   newRendezvousSignature?: Signature;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   * @generated from field: flipcash.common.v1.Auth auth = 4;
    */
   auth?: Auth;
 
@@ -247,9 +252,10 @@ export class DeclarePoolOutcomeRequest extends Message<DeclarePoolOutcomeRequest
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.pool.v1.DeclarePoolOutcomeRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "resolution", kind: "message", T: Resolution },
-    { no: 2, name: "new_rendezvous_signature", kind: "message", T: Signature },
-    { no: 3, name: "auth", kind: "message", T: Auth },
+    { no: 1, name: "id", kind: "message", T: PoolId },
+    { no: 2, name: "resolution", kind: "message", T: Resolution },
+    { no: 3, name: "new_rendezvous_signature", kind: "message", T: Signature },
+    { no: 4, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeclarePoolOutcomeRequest {
