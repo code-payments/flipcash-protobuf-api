@@ -459,6 +459,11 @@ export enum MakeBetResponse_Result {
    * @generated from enum value: MULTIPLE_BETS = 3;
    */
   MULTIPLE_BETS = 3,
+
+  /**
+   * @generated from enum value: MAX_BETS_RECEIVED = 4;
+   */
+  MAX_BETS_RECEIVED = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(MakeBetResponse_Result)
 proto3.util.setEnumType(MakeBetResponse_Result, "flipcash.pool.v1.MakeBetResponse.Result", [
@@ -466,5 +471,6 @@ proto3.util.setEnumType(MakeBetResponse_Result, "flipcash.pool.v1.MakeBetRespons
   { no: 1, name: "POOL_NOT_FOUND" },
   { no: 2, name: "POOL_CLOSED" },
   { no: 3, name: "MULTIPLE_BETS" },
+  { no: 4, name: "MAX_BETS_RECEIVED" },
 ]);
 
