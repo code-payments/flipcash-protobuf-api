@@ -504,3 +504,131 @@ proto3.util.setEnumType(QueryOptions_Order, "flipcash.common.v1.QueryOptions.Ord
   { no: 1, name: "DESC" },
 ]);
 
+/**
+ * Request is a generic wrapper for gRPC requests
+ *
+ * @generated from message flipcash.common.v1.Request
+ */
+export class Request extends Message<Request> {
+  /**
+   * @generated from field: string version = 1;
+   */
+  version = "";
+
+  /**
+   * @generated from field: string service = 2;
+   */
+  service = "";
+
+  /**
+   * @generated from field: string method = 3;
+   */
+  method = "";
+
+  /**
+   * @generated from field: bytes body = 4;
+   */
+  body = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<Request>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.Request";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "service", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "method", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Request {
+    return new Request().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Request {
+    return new Request().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Request {
+    return new Request().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Request | PlainMessage<Request> | undefined, b: Request | PlainMessage<Request> | undefined): boolean {
+    return proto3.util.equals(Request, a, b);
+  }
+}
+
+/**
+ * Response is a generic wrapper for gRPC responses
+ *
+ * @generated from message flipcash.common.v1.Response
+ */
+export class Response extends Message<Response> {
+  /**
+   * @generated from field: flipcash.common.v1.Response.Result result = 1;
+   */
+  result = Response_Result.OK;
+
+  /**
+   * @generated from field: bytes body = 2;
+   */
+  body = new Uint8Array(0);
+
+  /**
+   * @generated from field: string message = 3;
+   */
+  message = "";
+
+  constructor(data?: PartialMessage<Response>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.Response";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(Response_Result) },
+    { no: 2, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Response {
+    return new Response().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Response {
+    return new Response().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Response {
+    return new Response().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Response | PlainMessage<Response> | undefined, b: Response | PlainMessage<Response> | undefined): boolean {
+    return proto3.util.equals(Response, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.common.v1.Response.Result
+ */
+export enum Response_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: ERROR = 1;
+   */
+  ERROR = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(Response_Result)
+proto3.util.setEnumType(Response_Result, "flipcash.common.v1.Response.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "ERROR" },
+]);
+
