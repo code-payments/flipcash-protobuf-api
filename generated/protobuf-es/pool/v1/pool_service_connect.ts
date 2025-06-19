@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreatePoolRequest, CreatePoolResponse, DeclarePoolOutcomeRequest, DeclarePoolOutcomeResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse } from "./pool_service_pb";
+import { CreatePoolRequest, CreatePoolResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse, ResolvePoolRequest, ResolvePoolResponse } from "./pool_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -35,16 +35,18 @@ export const Pool = {
       kind: MethodKind.Unary,
     },
     /**
-     * DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
-     * pool by calling this RPC first, then SubmitIntent to distribute pool funds
+     * ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
+     * resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
      * to the winning participants.
      *
-     * @generated from rpc flipcash.pool.v1.Pool.DeclarePoolOutcome
+     * Note: If the pool is not closed, it will be closed after execution of this RPC.
+     *
+     * @generated from rpc flipcash.pool.v1.Pool.ResolvePool
      */
-    declarePoolOutcome: {
-      name: "DeclarePoolOutcome",
-      I: DeclarePoolOutcomeRequest,
-      O: DeclarePoolOutcomeResponse,
+    resolvePool: {
+      name: "ResolvePool",
+      I: ResolvePoolRequest,
+      O: ResolvePoolResponse,
       kind: MethodKind.Unary,
     },
     /**

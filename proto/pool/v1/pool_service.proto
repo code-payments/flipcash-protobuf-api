@@ -17,10 +17,12 @@ service Pool {
     // GetPool gets pool metadata by its ID
     rpc GetPool(GetPoolRequest) returns (GetPoolResponse);
 
-    // DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
-    // pool by calling this RPC first, then SubmitIntent to distribute pool funds
+    // ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
+    // resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
     // to the winning participants.
-    rpc DeclarePoolOutcome(DeclarePoolOutcomeRequest) returns (DeclarePoolOutcomeResponse);
+    //
+    // Note: If the pool is not closed, it will be closed after execution of this RPC.
+    rpc ResolvePool(ResolvePoolRequest) returns (ResolvePoolResponse);
 
     // MakeBet creates a new bet against a pool. Pool participants make a bet by
     // calling MakeBet to create an initially unpaid bet, then SubmitIntent for
@@ -64,7 +66,7 @@ message GetPoolResponse {
     PoolMetadata pool = 2;
 }
 
-message DeclarePoolOutcomeRequest {
+message ResolvePoolRequest {
     PoolId id = 1 [(validate.rules).message.required = true];
     
     Resolution resolution = 2 [(validate.rules).message.required = true];
@@ -74,7 +76,7 @@ message DeclarePoolOutcomeRequest {
     common.v1.Auth auth = 4 [(validate.rules).message.required = true];
 }
 
-message DeclarePoolOutcomeResponse {
+message ResolvePoolResponse {
     Result result = 1;
     enum Result {
         OK                         = 0;

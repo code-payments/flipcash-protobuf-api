@@ -621,22 +621,22 @@ var _ interface {
 	ErrorName() string
 } = GetPoolResponseValidationError{}
 
-// Validate checks the field values on DeclarePoolOutcomeRequest with the rules
+// Validate checks the field values on ResolvePoolRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeclarePoolOutcomeRequest) Validate() error {
+func (m *ResolvePoolRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeclarePoolOutcomeRequest with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on ResolvePoolRequest with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// DeclarePoolOutcomeRequestMultiError, or nil if none found.
-func (m *DeclarePoolOutcomeRequest) ValidateAll() error {
+// ResolvePoolRequestMultiError, or nil if none found.
+func (m *ResolvePoolRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
+func (m *ResolvePoolRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -644,7 +644,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 	var errors []error
 
 	if m.GetId() == nil {
-		err := DeclarePoolOutcomeRequestValidationError{
+		err := ResolvePoolRequestValidationError{
 			field:  "Id",
 			reason: "value is required",
 		}
@@ -658,7 +658,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		switch v := interface{}(m.GetId()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Id",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -666,7 +666,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Id",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -675,7 +675,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return DeclarePoolOutcomeRequestValidationError{
+			return ResolvePoolRequestValidationError{
 				field:  "Id",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -684,7 +684,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 	}
 
 	if m.GetResolution() == nil {
-		err := DeclarePoolOutcomeRequestValidationError{
+		err := ResolvePoolRequestValidationError{
 			field:  "Resolution",
 			reason: "value is required",
 		}
@@ -698,7 +698,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		switch v := interface{}(m.GetResolution()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Resolution",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -706,7 +706,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Resolution",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -715,7 +715,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetResolution()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return DeclarePoolOutcomeRequestValidationError{
+			return ResolvePoolRequestValidationError{
 				field:  "Resolution",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -724,7 +724,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 	}
 
 	if m.GetNewRendezvousSignature() == nil {
-		err := DeclarePoolOutcomeRequestValidationError{
+		err := ResolvePoolRequestValidationError{
 			field:  "NewRendezvousSignature",
 			reason: "value is required",
 		}
@@ -738,7 +738,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		switch v := interface{}(m.GetNewRendezvousSignature()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "NewRendezvousSignature",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -746,7 +746,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "NewRendezvousSignature",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -755,7 +755,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetNewRendezvousSignature()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return DeclarePoolOutcomeRequestValidationError{
+			return ResolvePoolRequestValidationError{
 				field:  "NewRendezvousSignature",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -764,7 +764,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 	}
 
 	if m.GetAuth() == nil {
-		err := DeclarePoolOutcomeRequestValidationError{
+		err := ResolvePoolRequestValidationError{
 			field:  "Auth",
 			reason: "value is required",
 		}
@@ -778,7 +778,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		switch v := interface{}(m.GetAuth()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Auth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -786,7 +786,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DeclarePoolOutcomeRequestValidationError{
+				errors = append(errors, ResolvePoolRequestValidationError{
 					field:  "Auth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -795,7 +795,7 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return DeclarePoolOutcomeRequestValidationError{
+			return ResolvePoolRequestValidationError{
 				field:  "Auth",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -804,19 +804,19 @@ func (m *DeclarePoolOutcomeRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return DeclarePoolOutcomeRequestMultiError(errors)
+		return ResolvePoolRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeclarePoolOutcomeRequestMultiError is an error wrapping multiple validation
-// errors returned by DeclarePoolOutcomeRequest.ValidateAll() if the
-// designated constraints aren't met.
-type DeclarePoolOutcomeRequestMultiError []error
+// ResolvePoolRequestMultiError is an error wrapping multiple validation errors
+// returned by ResolvePoolRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ResolvePoolRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeclarePoolOutcomeRequestMultiError) Error() string {
+func (m ResolvePoolRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -825,11 +825,11 @@ func (m DeclarePoolOutcomeRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeclarePoolOutcomeRequestMultiError) AllErrors() []error { return m }
+func (m ResolvePoolRequestMultiError) AllErrors() []error { return m }
 
-// DeclarePoolOutcomeRequestValidationError is the validation error returned by
-// DeclarePoolOutcomeRequest.Validate if the designated constraints aren't met.
-type DeclarePoolOutcomeRequestValidationError struct {
+// ResolvePoolRequestValidationError is the validation error returned by
+// ResolvePoolRequest.Validate if the designated constraints aren't met.
+type ResolvePoolRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -837,24 +837,24 @@ type DeclarePoolOutcomeRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeclarePoolOutcomeRequestValidationError) Field() string { return e.field }
+func (e ResolvePoolRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeclarePoolOutcomeRequestValidationError) Reason() string { return e.reason }
+func (e ResolvePoolRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeclarePoolOutcomeRequestValidationError) Cause() error { return e.cause }
+func (e ResolvePoolRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeclarePoolOutcomeRequestValidationError) Key() bool { return e.key }
+func (e ResolvePoolRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeclarePoolOutcomeRequestValidationError) ErrorName() string {
-	return "DeclarePoolOutcomeRequestValidationError"
+func (e ResolvePoolRequestValidationError) ErrorName() string {
+	return "ResolvePoolRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeclarePoolOutcomeRequestValidationError) Error() string {
+func (e ResolvePoolRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -866,14 +866,14 @@ func (e DeclarePoolOutcomeRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeclarePoolOutcomeRequest.%s: %s%s",
+		"invalid %sResolvePoolRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeclarePoolOutcomeRequestValidationError{}
+var _ error = ResolvePoolRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -881,24 +881,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeclarePoolOutcomeRequestValidationError{}
+} = ResolvePoolRequestValidationError{}
 
-// Validate checks the field values on DeclarePoolOutcomeResponse with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ResolvePoolResponse with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeclarePoolOutcomeResponse) Validate() error {
+func (m *ResolvePoolResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeclarePoolOutcomeResponse with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on ResolvePoolResponse with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// DeclarePoolOutcomeResponseMultiError, or nil if none found.
-func (m *DeclarePoolOutcomeResponse) ValidateAll() error {
+// ResolvePoolResponseMultiError, or nil if none found.
+func (m *ResolvePoolResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeclarePoolOutcomeResponse) validate(all bool) error {
+func (m *ResolvePoolResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -908,19 +908,19 @@ func (m *DeclarePoolOutcomeResponse) validate(all bool) error {
 	// no validation rules for Result
 
 	if len(errors) > 0 {
-		return DeclarePoolOutcomeResponseMultiError(errors)
+		return ResolvePoolResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeclarePoolOutcomeResponseMultiError is an error wrapping multiple
-// validation errors returned by DeclarePoolOutcomeResponse.ValidateAll() if
-// the designated constraints aren't met.
-type DeclarePoolOutcomeResponseMultiError []error
+// ResolvePoolResponseMultiError is an error wrapping multiple validation
+// errors returned by ResolvePoolResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ResolvePoolResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeclarePoolOutcomeResponseMultiError) Error() string {
+func (m ResolvePoolResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -929,11 +929,11 @@ func (m DeclarePoolOutcomeResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeclarePoolOutcomeResponseMultiError) AllErrors() []error { return m }
+func (m ResolvePoolResponseMultiError) AllErrors() []error { return m }
 
-// DeclarePoolOutcomeResponseValidationError is the validation error returned
-// by DeclarePoolOutcomeResponse.Validate if the designated constraints aren't met.
-type DeclarePoolOutcomeResponseValidationError struct {
+// ResolvePoolResponseValidationError is the validation error returned by
+// ResolvePoolResponse.Validate if the designated constraints aren't met.
+type ResolvePoolResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -941,24 +941,24 @@ type DeclarePoolOutcomeResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeclarePoolOutcomeResponseValidationError) Field() string { return e.field }
+func (e ResolvePoolResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeclarePoolOutcomeResponseValidationError) Reason() string { return e.reason }
+func (e ResolvePoolResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeclarePoolOutcomeResponseValidationError) Cause() error { return e.cause }
+func (e ResolvePoolResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeclarePoolOutcomeResponseValidationError) Key() bool { return e.key }
+func (e ResolvePoolResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeclarePoolOutcomeResponseValidationError) ErrorName() string {
-	return "DeclarePoolOutcomeResponseValidationError"
+func (e ResolvePoolResponseValidationError) ErrorName() string {
+	return "ResolvePoolResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeclarePoolOutcomeResponseValidationError) Error() string {
+func (e ResolvePoolResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -970,14 +970,14 @@ func (e DeclarePoolOutcomeResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeclarePoolOutcomeResponse.%s: %s%s",
+		"invalid %sResolvePoolResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeclarePoolOutcomeResponseValidationError{}
+var _ error = ResolvePoolResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -985,7 +985,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeclarePoolOutcomeResponseValidationError{}
+} = ResolvePoolResponseValidationError{}
 
 // Validate checks the field values on MakeBetRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

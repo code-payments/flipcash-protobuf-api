@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Pool_CreatePool_FullMethodName         = "/flipcash.pool.v1.Pool/CreatePool"
-	Pool_GetPool_FullMethodName            = "/flipcash.pool.v1.Pool/GetPool"
-	Pool_DeclarePoolOutcome_FullMethodName = "/flipcash.pool.v1.Pool/DeclarePoolOutcome"
-	Pool_MakeBet_FullMethodName            = "/flipcash.pool.v1.Pool/MakeBet"
+	Pool_CreatePool_FullMethodName  = "/flipcash.pool.v1.Pool/CreatePool"
+	Pool_GetPool_FullMethodName     = "/flipcash.pool.v1.Pool/GetPool"
+	Pool_ResolvePool_FullMethodName = "/flipcash.pool.v1.Pool/ResolvePool"
+	Pool_MakeBet_FullMethodName     = "/flipcash.pool.v1.Pool/MakeBet"
 )
 
 // PoolClient is the client API for Pool service.
@@ -33,10 +33,12 @@ type PoolClient interface {
 	CreatePool(ctx context.Context, in *CreatePoolRequest, opts ...grpc.CallOption) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
-	// DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
-	// pool by calling this RPC first, then SubmitIntent to distribute pool funds
+	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
+	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
-	DeclarePoolOutcome(ctx context.Context, in *DeclarePoolOutcomeRequest, opts ...grpc.CallOption) (*DeclarePoolOutcomeResponse, error)
+	//
+	// Note: If the pool is not closed, it will be closed after execution of this RPC.
+	ResolvePool(ctx context.Context, in *ResolvePoolRequest, opts ...grpc.CallOption) (*ResolvePoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
 	// payment where:
@@ -77,10 +79,10 @@ func (c *poolClient) GetPool(ctx context.Context, in *GetPoolRequest, opts ...gr
 	return out, nil
 }
 
-func (c *poolClient) DeclarePoolOutcome(ctx context.Context, in *DeclarePoolOutcomeRequest, opts ...grpc.CallOption) (*DeclarePoolOutcomeResponse, error) {
+func (c *poolClient) ResolvePool(ctx context.Context, in *ResolvePoolRequest, opts ...grpc.CallOption) (*ResolvePoolResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeclarePoolOutcomeResponse)
-	err := c.cc.Invoke(ctx, Pool_DeclarePoolOutcome_FullMethodName, in, out, cOpts...)
+	out := new(ResolvePoolResponse)
+	err := c.cc.Invoke(ctx, Pool_ResolvePool_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,10 +107,12 @@ type PoolServer interface {
 	CreatePool(context.Context, *CreatePoolRequest) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
-	// DeclarePoolOutcome declares a pool's outcome. The pool creator resolves a
-	// pool by calling this RPC first, then SubmitIntent to distribute pool funds
+	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
+	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
-	DeclarePoolOutcome(context.Context, *DeclarePoolOutcomeRequest) (*DeclarePoolOutcomeResponse, error)
+	//
+	// Note: If the pool is not closed, it will be closed after execution of this RPC.
+	ResolvePool(context.Context, *ResolvePoolRequest) (*ResolvePoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
 	// payment where:
@@ -135,8 +139,8 @@ func (UnimplementedPoolServer) CreatePool(context.Context, *CreatePoolRequest) (
 func (UnimplementedPoolServer) GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPool not implemented")
 }
-func (UnimplementedPoolServer) DeclarePoolOutcome(context.Context, *DeclarePoolOutcomeRequest) (*DeclarePoolOutcomeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeclarePoolOutcome not implemented")
+func (UnimplementedPoolServer) ResolvePool(context.Context, *ResolvePoolRequest) (*ResolvePoolResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResolvePool not implemented")
 }
 func (UnimplementedPoolServer) MakeBet(context.Context, *MakeBetRequest) (*MakeBetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeBet not implemented")
@@ -198,20 +202,20 @@ func _Pool_GetPool_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Pool_DeclarePoolOutcome_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeclarePoolOutcomeRequest)
+func _Pool_ResolvePool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResolvePoolRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PoolServer).DeclarePoolOutcome(ctx, in)
+		return srv.(PoolServer).ResolvePool(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Pool_DeclarePoolOutcome_FullMethodName,
+		FullMethod: Pool_ResolvePool_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PoolServer).DeclarePoolOutcome(ctx, req.(*DeclarePoolOutcomeRequest))
+		return srv.(PoolServer).ResolvePool(ctx, req.(*ResolvePoolRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -250,8 +254,8 @@ var Pool_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Pool_GetPool_Handler,
 		},
 		{
-			MethodName: "DeclarePoolOutcome",
-			Handler:    _Pool_DeclarePoolOutcome_Handler,
+			MethodName: "ResolvePool",
+			Handler:    _Pool_ResolvePool_Handler,
 		},
 		{
 			MethodName: "MakeBet",
