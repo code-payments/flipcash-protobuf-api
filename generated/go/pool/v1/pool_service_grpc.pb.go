@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Pool_CreatePool_FullMethodName  = "/flipcash.pool.v1.Pool/CreatePool"
-	Pool_GetPool_FullMethodName     = "/flipcash.pool.v1.Pool/GetPool"
-	Pool_ResolvePool_FullMethodName = "/flipcash.pool.v1.Pool/ResolvePool"
-	Pool_MakeBet_FullMethodName     = "/flipcash.pool.v1.Pool/MakeBet"
+	Pool_CreatePool_FullMethodName    = "/flipcash.pool.v1.Pool/CreatePool"
+	Pool_GetPool_FullMethodName       = "/flipcash.pool.v1.Pool/GetPool"
+	Pool_GetPagedPools_FullMethodName = "/flipcash.pool.v1.Pool/GetPagedPools"
+	Pool_ResolvePool_FullMethodName   = "/flipcash.pool.v1.Pool/ResolvePool"
+	Pool_MakeBet_FullMethodName       = "/flipcash.pool.v1.Pool/MakeBet"
 )
 
 // PoolClient is the client API for Pool service.
@@ -33,6 +34,8 @@ type PoolClient interface {
 	CreatePool(ctx context.Context, in *CreatePoolRequest, opts ...grpc.CallOption) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
+	// GetPagedPools gets all pools for a user over a paging API
+	GetPagedPools(ctx context.Context, in *GetPagedPoolsRequest, opts ...grpc.CallOption) (*GetPagedPoolsResponse, error)
 	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
 	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
@@ -79,6 +82,16 @@ func (c *poolClient) GetPool(ctx context.Context, in *GetPoolRequest, opts ...gr
 	return out, nil
 }
 
+func (c *poolClient) GetPagedPools(ctx context.Context, in *GetPagedPoolsRequest, opts ...grpc.CallOption) (*GetPagedPoolsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPagedPoolsResponse)
+	err := c.cc.Invoke(ctx, Pool_GetPagedPools_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *poolClient) ResolvePool(ctx context.Context, in *ResolvePoolRequest, opts ...grpc.CallOption) (*ResolvePoolResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ResolvePoolResponse)
@@ -107,6 +120,8 @@ type PoolServer interface {
 	CreatePool(context.Context, *CreatePoolRequest) (*CreatePoolResponse, error)
 	// GetPool gets pool metadata by its ID
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
+	// GetPagedPools gets all pools for a user over a paging API
+	GetPagedPools(context.Context, *GetPagedPoolsRequest) (*GetPagedPoolsResponse, error)
 	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
 	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
@@ -138,6 +153,9 @@ func (UnimplementedPoolServer) CreatePool(context.Context, *CreatePoolRequest) (
 }
 func (UnimplementedPoolServer) GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPool not implemented")
+}
+func (UnimplementedPoolServer) GetPagedPools(context.Context, *GetPagedPoolsRequest) (*GetPagedPoolsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPagedPools not implemented")
 }
 func (UnimplementedPoolServer) ResolvePool(context.Context, *ResolvePoolRequest) (*ResolvePoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResolvePool not implemented")
@@ -202,6 +220,24 @@ func _Pool_GetPool_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Pool_GetPagedPools_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPagedPoolsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PoolServer).GetPagedPools(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Pool_GetPagedPools_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PoolServer).GetPagedPools(ctx, req.(*GetPagedPoolsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Pool_ResolvePool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ResolvePoolRequest)
 	if err := dec(in); err != nil {
@@ -252,6 +288,10 @@ var Pool_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPool",
 			Handler:    _Pool_GetPool_Handler,
+		},
+		{
+			MethodName: "GetPagedPools",
+			Handler:    _Pool_GetPagedPools_Handler,
 		},
 		{
 			MethodName: "ResolvePool",

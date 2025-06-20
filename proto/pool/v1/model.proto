@@ -66,7 +66,12 @@ message PoolMetadata {
     common.v1.Signature rendezvous_signature = 2 [(validate.rules).message.required = true];
 
     // The set of bets (with verified payment) made against this pool
-    repeated BetMetadata bets = 3;
+    repeated BetMetadata bets = 3 [(validate.rules).repeated = {
+        max_items: 1024
+    }];
+
+    // Paging token specific to each user that enables access to paging APIs
+    common.v1.PagingToken paging_token = 4;
 }
 
 // BetId uniquely identifies a bet via an intent ID

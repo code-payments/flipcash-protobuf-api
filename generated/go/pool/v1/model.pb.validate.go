@@ -689,6 +689,17 @@ func (m *PoolMetadata) validate(all bool) error {
 		}
 	}
 
+	if len(m.GetBets()) > 1024 {
+		err := PoolMetadataValidationError{
+			field:  "Bets",
+			reason: "value must contain no more than 1024 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	for idx, item := range m.GetBets() {
 		_, _ = idx, item
 
@@ -721,6 +732,35 @@ func (m *PoolMetadata) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if all {
+		switch v := interface{}(m.GetPagingToken()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "PagingToken",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "PagingToken",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPagingToken()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolMetadataValidationError{
+				field:  "PagingToken",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {

@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
 import { PoolId, PoolMetadata, Resolution, SignedBetMetadata, SignedPoolMetadata } from "./model_pb";
-import { Auth, Signature } from "../../common/v1/common_pb";
+import { Auth, QueryOptions, Signature } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.pool.v1.CreatePoolRequest
@@ -216,6 +216,112 @@ export enum GetPoolResponse_Result {
 }
 // Retrieve enum metadata with: proto3.getEnumType(GetPoolResponse_Result)
 proto3.util.setEnumType(GetPoolResponse_Result, "flipcash.pool.v1.GetPoolResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "NOT_FOUND" },
+]);
+
+/**
+ * @generated from message flipcash.pool.v1.GetPagedPoolsRequest
+ */
+export class GetPagedPoolsRequest extends Message<GetPagedPoolsRequest> {
+  /**
+   * @generated from field: flipcash.common.v1.QueryOptions query_options = 1;
+   */
+  queryOptions?: QueryOptions;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<GetPagedPoolsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.GetPagedPoolsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query_options", kind: "message", T: QueryOptions },
+    { no: 2, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPagedPoolsRequest {
+    return new GetPagedPoolsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPagedPoolsRequest {
+    return new GetPagedPoolsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPagedPoolsRequest {
+    return new GetPagedPoolsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPagedPoolsRequest | PlainMessage<GetPagedPoolsRequest> | undefined, b: GetPagedPoolsRequest | PlainMessage<GetPagedPoolsRequest> | undefined): boolean {
+    return proto3.util.equals(GetPagedPoolsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.GetPagedPoolsResponse
+ */
+export class GetPagedPoolsResponse extends Message<GetPagedPoolsResponse> {
+  /**
+   * @generated from field: flipcash.pool.v1.GetPagedPoolsResponse.Result result = 1;
+   */
+  result = GetPagedPoolsResponse_Result.OK;
+
+  /**
+   * @generated from field: repeated flipcash.pool.v1.PoolMetadata pools = 2;
+   */
+  pools: PoolMetadata[] = [];
+
+  constructor(data?: PartialMessage<GetPagedPoolsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.GetPagedPoolsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(GetPagedPoolsResponse_Result) },
+    { no: 2, name: "pools", kind: "message", T: PoolMetadata, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPagedPoolsResponse {
+    return new GetPagedPoolsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPagedPoolsResponse {
+    return new GetPagedPoolsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPagedPoolsResponse {
+    return new GetPagedPoolsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPagedPoolsResponse | PlainMessage<GetPagedPoolsResponse> | undefined, b: GetPagedPoolsResponse | PlainMessage<GetPagedPoolsResponse> | undefined): boolean {
+    return proto3.util.equals(GetPagedPoolsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.pool.v1.GetPagedPoolsResponse.Result
+ */
+export enum GetPagedPoolsResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: NOT_FOUND = 1;
+   */
+  NOT_FOUND = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(GetPagedPoolsResponse_Result)
+proto3.util.setEnumType(GetPagedPoolsResponse_Result, "flipcash.pool.v1.GetPagedPoolsResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "NOT_FOUND" },
 ]);

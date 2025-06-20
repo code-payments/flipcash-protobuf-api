@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { FiatPaymentAmount, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
+import { FiatPaymentAmount, PagingToken, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
 
 /**
  * PoolId uniquely identifies a pool via a rendezvous public key
@@ -214,6 +214,13 @@ export class PoolMetadata extends Message<PoolMetadata> {
    */
   bets: BetMetadata[] = [];
 
+  /**
+   * Paging token specific to each user that enables access to paging APIs
+   *
+   * @generated from field: flipcash.common.v1.PagingToken paging_token = 4;
+   */
+  pagingToken?: PagingToken;
+
   constructor(data?: PartialMessage<PoolMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -225,6 +232,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 1, name: "verified_metadata", kind: "message", T: SignedPoolMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
+    { no: 4, name: "paging_token", kind: "message", T: PagingToken },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolMetadata {

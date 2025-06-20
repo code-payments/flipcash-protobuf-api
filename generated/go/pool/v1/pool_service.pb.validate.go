@@ -621,6 +621,337 @@ var _ interface {
 	ErrorName() string
 } = GetPoolResponseValidationError{}
 
+// Validate checks the field values on GetPagedPoolsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPagedPoolsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPagedPoolsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPagedPoolsRequestMultiError, or nil if none found.
+func (m *GetPagedPoolsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPagedPoolsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetQueryOptions() == nil {
+		err := GetPagedPoolsRequestValidationError{
+			field:  "QueryOptions",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetQueryOptions()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetPagedPoolsRequestValidationError{
+					field:  "QueryOptions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetPagedPoolsRequestValidationError{
+					field:  "QueryOptions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetQueryOptions()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetPagedPoolsRequestValidationError{
+				field:  "QueryOptions",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetAuth() == nil {
+		err := GetPagedPoolsRequestValidationError{
+			field:  "Auth",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetPagedPoolsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetPagedPoolsRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetPagedPoolsRequestValidationError{
+				field:  "Auth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetPagedPoolsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPagedPoolsRequestMultiError is an error wrapping multiple validation
+// errors returned by GetPagedPoolsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetPagedPoolsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPagedPoolsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPagedPoolsRequestMultiError) AllErrors() []error { return m }
+
+// GetPagedPoolsRequestValidationError is the validation error returned by
+// GetPagedPoolsRequest.Validate if the designated constraints aren't met.
+type GetPagedPoolsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPagedPoolsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPagedPoolsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPagedPoolsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPagedPoolsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPagedPoolsRequestValidationError) ErrorName() string {
+	return "GetPagedPoolsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPagedPoolsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPagedPoolsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPagedPoolsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPagedPoolsRequestValidationError{}
+
+// Validate checks the field values on GetPagedPoolsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPagedPoolsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPagedPoolsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPagedPoolsResponseMultiError, or nil if none found.
+func (m *GetPagedPoolsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPagedPoolsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(m.GetPools()) > 1024 {
+		err := GetPagedPoolsResponseValidationError{
+			field:  "Pools",
+			reason: "value must contain no more than 1024 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetPools() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetPagedPoolsResponseValidationError{
+						field:  fmt.Sprintf("Pools[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetPagedPoolsResponseValidationError{
+						field:  fmt.Sprintf("Pools[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetPagedPoolsResponseValidationError{
+					field:  fmt.Sprintf("Pools[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetPagedPoolsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPagedPoolsResponseMultiError is an error wrapping multiple validation
+// errors returned by GetPagedPoolsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetPagedPoolsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPagedPoolsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPagedPoolsResponseMultiError) AllErrors() []error { return m }
+
+// GetPagedPoolsResponseValidationError is the validation error returned by
+// GetPagedPoolsResponse.Validate if the designated constraints aren't met.
+type GetPagedPoolsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPagedPoolsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPagedPoolsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPagedPoolsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPagedPoolsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPagedPoolsResponseValidationError) ErrorName() string {
+	return "GetPagedPoolsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPagedPoolsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPagedPoolsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPagedPoolsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPagedPoolsResponseValidationError{}
+
 // Validate checks the field values on ResolvePoolRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

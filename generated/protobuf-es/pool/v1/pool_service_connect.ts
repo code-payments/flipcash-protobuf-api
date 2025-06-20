@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreatePoolRequest, CreatePoolResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse, ResolvePoolRequest, ResolvePoolResponse } from "./pool_service_pb";
+import { CreatePoolRequest, CreatePoolResponse, GetPagedPoolsRequest, GetPagedPoolsResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse, ResolvePoolRequest, ResolvePoolResponse } from "./pool_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -32,6 +32,17 @@ export const Pool = {
       name: "GetPool",
       I: GetPoolRequest,
       O: GetPoolResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetPagedPools gets all pools for a user over a paging API
+     *
+     * @generated from rpc flipcash.pool.v1.Pool.GetPagedPools
+     */
+    getPagedPools: {
+      name: "GetPagedPools",
+      I: GetPagedPoolsRequest,
+      O: GetPagedPoolsResponse,
       kind: MethodKind.Unary,
     },
     /**
