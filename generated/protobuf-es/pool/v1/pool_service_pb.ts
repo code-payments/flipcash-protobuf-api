@@ -422,14 +422,20 @@ export enum ClosePoolResponse_Result {
   OK = 0,
 
   /**
-   * @generated from enum value: NOT_FOUND = 1;
+   * @generated from enum value: DENIED = 1;
    */
-  NOT_FOUND = 1,
+  DENIED = 1,
+
+  /**
+   * @generated from enum value: NOT_FOUND = 2;
+   */
+  NOT_FOUND = 2,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ClosePoolResponse_Result)
 proto3.util.setEnumType(ClosePoolResponse_Result, "flipcash.pool.v1.ClosePoolResponse.Result", [
   { no: 0, name: "OK" },
-  { no: 1, name: "NOT_FOUND" },
+  { no: 1, name: "DENIED" },
+  { no: 2, name: "NOT_FOUND" },
 ]);
 
 /**
