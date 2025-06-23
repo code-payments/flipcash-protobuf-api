@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { PoolId, PoolMetadata, Resolution, SignedBetMetadata, SignedPoolMetadata } from "./model_pb";
 import { Auth, QueryOptions, Signature } from "../../common/v1/common_pb";
 
@@ -336,12 +336,17 @@ export class ClosePoolRequest extends Message<ClosePoolRequest> {
   id?: PoolId;
 
   /**
-   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 2;
+   * @generated from field: google.protobuf.Timestamp closed_at = 2;
+   */
+  closedAt?: Timestamp;
+
+  /**
+   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 3;
    */
   newRendezvousSignature?: Signature;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   * @generated from field: flipcash.common.v1.Auth auth = 4;
    */
   auth?: Auth;
 
@@ -354,8 +359,9 @@ export class ClosePoolRequest extends Message<ClosePoolRequest> {
   static readonly typeName = "flipcash.pool.v1.ClosePoolRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: PoolId },
-    { no: 2, name: "new_rendezvous_signature", kind: "message", T: Signature },
-    { no: 3, name: "auth", kind: "message", T: Auth },
+    { no: 2, name: "closed_at", kind: "message", T: Timestamp },
+    { no: 3, name: "new_rendezvous_signature", kind: "message", T: Signature },
+    { no: 4, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClosePoolRequest {

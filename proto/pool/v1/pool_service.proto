@@ -8,6 +8,7 @@ option objc_class_prefix = "FPBPoolV1";
 
 import "pool/v1/model.proto";
 import "common/v1/common.proto";
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
 service Pool {
@@ -91,9 +92,11 @@ message GetPagedPoolsResponse {
 message ClosePoolRequest {
     PoolId id = 1 [(validate.rules).message.required = true];
 
-    common.v1.Signature new_rendezvous_signature = 2 [(validate.rules).message.required = true];
+    google.protobuf.Timestamp closed_at = 2 [(validate.rules).timestamp.required = true];
 
-    common.v1.Auth auth = 3 [(validate.rules).message.required = true];
+    common.v1.Signature new_rendezvous_signature = 3 [(validate.rules).message.required = true];
+
+    common.v1.Auth auth = 4 [(validate.rules).message.required = true];
 }
 
 message ClosePoolResponse {

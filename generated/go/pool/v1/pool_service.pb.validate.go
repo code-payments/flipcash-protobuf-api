@@ -1014,6 +1014,17 @@ func (m *ClosePoolRequest) validate(all bool) error {
 		}
 	}
 
+	if m.GetClosedAt() == nil {
+		err := ClosePoolRequestValidationError{
+			field:  "ClosedAt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.GetNewRendezvousSignature() == nil {
 		err := ClosePoolRequestValidationError{
 			field:  "NewRendezvousSignature",
