@@ -154,6 +154,13 @@ export class SignedPoolMetadata extends Message<SignedPoolMetadata> {
    */
   createdAt?: Timestamp;
 
+  /**
+   * Timestamp the pool was closed at
+   *
+   * @generated from field: google.protobuf.Timestamp closed_at = 9;
+   */
+  closedAt?: Timestamp;
+
   constructor(data?: PartialMessage<SignedPoolMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -170,6 +177,7 @@ export class SignedPoolMetadata extends Message<SignedPoolMetadata> {
     { no: 6, name: "is_open", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 7, name: "resolution", kind: "message", T: Resolution },
     { no: 8, name: "created_at", kind: "message", T: Timestamp },
+    { no: 9, name: "closed_at", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignedPoolMetadata {

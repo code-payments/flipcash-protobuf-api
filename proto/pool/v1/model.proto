@@ -56,6 +56,9 @@ message SignedPoolMetadata {
 
     // Timestamp pool was created at
     google.protobuf.Timestamp created_at = 8 [(validate.rules).timestamp.required = true];
+
+    // Timestamp the pool was closed at
+    google.protobuf.Timestamp closed_at = 9;
 }
 
 // Pool metadata

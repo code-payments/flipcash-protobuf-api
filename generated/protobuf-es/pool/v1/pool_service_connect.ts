@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreatePoolRequest, CreatePoolResponse, GetPagedPoolsRequest, GetPagedPoolsResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse, ResolvePoolRequest, ResolvePoolResponse } from "./pool_service_pb";
+import { ClosePoolRequest, ClosePoolResponse, CreatePoolRequest, CreatePoolResponse, GetPagedPoolsRequest, GetPagedPoolsResponse, GetPoolRequest, GetPoolResponse, MakeBetRequest, MakeBetResponse, ResolvePoolRequest, ResolvePoolResponse } from "./pool_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -46,11 +46,20 @@ export const Pool = {
       kind: MethodKind.Unary,
     },
     /**
+     * ClosePool closes a pool from additional bets
+     *
+     * @generated from rpc flipcash.pool.v1.Pool.ClosePool
+     */
+    closePool: {
+      name: "ClosePool",
+      I: ClosePoolRequest,
+      O: ClosePoolResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
      * resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
      * to the winning participants.
-     *
-     * Note: If the pool is not closed, it will be closed after execution of this RPC.
      *
      * @generated from rpc flipcash.pool.v1.Pool.ResolvePool
      */

@@ -22,6 +22,7 @@ const (
 	Pool_CreatePool_FullMethodName    = "/flipcash.pool.v1.Pool/CreatePool"
 	Pool_GetPool_FullMethodName       = "/flipcash.pool.v1.Pool/GetPool"
 	Pool_GetPagedPools_FullMethodName = "/flipcash.pool.v1.Pool/GetPagedPools"
+	Pool_ClosePool_FullMethodName     = "/flipcash.pool.v1.Pool/ClosePool"
 	Pool_ResolvePool_FullMethodName   = "/flipcash.pool.v1.Pool/ResolvePool"
 	Pool_MakeBet_FullMethodName       = "/flipcash.pool.v1.Pool/MakeBet"
 )
@@ -36,11 +37,11 @@ type PoolClient interface {
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
 	// GetPagedPools gets all pools for a user over a paging API
 	GetPagedPools(ctx context.Context, in *GetPagedPoolsRequest, opts ...grpc.CallOption) (*GetPagedPoolsResponse, error)
+	// ClosePool closes a pool from additional bets
+	ClosePool(ctx context.Context, in *ClosePoolRequest, opts ...grpc.CallOption) (*ClosePoolResponse, error)
 	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
 	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
-	//
-	// Note: If the pool is not closed, it will be closed after execution of this RPC.
 	ResolvePool(ctx context.Context, in *ResolvePoolRequest, opts ...grpc.CallOption) (*ResolvePoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
@@ -92,6 +93,16 @@ func (c *poolClient) GetPagedPools(ctx context.Context, in *GetPagedPoolsRequest
 	return out, nil
 }
 
+func (c *poolClient) ClosePool(ctx context.Context, in *ClosePoolRequest, opts ...grpc.CallOption) (*ClosePoolResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ClosePoolResponse)
+	err := c.cc.Invoke(ctx, Pool_ClosePool_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *poolClient) ResolvePool(ctx context.Context, in *ResolvePoolRequest, opts ...grpc.CallOption) (*ResolvePoolResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ResolvePoolResponse)
@@ -122,11 +133,11 @@ type PoolServer interface {
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
 	// GetPagedPools gets all pools for a user over a paging API
 	GetPagedPools(context.Context, *GetPagedPoolsRequest) (*GetPagedPoolsResponse, error)
+	// ClosePool closes a pool from additional bets
+	ClosePool(context.Context, *ClosePoolRequest) (*ClosePoolResponse, error)
 	// ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
 	// resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
 	// to the winning participants.
-	//
-	// Note: If the pool is not closed, it will be closed after execution of this RPC.
 	ResolvePool(context.Context, *ResolvePoolRequest) (*ResolvePoolResponse, error)
 	// MakeBet creates a new bet against a pool. Pool participants make a bet by
 	// calling MakeBet to create an initially unpaid bet, then SubmitIntent for
@@ -156,6 +167,9 @@ func (UnimplementedPoolServer) GetPool(context.Context, *GetPoolRequest) (*GetPo
 }
 func (UnimplementedPoolServer) GetPagedPools(context.Context, *GetPagedPoolsRequest) (*GetPagedPoolsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPagedPools not implemented")
+}
+func (UnimplementedPoolServer) ClosePool(context.Context, *ClosePoolRequest) (*ClosePoolResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClosePool not implemented")
 }
 func (UnimplementedPoolServer) ResolvePool(context.Context, *ResolvePoolRequest) (*ResolvePoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResolvePool not implemented")
@@ -238,6 +252,24 @@ func _Pool_GetPagedPools_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Pool_ClosePool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClosePoolRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PoolServer).ClosePool(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Pool_ClosePool_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PoolServer).ClosePool(ctx, req.(*ClosePoolRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Pool_ResolvePool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ResolvePoolRequest)
 	if err := dec(in); err != nil {
@@ -292,6 +324,10 @@ var Pool_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPagedPools",
 			Handler:    _Pool_GetPagedPools_Handler,
+		},
+		{
+			MethodName: "ClosePool",
+			Handler:    _Pool_ClosePool_Handler,
 		},
 		{
 			MethodName: "ResolvePool",

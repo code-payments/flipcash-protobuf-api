@@ -327,6 +327,112 @@ proto3.util.setEnumType(GetPagedPoolsResponse_Result, "flipcash.pool.v1.GetPaged
 ]);
 
 /**
+ * @generated from message flipcash.pool.v1.ClosePoolRequest
+ */
+export class ClosePoolRequest extends Message<ClosePoolRequest> {
+  /**
+   * @generated from field: flipcash.pool.v1.PoolId id = 1;
+   */
+  id?: PoolId;
+
+  /**
+   * @generated from field: flipcash.common.v1.Signature new_rendezvous_signature = 2;
+   */
+  newRendezvousSignature?: Signature;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 3;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<ClosePoolRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.ClosePoolRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "message", T: PoolId },
+    { no: 2, name: "new_rendezvous_signature", kind: "message", T: Signature },
+    { no: 3, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClosePoolRequest {
+    return new ClosePoolRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClosePoolRequest {
+    return new ClosePoolRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClosePoolRequest {
+    return new ClosePoolRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClosePoolRequest | PlainMessage<ClosePoolRequest> | undefined, b: ClosePoolRequest | PlainMessage<ClosePoolRequest> | undefined): boolean {
+    return proto3.util.equals(ClosePoolRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.ClosePoolResponse
+ */
+export class ClosePoolResponse extends Message<ClosePoolResponse> {
+  /**
+   * @generated from field: flipcash.pool.v1.ClosePoolResponse.Result result = 1;
+   */
+  result = ClosePoolResponse_Result.OK;
+
+  constructor(data?: PartialMessage<ClosePoolResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.ClosePoolResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(ClosePoolResponse_Result) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClosePoolResponse {
+    return new ClosePoolResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClosePoolResponse {
+    return new ClosePoolResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClosePoolResponse {
+    return new ClosePoolResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClosePoolResponse | PlainMessage<ClosePoolResponse> | undefined, b: ClosePoolResponse | PlainMessage<ClosePoolResponse> | undefined): boolean {
+    return proto3.util.equals(ClosePoolResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.pool.v1.ClosePoolResponse.Result
+ */
+export enum ClosePoolResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: NOT_FOUND = 1;
+   */
+  NOT_FOUND = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ClosePoolResponse_Result)
+proto3.util.setEnumType(ClosePoolResponse_Result, "flipcash.pool.v1.ClosePoolResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "NOT_FOUND" },
+]);
+
+/**
  * @generated from message flipcash.pool.v1.ResolvePoolRequest
  */
 export class ResolvePoolRequest extends Message<ResolvePoolRequest> {
@@ -441,6 +547,11 @@ export enum ResolvePoolResponse_Result {
    * @generated from enum value: DIFFERENT_OUTCOME_DECLARED = 3;
    */
   DIFFERENT_OUTCOME_DECLARED = 3,
+
+  /**
+   * @generated from enum value: POOL_OPEN = 4;
+   */
+  POOL_OPEN = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ResolvePoolResponse_Result)
 proto3.util.setEnumType(ResolvePoolResponse_Result, "flipcash.pool.v1.ResolvePoolResponse.Result", [
@@ -448,6 +559,7 @@ proto3.util.setEnumType(ResolvePoolResponse_Result, "flipcash.pool.v1.ResolvePoo
   { no: 1, name: "DENIED" },
   { no: 2, name: "NOT_FOUND" },
   { no: 3, name: "DIFFERENT_OUTCOME_DECLARED" },
+  { no: 4, name: "POOL_OPEN" },
 ]);
 
 /**

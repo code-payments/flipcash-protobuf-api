@@ -20,11 +20,12 @@ service Pool {
     // GetPagedPools gets all pools for a user over a paging API
     rpc GetPagedPools(GetPagedPoolsRequest) returns (GetPagedPoolsResponse);
 
+    // ClosePool closes a pool from additional bets
+    rpc ClosePool(ClosePoolRequest) returns (ClosePoolResponse);
+
     // ResolvePool resolves a pool by declaring the pool's outcome. The pool creator
     // resolves a pool by calling this RPC first, then SubmitIntent to distribute funds
     // to the winning participants.
-    //
-    // Note: If the pool is not closed, it will be closed after execution of this RPC.
     rpc ResolvePool(ResolvePoolRequest) returns (ResolvePoolResponse);
 
     // MakeBet creates a new bet against a pool. Pool participants make a bet by
@@ -87,6 +88,22 @@ message GetPagedPoolsResponse {
     }];
 }
 
+message ClosePoolRequest {
+    PoolId id = 1 [(validate.rules).message.required = true];
+
+    common.v1.Signature new_rendezvous_signature = 2 [(validate.rules).message.required = true];
+
+    common.v1.Auth auth = 3 [(validate.rules).message.required = true];
+}
+
+message ClosePoolResponse {
+    Result result = 1;
+    enum Result {
+        OK        = 0;
+        NOT_FOUND = 1;
+    }
+}
+
 message ResolvePoolRequest {
     PoolId id = 1 [(validate.rules).message.required = true];
     
@@ -104,6 +121,7 @@ message ResolvePoolResponse {
         DENIED                     = 1;
         NOT_FOUND                  = 2;
         DIFFERENT_OUTCOME_DECLARED = 3;
+        POOL_OPEN                  = 4;
     }
 }
 
