@@ -64,6 +64,14 @@ export class Resolution extends Message<Resolution> {
      */
     value: boolean;
     case: "booleanResolution";
+  } | {
+    /**
+     * A refund to all participants. No outcome was decided
+     *
+     * @generated from field: flipcash.pool.v1.Resolution.Refund refund_resolution = 2;
+     */
+    value: Resolution_Refund;
+    case: "refundResolution";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Resolution>) {
@@ -75,6 +83,7 @@ export class Resolution extends Message<Resolution> {
   static readonly typeName = "flipcash.pool.v1.Resolution";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "boolean_resolution", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "kind" },
+    { no: 2, name: "refund_resolution", kind: "message", T: Resolution_Refund, oneof: "kind" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Resolution {
@@ -91,6 +100,37 @@ export class Resolution extends Message<Resolution> {
 
   static equals(a: Resolution | PlainMessage<Resolution> | undefined, b: Resolution | PlainMessage<Resolution> | undefined): boolean {
     return proto3.util.equals(Resolution, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.Resolution.Refund
+ */
+export class Resolution_Refund extends Message<Resolution_Refund> {
+  constructor(data?: PartialMessage<Resolution_Refund>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.Resolution.Refund";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Resolution_Refund {
+    return new Resolution_Refund().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Resolution_Refund {
+    return new Resolution_Refund().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Resolution_Refund {
+    return new Resolution_Refund().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Resolution_Refund | PlainMessage<Resolution_Refund> | undefined, b: Resolution_Refund | PlainMessage<Resolution_Refund> | undefined): boolean {
+    return proto3.util.equals(Resolution_Refund, a, b);
   }
 }
 
