@@ -834,6 +834,8 @@ func (m *PoolMetadata) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for IsFundingDestinationInitialized
+
 	if len(errors) > 0 {
 		return PoolMetadataMultiError(errors)
 	}
@@ -1522,6 +1524,8 @@ func (m *BetMetadata) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for IsIntentSubmitted
 
 	if len(errors) > 0 {
 		return BetMetadataMultiError(errors)

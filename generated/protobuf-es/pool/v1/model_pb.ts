@@ -256,7 +256,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
   rendezvousSignature?: Signature;
 
   /**
-   * The set of bets (with verified payment) made against this pool
+   * The set of bets made against this pool
    *
    * @generated from field: repeated flipcash.pool.v1.BetMetadata bets = 3;
    */
@@ -268,6 +268,14 @@ export class PoolMetadata extends Message<PoolMetadata> {
    * @generated from field: flipcash.common.v1.PagingToken paging_token = 4;
    */
   pagingToken?: PagingToken;
+
+  /**
+   * Has the funding destination been initialized? Bet payments cannot be made
+   * this has occurred.
+   *
+   * @generated from field: bool is_funding_destination_initialized = 5;
+   */
+  isFundingDestinationInitialized = false;
 
   constructor(data?: PartialMessage<PoolMetadata>) {
     super();
@@ -281,6 +289,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
     { no: 4, name: "paging_token", kind: "message", T: PagingToken },
+    { no: 5, name: "is_funding_destination_initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolMetadata {
@@ -476,6 +485,13 @@ export class BetMetadata extends Message<BetMetadata> {
    */
   rendezvousSignature?: Signature;
 
+  /**
+   * Has the intent for bet payment been submitted?
+   *
+   * @generated from field: bool is_intent_submitted = 3;
+   */
+  isIntentSubmitted = false;
+
   constructor(data?: PartialMessage<BetMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -486,6 +502,7 @@ export class BetMetadata extends Message<BetMetadata> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "verified_metadata", kind: "message", T: SignedBetMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
+    { no: 3, name: "is_intent_submitted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetMetadata {

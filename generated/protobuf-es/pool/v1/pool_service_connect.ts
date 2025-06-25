@@ -76,8 +76,6 @@ export const Pool = {
      *  1. Intent ID == Bet.id
      *  2. Payment amount == PoolMetadata.buy_in
      *  3. Payment destination == PoolMetadata.funding_destination
-     * Bets without payment, or with invalid intents, will not be visible in the
-     * PoolMetadata when calling GetPool.
      *
      * @generated from rpc flipcash.pool.v1.Pool.MakeBet
      */

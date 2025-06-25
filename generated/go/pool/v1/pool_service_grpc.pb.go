@@ -49,9 +49,6 @@ type PoolClient interface {
 	//  1. Intent ID == Bet.id
 	//  2. Payment amount == PoolMetadata.buy_in
 	//  3. Payment destination == PoolMetadata.funding_destination
-	//
-	// Bets without payment, or with invalid intents, will not be visible in the
-	// PoolMetadata when calling GetPool.
 	MakeBet(ctx context.Context, in *MakeBetRequest, opts ...grpc.CallOption) (*MakeBetResponse, error)
 }
 
@@ -145,9 +142,6 @@ type PoolServer interface {
 	//  1. Intent ID == Bet.id
 	//  2. Payment amount == PoolMetadata.buy_in
 	//  3. Payment destination == PoolMetadata.funding_destination
-	//
-	// Bets without payment, or with invalid intents, will not be visible in the
-	// PoolMetadata when calling GetPool.
 	MakeBet(context.Context, *MakeBetRequest) (*MakeBetResponse, error)
 	mustEmbedUnimplementedPoolServer()
 }
