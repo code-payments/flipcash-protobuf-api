@@ -805,6 +805,46 @@ func (m *PoolMetadata) validate(all bool) error {
 
 	}
 
+	if m.GetBetSummary() == nil {
+		err := PoolMetadataValidationError{
+			field:  "BetSummary",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBetSummary()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBetSummary()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolMetadataValidationError{
+				field:  "BetSummary",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if all {
 		switch v := interface{}(m.GetPagingToken()).(type) {
 		case interface{ ValidateAll() error }:
@@ -1151,6 +1191,163 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = BetOutcomeValidationError{}
+
+// Validate checks the field values on BetSummary with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BetSummary) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BetSummary with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in BetSummaryMultiError, or
+// nil if none found.
+func (m *BetSummary) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BetSummary) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofKindPresent := false
+	switch v := m.Kind.(type) {
+	case *BetSummary_BooleanSummary:
+		if v == nil {
+			err := BetSummaryValidationError{
+				field:  "Kind",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofKindPresent = true
+
+		if all {
+			switch v := interface{}(m.GetBooleanSummary()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BetSummaryValidationError{
+						field:  "BooleanSummary",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BetSummaryValidationError{
+						field:  "BooleanSummary",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBooleanSummary()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BetSummaryValidationError{
+					field:  "BooleanSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofKindPresent {
+		err := BetSummaryValidationError{
+			field:  "Kind",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return BetSummaryMultiError(errors)
+	}
+
+	return nil
+}
+
+// BetSummaryMultiError is an error wrapping multiple validation errors
+// returned by BetSummary.ValidateAll() if the designated constraints aren't met.
+type BetSummaryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BetSummaryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BetSummaryMultiError) AllErrors() []error { return m }
+
+// BetSummaryValidationError is the validation error returned by
+// BetSummary.Validate if the designated constraints aren't met.
+type BetSummaryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BetSummaryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BetSummaryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BetSummaryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BetSummaryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BetSummaryValidationError) ErrorName() string { return "BetSummaryValidationError" }
+
+// Error satisfies the builtin error interface
+func (e BetSummaryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBetSummary.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BetSummaryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BetSummaryValidationError{}
 
 // Validate checks the field values on SignedBetMetadata with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -1707,3 +1904,110 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = Resolution_RefundValidationError{}
+
+// Validate checks the field values on BetSummary_BooleanBetSummary with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BetSummary_BooleanBetSummary) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BetSummary_BooleanBetSummary with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BetSummary_BooleanBetSummaryMultiError, or nil if none found.
+func (m *BetSummary_BooleanBetSummary) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BetSummary_BooleanBetSummary) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for NumYes
+
+	// no validation rules for NumNo
+
+	if len(errors) > 0 {
+		return BetSummary_BooleanBetSummaryMultiError(errors)
+	}
+
+	return nil
+}
+
+// BetSummary_BooleanBetSummaryMultiError is an error wrapping multiple
+// validation errors returned by BetSummary_BooleanBetSummary.ValidateAll() if
+// the designated constraints aren't met.
+type BetSummary_BooleanBetSummaryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BetSummary_BooleanBetSummaryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BetSummary_BooleanBetSummaryMultiError) AllErrors() []error { return m }
+
+// BetSummary_BooleanBetSummaryValidationError is the validation error returned
+// by BetSummary_BooleanBetSummary.Validate if the designated constraints
+// aren't met.
+type BetSummary_BooleanBetSummaryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BetSummary_BooleanBetSummaryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BetSummary_BooleanBetSummaryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BetSummary_BooleanBetSummaryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BetSummary_BooleanBetSummaryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BetSummary_BooleanBetSummaryValidationError) ErrorName() string {
+	return "BetSummary_BooleanBetSummaryValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BetSummary_BooleanBetSummaryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBetSummary_BooleanBetSummary.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BetSummary_BooleanBetSummaryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BetSummary_BooleanBetSummaryValidationError{}

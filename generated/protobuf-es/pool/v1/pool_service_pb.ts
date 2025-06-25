@@ -129,6 +129,11 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
    */
   id?: PoolId;
 
+  /**
+   * @generated from field: bool exclude_bets = 2;
+   */
+  excludeBets = false;
+
   constructor(data?: PartialMessage<GetPoolRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -138,6 +143,7 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
   static readonly typeName = "flipcash.pool.v1.GetPoolRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: PoolId },
+    { no: 2, name: "exclude_bets", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPoolRequest {

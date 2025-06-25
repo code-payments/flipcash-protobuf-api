@@ -36,6 +36,8 @@ type PoolClient interface {
 	// GetPool gets pool metadata by its ID
 	GetPool(ctx context.Context, in *GetPoolRequest, opts ...grpc.CallOption) (*GetPoolResponse, error)
 	// GetPagedPools gets all pools for a user over a paging API
+	//
+	// Note: Only bet summaries are provided in the response
 	GetPagedPools(ctx context.Context, in *GetPagedPoolsRequest, opts ...grpc.CallOption) (*GetPagedPoolsResponse, error)
 	// ClosePool closes a pool from additional bets
 	ClosePool(ctx context.Context, in *ClosePoolRequest, opts ...grpc.CallOption) (*ClosePoolResponse, error)
@@ -129,6 +131,8 @@ type PoolServer interface {
 	// GetPool gets pool metadata by its ID
 	GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error)
 	// GetPagedPools gets all pools for a user over a paging API
+	//
+	// Note: Only bet summaries are provided in the response
 	GetPagedPools(context.Context, *GetPagedPoolsRequest) (*GetPagedPoolsResponse, error)
 	// ClosePool closes a pool from additional bets
 	ClosePool(context.Context, *ClosePoolRequest) (*ClosePoolResponse, error)

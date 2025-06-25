@@ -263,6 +263,13 @@ export class PoolMetadata extends Message<PoolMetadata> {
   bets: BetMetadata[] = [];
 
   /**
+   * Consolidated summary of bets made against this pool
+   *
+   * @generated from field: flipcash.pool.v1.BetSummary bet_summary = 7;
+   */
+  betSummary?: BetSummary;
+
+  /**
    * Paging token specific to each user that enables access to paging APIs
    *
    * @generated from field: flipcash.common.v1.PagingToken paging_token = 4;
@@ -296,6 +303,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 1, name: "verified_metadata", kind: "message", T: SignedPoolMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
+    { no: 7, name: "bet_summary", kind: "message", T: BetSummary },
     { no: 4, name: "paging_token", kind: "message", T: PagingToken },
     { no: 5, name: "is_funding_destination_initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "derivation_index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
@@ -401,6 +409,96 @@ export class BetOutcome extends Message<BetOutcome> {
 
   static equals(a: BetOutcome | PlainMessage<BetOutcome> | undefined, b: BetOutcome | PlainMessage<BetOutcome> | undefined): boolean {
     return proto3.util.equals(BetOutcome, a, b);
+  }
+}
+
+/**
+ * BetSummary contains a consolidated summary of bets made against a pool
+ *
+ * @generated from message flipcash.pool.v1.BetSummary
+ */
+export class BetSummary extends Message<BetSummary> {
+  /**
+   * @generated from oneof flipcash.pool.v1.BetSummary.kind
+   */
+  kind: {
+    /**
+     * The yes/no outcome the user has bet against
+     *
+     * @generated from field: flipcash.pool.v1.BetSummary.BooleanBetSummary boolean_summary = 1;
+     */
+    value: BetSummary_BooleanBetSummary;
+    case: "booleanSummary";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<BetSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.BetSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "boolean_summary", kind: "message", T: BetSummary_BooleanBetSummary, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetSummary {
+    return new BetSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BetSummary {
+    return new BetSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BetSummary {
+    return new BetSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BetSummary | PlainMessage<BetSummary> | undefined, b: BetSummary | PlainMessage<BetSummary> | undefined): boolean {
+    return proto3.util.equals(BetSummary, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.BetSummary.BooleanBetSummary
+ */
+export class BetSummary_BooleanBetSummary extends Message<BetSummary_BooleanBetSummary> {
+  /**
+   * @generated from field: uint32 num_yes = 1;
+   */
+  numYes = 0;
+
+  /**
+   * @generated from field: uint32 num_no = 2;
+   */
+  numNo = 0;
+
+  constructor(data?: PartialMessage<BetSummary_BooleanBetSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.BetSummary.BooleanBetSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_yes", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "num_no", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetSummary_BooleanBetSummary {
+    return new BetSummary_BooleanBetSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BetSummary_BooleanBetSummary {
+    return new BetSummary_BooleanBetSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BetSummary_BooleanBetSummary {
+    return new BetSummary_BooleanBetSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BetSummary_BooleanBetSummary | PlainMessage<BetSummary_BooleanBetSummary> | undefined, b: BetSummary_BooleanBetSummary | PlainMessage<BetSummary_BooleanBetSummary> | undefined): boolean {
+    return proto3.util.equals(BetSummary_BooleanBetSummary, a, b);
   }
 }
 

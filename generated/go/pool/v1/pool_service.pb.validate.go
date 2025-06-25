@@ -412,6 +412,8 @@ func (m *GetPoolRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ExcludeBets
+
 	if len(errors) > 0 {
 		return GetPoolRequestMultiError(errors)
 	}

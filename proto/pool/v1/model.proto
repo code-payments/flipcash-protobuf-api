@@ -79,6 +79,9 @@ message PoolMetadata {
         max_items: 1024
     }];
 
+    // Consolidated summary of bets made against this pool
+    BetSummary bet_summary = 7 [(validate.rules).message.required = true];
+
     // Paging token specific to each user that enables access to paging APIs
     common.v1.PagingToken paging_token = 4;
 
@@ -106,6 +109,21 @@ message BetOutcome {
 
         // The yes/no outcome the user has bet against
         bool boolean_outcome = 1;
+    }
+}
+
+// BetSummary contains a consolidated summary of bets made against a pool
+message BetSummary {
+    oneof kind {
+        option (validate.required) = true;
+
+        // The yes/no outcome the user has bet against
+        BooleanBetSummary boolean_summary = 1;
+    }
+
+    message BooleanBetSummary {
+        uint32 num_yes = 1;
+        uint32 num_no  = 2;
     }
 }
 

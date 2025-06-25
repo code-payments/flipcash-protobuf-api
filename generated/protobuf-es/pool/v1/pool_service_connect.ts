@@ -37,6 +37,8 @@ export const Pool = {
     /**
      * GetPagedPools gets all pools for a user over a paging API
      *
+     * Note: Only bet summaries are provided in the response
+     *
      * @generated from rpc flipcash.pool.v1.Pool.GetPagedPools
      */
     getPagedPools: {
