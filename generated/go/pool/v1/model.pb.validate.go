@@ -836,6 +836,8 @@ func (m *PoolMetadata) validate(all bool) error {
 
 	// no validation rules for IsFundingDestinationInitialized
 
+	// no validation rules for DerivationIndex
+
 	if len(errors) > 0 {
 		return PoolMetadataMultiError(errors)
 	}

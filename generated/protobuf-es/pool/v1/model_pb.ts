@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { FiatPaymentAmount, PagingToken, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
 
 /**
@@ -271,11 +271,19 @@ export class PoolMetadata extends Message<PoolMetadata> {
 
   /**
    * Has the funding destination been initialized? Bet payments cannot be made
-   * this has occurred.
+   * until this has occurred.
    *
    * @generated from field: bool is_funding_destination_initialized = 5;
    */
   isFundingDestinationInitialized = false;
+
+  /**
+   * Derivation index used to derive the pool account's authority. This is only
+   * valid against authenticated RPCs made by the pool creator
+   *
+   * @generated from field: uint64 derivation_index = 6;
+   */
+  derivationIndex = protoInt64.zero;
 
   constructor(data?: PartialMessage<PoolMetadata>) {
     super();
@@ -290,6 +298,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
     { no: 4, name: "paging_token", kind: "message", T: PagingToken },
     { no: 5, name: "is_funding_destination_initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "derivation_index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolMetadata {

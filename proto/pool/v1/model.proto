@@ -83,8 +83,12 @@ message PoolMetadata {
     common.v1.PagingToken paging_token = 4;
 
     // Has the funding destination been initialized? Bet payments cannot be made
-    // this has occurred.
+    // until this has occurred.
     bool is_funding_destination_initialized = 5;
+
+    // Derivation index used to derive the pool account's authority. This is only
+    // valid against authenticated RPCs made by the pool creator
+    uint64 derivation_index = 6;
 }
 
 // BetId uniquely identifies a bet via an intent ID
