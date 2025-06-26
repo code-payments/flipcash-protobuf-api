@@ -51,6 +51,9 @@ type PoolClient interface {
 	//  1. Intent ID == Bet.id
 	//  2. Payment amount == PoolMetadata.buy_in
 	//  3. Payment destination == PoolMetadata.funding_destination
+	//
+	// Bets can be changed as long as payment has not been received. Clients must
+	// use the same Bet ID when updating their bet.
 	MakeBet(ctx context.Context, in *MakeBetRequest, opts ...grpc.CallOption) (*MakeBetResponse, error)
 }
 
@@ -146,6 +149,9 @@ type PoolServer interface {
 	//  1. Intent ID == Bet.id
 	//  2. Payment amount == PoolMetadata.buy_in
 	//  3. Payment destination == PoolMetadata.funding_destination
+	//
+	// Bets can be changed as long as payment has not been received. Clients must
+	// use the same Bet ID when updating their bet.
 	MakeBet(context.Context, *MakeBetRequest) (*MakeBetResponse, error)
 	mustEmbedUnimplementedPoolServer()
 }

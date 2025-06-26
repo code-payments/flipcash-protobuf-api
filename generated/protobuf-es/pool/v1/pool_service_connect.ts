@@ -78,6 +78,8 @@ export const Pool = {
      *  1. Intent ID == Bet.id
      *  2. Payment amount == PoolMetadata.buy_in
      *  3. Payment destination == PoolMetadata.funding_destination
+     * Bets can be changed as long as payment has not been received. Clients must
+     * use the same Bet ID when updating their bet.
      *
      * @generated from rpc flipcash.pool.v1.Pool.MakeBet
      */
