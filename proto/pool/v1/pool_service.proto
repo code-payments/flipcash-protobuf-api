@@ -147,10 +147,11 @@ message MakeBetRequest {
 message MakeBetResponse {
     Result result = 1;
     enum Result {
-        OK                = 0;
-        POOL_NOT_FOUND    = 1;
-        POOL_CLOSED       = 2;
-        MULTIPLE_BETS     = 3;
-        MAX_BETS_RECEIVED = 4;
+        OK                     = 0;
+        POOL_NOT_FOUND         = 1;
+        POOL_CLOSED            = 2;
+        MULTIPLE_BETS          = 3;
+        MAX_BETS_RECEIVED      = 4;
+        BET_OUTCOME_SOLIDIFIED = 5;
     }
 }
