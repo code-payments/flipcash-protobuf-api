@@ -112,12 +112,18 @@ export enum CreatePoolResponse_Result {
    * @generated from enum value: FUNDING_DESTINATION_EXISTS = 2;
    */
   FUNDING_DESTINATION_EXISTS = 2,
+
+  /**
+   * @generated from enum value: DENIED = 3;
+   */
+  DENIED = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CreatePoolResponse_Result)
 proto3.util.setEnumType(CreatePoolResponse_Result, "flipcash.pool.v1.CreatePoolResponse.Result", [
   { no: 0, name: "OK" },
   { no: 1, name: "RENDEZVOUS_EXISTS" },
   { no: 2, name: "FUNDING_DESTINATION_EXISTS" },
+  { no: 3, name: "DENIED" },
 ]);
 
 /**
