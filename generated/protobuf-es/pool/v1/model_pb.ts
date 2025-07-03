@@ -270,6 +270,14 @@ export class PoolMetadata extends Message<PoolMetadata> {
   betSummary?: BetSummary;
 
   /**
+   * User-specific summary data related to this pool. This is provided against
+   * authenticated RPCs
+   *
+   * @generated from field: flipcash.pool.v1.UserPoolSummary user_summary = 8;
+   */
+  userSummary?: UserPoolSummary;
+
+  /**
    * Paging token specific to each user that enables access to paging APIs
    *
    * @generated from field: flipcash.common.v1.PagingToken paging_token = 4;
@@ -304,6 +312,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "bets", kind: "message", T: BetMetadata, repeated: true },
     { no: 7, name: "bet_summary", kind: "message", T: BetSummary },
+    { no: 8, name: "user_summary", kind: "message", T: UserPoolSummary },
     { no: 4, name: "paging_token", kind: "message", T: PagingToken },
     { no: 5, name: "is_funding_destination_initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "derivation_index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
@@ -423,13 +432,20 @@ export class BetSummary extends Message<BetSummary> {
    */
   kind: {
     /**
-     * The yes/no outcome the user has bet against
+     * The yes/no outcome users have bet in the pool
      *
      * @generated from field: flipcash.pool.v1.BetSummary.BooleanBetSummary boolean_summary = 1;
      */
     value: BetSummary_BooleanBetSummary;
     case: "booleanSummary";
   } | { case: undefined; value?: undefined } = { case: undefined };
+
+  /**
+   * The total fiat paid for bets against the pool
+   *
+   * @generated from field: flipcash.common.v1.FiatPaymentAmount total_amount_bet = 10;
+   */
+  totalAmountBet?: FiatPaymentAmount;
 
   constructor(data?: PartialMessage<BetSummary>) {
     super();
@@ -440,6 +456,7 @@ export class BetSummary extends Message<BetSummary> {
   static readonly typeName = "flipcash.pool.v1.BetSummary";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "boolean_summary", kind: "message", T: BetSummary_BooleanBetSummary, oneof: "kind" },
+    { no: 10, name: "total_amount_bet", kind: "message", T: FiatPaymentAmount },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetSummary {
@@ -499,6 +516,222 @@ export class BetSummary_BooleanBetSummary extends Message<BetSummary_BooleanBetS
 
   static equals(a: BetSummary_BooleanBetSummary | PlainMessage<BetSummary_BooleanBetSummary> | undefined, b: BetSummary_BooleanBetSummary | PlainMessage<BetSummary_BooleanBetSummary> | undefined): boolean {
     return proto3.util.equals(BetSummary_BooleanBetSummary, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.pool.v1.UserPoolSummary
+ */
+export class UserPoolSummary extends Message<UserPoolSummary> {
+  /**
+   * The outcome for the user for a pool
+   *
+   * @generated from oneof flipcash.pool.v1.UserPoolSummary.outcome
+   */
+  outcome: {
+    /**
+     * @generated from field: flipcash.pool.v1.UserPoolSummary.NoOutcome none = 1;
+     */
+    value: UserPoolSummary_NoOutcome;
+    case: "none";
+  } | {
+    /**
+     * @generated from field: flipcash.pool.v1.UserPoolSummary.WinOutcome win = 2;
+     */
+    value: UserPoolSummary_WinOutcome;
+    case: "win";
+  } | {
+    /**
+     * @generated from field: flipcash.pool.v1.UserPoolSummary.LoseOutcome lose = 3;
+     */
+    value: UserPoolSummary_LoseOutcome;
+    case: "lose";
+  } | {
+    /**
+     * @generated from field: flipcash.pool.v1.UserPoolSummary.RefundOutcome refund = 4;
+     */
+    value: UserPoolSummary_RefundOutcome;
+    case: "refund";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<UserPoolSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.UserPoolSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "none", kind: "message", T: UserPoolSummary_NoOutcome, oneof: "outcome" },
+    { no: 2, name: "win", kind: "message", T: UserPoolSummary_WinOutcome, oneof: "outcome" },
+    { no: 3, name: "lose", kind: "message", T: UserPoolSummary_LoseOutcome, oneof: "outcome" },
+    { no: 4, name: "refund", kind: "message", T: UserPoolSummary_RefundOutcome, oneof: "outcome" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary {
+    return new UserPoolSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserPoolSummary {
+    return new UserPoolSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserPoolSummary {
+    return new UserPoolSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserPoolSummary | PlainMessage<UserPoolSummary> | undefined, b: UserPoolSummary | PlainMessage<UserPoolSummary> | undefined): boolean {
+    return proto3.util.equals(UserPoolSummary, a, b);
+  }
+}
+
+/**
+ * Pool isn't resolved, so no user outcome is available
+ *
+ * @generated from message flipcash.pool.v1.UserPoolSummary.NoOutcome
+ */
+export class UserPoolSummary_NoOutcome extends Message<UserPoolSummary_NoOutcome> {
+  constructor(data?: PartialMessage<UserPoolSummary_NoOutcome>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.UserPoolSummary.NoOutcome";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary_NoOutcome {
+    return new UserPoolSummary_NoOutcome().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserPoolSummary_NoOutcome {
+    return new UserPoolSummary_NoOutcome().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserPoolSummary_NoOutcome {
+    return new UserPoolSummary_NoOutcome().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserPoolSummary_NoOutcome | PlainMessage<UserPoolSummary_NoOutcome> | undefined, b: UserPoolSummary_NoOutcome | PlainMessage<UserPoolSummary_NoOutcome> | undefined): boolean {
+    return proto3.util.equals(UserPoolSummary_NoOutcome, a, b);
+  }
+}
+
+/**
+ * User is a winner in the pool
+ *
+ * @generated from message flipcash.pool.v1.UserPoolSummary.WinOutcome
+ */
+export class UserPoolSummary_WinOutcome extends Message<UserPoolSummary_WinOutcome> {
+  /**
+   * @generated from field: flipcash.common.v1.FiatPaymentAmount amount_won = 1;
+   */
+  amountWon?: FiatPaymentAmount;
+
+  constructor(data?: PartialMessage<UserPoolSummary_WinOutcome>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.UserPoolSummary.WinOutcome";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "amount_won", kind: "message", T: FiatPaymentAmount },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary_WinOutcome {
+    return new UserPoolSummary_WinOutcome().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserPoolSummary_WinOutcome {
+    return new UserPoolSummary_WinOutcome().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserPoolSummary_WinOutcome {
+    return new UserPoolSummary_WinOutcome().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserPoolSummary_WinOutcome | PlainMessage<UserPoolSummary_WinOutcome> | undefined, b: UserPoolSummary_WinOutcome | PlainMessage<UserPoolSummary_WinOutcome> | undefined): boolean {
+    return proto3.util.equals(UserPoolSummary_WinOutcome, a, b);
+  }
+}
+
+/**
+ * User is a loser in the pool
+ *
+ * @generated from message flipcash.pool.v1.UserPoolSummary.LoseOutcome
+ */
+export class UserPoolSummary_LoseOutcome extends Message<UserPoolSummary_LoseOutcome> {
+  /**
+   * @generated from field: flipcash.common.v1.FiatPaymentAmount amount_lost = 1;
+   */
+  amountLost?: FiatPaymentAmount;
+
+  constructor(data?: PartialMessage<UserPoolSummary_LoseOutcome>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.UserPoolSummary.LoseOutcome";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "amount_lost", kind: "message", T: FiatPaymentAmount },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary_LoseOutcome {
+    return new UserPoolSummary_LoseOutcome().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserPoolSummary_LoseOutcome {
+    return new UserPoolSummary_LoseOutcome().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserPoolSummary_LoseOutcome {
+    return new UserPoolSummary_LoseOutcome().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserPoolSummary_LoseOutcome | PlainMessage<UserPoolSummary_LoseOutcome> | undefined, b: UserPoolSummary_LoseOutcome | PlainMessage<UserPoolSummary_LoseOutcome> | undefined): boolean {
+    return proto3.util.equals(UserPoolSummary_LoseOutcome, a, b);
+  }
+}
+
+/**
+ * User was refunded
+ *
+ * @generated from message flipcash.pool.v1.UserPoolSummary.RefundOutcome
+ */
+export class UserPoolSummary_RefundOutcome extends Message<UserPoolSummary_RefundOutcome> {
+  /**
+   * @generated from field: flipcash.common.v1.FiatPaymentAmount amount_refunded = 1;
+   */
+  amountRefunded?: FiatPaymentAmount;
+
+  constructor(data?: PartialMessage<UserPoolSummary_RefundOutcome>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.pool.v1.UserPoolSummary.RefundOutcome";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "amount_refunded", kind: "message", T: FiatPaymentAmount },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary_RefundOutcome {
+    return new UserPoolSummary_RefundOutcome().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserPoolSummary_RefundOutcome {
+    return new UserPoolSummary_RefundOutcome().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserPoolSummary_RefundOutcome {
+    return new UserPoolSummary_RefundOutcome().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserPoolSummary_RefundOutcome | PlainMessage<UserPoolSummary_RefundOutcome> | undefined, b: UserPoolSummary_RefundOutcome | PlainMessage<UserPoolSummary_RefundOutcome> | undefined): boolean {
+    return proto3.util.equals(UserPoolSummary_RefundOutcome, a, b);
   }
 }
 

@@ -846,6 +846,35 @@ func (m *PoolMetadata) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetUserSummary()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "UserSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "UserSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserSummary()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolMetadataValidationError{
+				field:  "UserSummary",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetPagingToken()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -1214,6 +1243,46 @@ func (m *BetSummary) validate(all bool) error {
 
 	var errors []error
 
+	if m.GetTotalAmountBet() == nil {
+		err := BetSummaryValidationError{
+			field:  "TotalAmountBet",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTotalAmountBet()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BetSummaryValidationError{
+					field:  "TotalAmountBet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BetSummaryValidationError{
+					field:  "TotalAmountBet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTotalAmountBet()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BetSummaryValidationError{
+				field:  "TotalAmountBet",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	oneofKindPresent := false
 	switch v := m.Kind.(type) {
 	case *BetSummary_BooleanSummary:
@@ -1348,6 +1417,290 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = BetSummaryValidationError{}
+
+// Validate checks the field values on UserPoolSummary with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UserPoolSummary) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPoolSummary with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPoolSummaryMultiError, or nil if none found.
+func (m *UserPoolSummary) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPoolSummary) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofOutcomePresent := false
+	switch v := m.Outcome.(type) {
+	case *UserPoolSummary_None:
+		if v == nil {
+			err := UserPoolSummaryValidationError{
+				field:  "Outcome",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOutcomePresent = true
+
+		if all {
+			switch v := interface{}(m.GetNone()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "None",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "None",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetNone()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserPoolSummaryValidationError{
+					field:  "None",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UserPoolSummary_Win:
+		if v == nil {
+			err := UserPoolSummaryValidationError{
+				field:  "Outcome",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOutcomePresent = true
+
+		if all {
+			switch v := interface{}(m.GetWin()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Win",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Win",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWin()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserPoolSummaryValidationError{
+					field:  "Win",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UserPoolSummary_Lose:
+		if v == nil {
+			err := UserPoolSummaryValidationError{
+				field:  "Outcome",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOutcomePresent = true
+
+		if all {
+			switch v := interface{}(m.GetLose()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Lose",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Lose",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetLose()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserPoolSummaryValidationError{
+					field:  "Lose",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UserPoolSummary_Refund:
+		if v == nil {
+			err := UserPoolSummaryValidationError{
+				field:  "Outcome",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofOutcomePresent = true
+
+		if all {
+			switch v := interface{}(m.GetRefund()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Refund",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserPoolSummaryValidationError{
+						field:  "Refund",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRefund()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserPoolSummaryValidationError{
+					field:  "Refund",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofOutcomePresent {
+		err := UserPoolSummaryValidationError{
+			field:  "Outcome",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UserPoolSummaryMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPoolSummaryMultiError is an error wrapping multiple validation errors
+// returned by UserPoolSummary.ValidateAll() if the designated constraints
+// aren't met.
+type UserPoolSummaryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPoolSummaryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPoolSummaryMultiError) AllErrors() []error { return m }
+
+// UserPoolSummaryValidationError is the validation error returned by
+// UserPoolSummary.Validate if the designated constraints aren't met.
+type UserPoolSummaryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPoolSummaryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPoolSummaryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPoolSummaryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPoolSummaryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPoolSummaryValidationError) ErrorName() string { return "UserPoolSummaryValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserPoolSummaryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPoolSummary.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPoolSummaryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPoolSummaryValidationError{}
 
 // Validate checks the field values on SignedBetMetadata with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -2011,3 +2364,533 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = BetSummary_BooleanBetSummaryValidationError{}
+
+// Validate checks the field values on UserPoolSummary_NoOutcome with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UserPoolSummary_NoOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPoolSummary_NoOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPoolSummary_NoOutcomeMultiError, or nil if none found.
+func (m *UserPoolSummary_NoOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPoolSummary_NoOutcome) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return UserPoolSummary_NoOutcomeMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPoolSummary_NoOutcomeMultiError is an error wrapping multiple validation
+// errors returned by UserPoolSummary_NoOutcome.ValidateAll() if the
+// designated constraints aren't met.
+type UserPoolSummary_NoOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPoolSummary_NoOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPoolSummary_NoOutcomeMultiError) AllErrors() []error { return m }
+
+// UserPoolSummary_NoOutcomeValidationError is the validation error returned by
+// UserPoolSummary_NoOutcome.Validate if the designated constraints aren't met.
+type UserPoolSummary_NoOutcomeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPoolSummary_NoOutcomeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPoolSummary_NoOutcomeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPoolSummary_NoOutcomeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPoolSummary_NoOutcomeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPoolSummary_NoOutcomeValidationError) ErrorName() string {
+	return "UserPoolSummary_NoOutcomeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPoolSummary_NoOutcomeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPoolSummary_NoOutcome.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPoolSummary_NoOutcomeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPoolSummary_NoOutcomeValidationError{}
+
+// Validate checks the field values on UserPoolSummary_WinOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UserPoolSummary_WinOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPoolSummary_WinOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPoolSummary_WinOutcomeMultiError, or nil if none found.
+func (m *UserPoolSummary_WinOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPoolSummary_WinOutcome) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetAmountWon() == nil {
+		err := UserPoolSummary_WinOutcomeValidationError{
+			field:  "AmountWon",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAmountWon()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserPoolSummary_WinOutcomeValidationError{
+					field:  "AmountWon",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserPoolSummary_WinOutcomeValidationError{
+					field:  "AmountWon",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAmountWon()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserPoolSummary_WinOutcomeValidationError{
+				field:  "AmountWon",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UserPoolSummary_WinOutcomeMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPoolSummary_WinOutcomeMultiError is an error wrapping multiple
+// validation errors returned by UserPoolSummary_WinOutcome.ValidateAll() if
+// the designated constraints aren't met.
+type UserPoolSummary_WinOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPoolSummary_WinOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPoolSummary_WinOutcomeMultiError) AllErrors() []error { return m }
+
+// UserPoolSummary_WinOutcomeValidationError is the validation error returned
+// by UserPoolSummary_WinOutcome.Validate if the designated constraints aren't met.
+type UserPoolSummary_WinOutcomeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPoolSummary_WinOutcomeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPoolSummary_WinOutcomeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPoolSummary_WinOutcomeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPoolSummary_WinOutcomeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPoolSummary_WinOutcomeValidationError) ErrorName() string {
+	return "UserPoolSummary_WinOutcomeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPoolSummary_WinOutcomeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPoolSummary_WinOutcome.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPoolSummary_WinOutcomeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPoolSummary_WinOutcomeValidationError{}
+
+// Validate checks the field values on UserPoolSummary_LoseOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UserPoolSummary_LoseOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPoolSummary_LoseOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPoolSummary_LoseOutcomeMultiError, or nil if none found.
+func (m *UserPoolSummary_LoseOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPoolSummary_LoseOutcome) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetAmountLost() == nil {
+		err := UserPoolSummary_LoseOutcomeValidationError{
+			field:  "AmountLost",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAmountLost()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserPoolSummary_LoseOutcomeValidationError{
+					field:  "AmountLost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserPoolSummary_LoseOutcomeValidationError{
+					field:  "AmountLost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAmountLost()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserPoolSummary_LoseOutcomeValidationError{
+				field:  "AmountLost",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UserPoolSummary_LoseOutcomeMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPoolSummary_LoseOutcomeMultiError is an error wrapping multiple
+// validation errors returned by UserPoolSummary_LoseOutcome.ValidateAll() if
+// the designated constraints aren't met.
+type UserPoolSummary_LoseOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPoolSummary_LoseOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPoolSummary_LoseOutcomeMultiError) AllErrors() []error { return m }
+
+// UserPoolSummary_LoseOutcomeValidationError is the validation error returned
+// by UserPoolSummary_LoseOutcome.Validate if the designated constraints
+// aren't met.
+type UserPoolSummary_LoseOutcomeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPoolSummary_LoseOutcomeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPoolSummary_LoseOutcomeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPoolSummary_LoseOutcomeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPoolSummary_LoseOutcomeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPoolSummary_LoseOutcomeValidationError) ErrorName() string {
+	return "UserPoolSummary_LoseOutcomeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPoolSummary_LoseOutcomeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPoolSummary_LoseOutcome.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPoolSummary_LoseOutcomeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPoolSummary_LoseOutcomeValidationError{}
+
+// Validate checks the field values on UserPoolSummary_RefundOutcome with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UserPoolSummary_RefundOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPoolSummary_RefundOutcome with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// UserPoolSummary_RefundOutcomeMultiError, or nil if none found.
+func (m *UserPoolSummary_RefundOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPoolSummary_RefundOutcome) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetAmountRefunded() == nil {
+		err := UserPoolSummary_RefundOutcomeValidationError{
+			field:  "AmountRefunded",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAmountRefunded()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserPoolSummary_RefundOutcomeValidationError{
+					field:  "AmountRefunded",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserPoolSummary_RefundOutcomeValidationError{
+					field:  "AmountRefunded",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAmountRefunded()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserPoolSummary_RefundOutcomeValidationError{
+				field:  "AmountRefunded",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UserPoolSummary_RefundOutcomeMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPoolSummary_RefundOutcomeMultiError is an error wrapping multiple
+// validation errors returned by UserPoolSummary_RefundOutcome.ValidateAll()
+// if the designated constraints aren't met.
+type UserPoolSummary_RefundOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPoolSummary_RefundOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPoolSummary_RefundOutcomeMultiError) AllErrors() []error { return m }
+
+// UserPoolSummary_RefundOutcomeValidationError is the validation error
+// returned by UserPoolSummary_RefundOutcome.Validate if the designated
+// constraints aren't met.
+type UserPoolSummary_RefundOutcomeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPoolSummary_RefundOutcomeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPoolSummary_RefundOutcomeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPoolSummary_RefundOutcomeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPoolSummary_RefundOutcomeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPoolSummary_RefundOutcomeValidationError) ErrorName() string {
+	return "UserPoolSummary_RefundOutcomeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPoolSummary_RefundOutcomeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPoolSummary_RefundOutcome.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPoolSummary_RefundOutcomeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPoolSummary_RefundOutcomeValidationError{}
