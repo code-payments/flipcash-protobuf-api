@@ -663,10 +663,10 @@ func (m *UsdcPaymentAmount) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetNativeAmount() <= 0 {
+	if m.GetNativeAmount() < 0 {
 		err := UsdcPaymentAmountValidationError{
 			field:  "NativeAmount",
-			reason: "value must be greater than 0",
+			reason: "value must be greater than or equal to 0",
 		}
 		if !all {
 			return err
@@ -674,16 +674,7 @@ func (m *UsdcPaymentAmount) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetQuarks() <= 0 {
-		err := UsdcPaymentAmountValidationError{
-			field:  "Quarks",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Quarks
 
 	if len(errors) > 0 {
 		return UsdcPaymentAmountMultiError(errors)
@@ -800,10 +791,10 @@ func (m *FiatPaymentAmount) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetNativeAmount() <= 0 {
+	if m.GetNativeAmount() < 0 {
 		err := FiatPaymentAmountValidationError{
 			field:  "NativeAmount",
-			reason: "value must be greater than 0",
+			reason: "value must be greater than or equal to 0",
 		}
 		if !all {
 			return err
