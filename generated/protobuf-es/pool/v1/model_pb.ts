@@ -8,6 +8,54 @@ import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { FiatPaymentAmount, PagingToken, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
 
 /**
+ * UserOutcome is an enum of states for user outcomes in a pool
+ *
+ * @generated from enum flipcash.pool.v1.UserOutcome
+ */
+export enum UserOutcome {
+  /**
+   * @generated from enum value: UNKNOWN_OUTCOE = 0;
+   */
+  UNKNOWN_OUTCOE = 0,
+
+  /**
+   * Pool isn't resolved, so no user outcome is available
+   *
+   * @generated from enum value: NO_OUTCOME = 1;
+   */
+  NO_OUTCOME = 1,
+
+  /**
+   * User is a winner in the pool
+   *
+   * @generated from enum value: WIN_OUTCOME = 2;
+   */
+  WIN_OUTCOME = 2,
+
+  /**
+   * User is a loser in the pool
+   *
+   * @generated from enum value: LOSE_OUTCOME = 3;
+   */
+  LOSE_OUTCOME = 3,
+
+  /**
+   * User was refunded
+   *
+   * @generated from enum value: REFUND_OUTCOME = 4;
+   */
+  REFUND_OUTCOME = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserOutcome)
+proto3.util.setEnumType(UserOutcome, "flipcash.pool.v1.UserOutcome", [
+  { no: 0, name: "UNKNOWN_OUTCOE" },
+  { no: 1, name: "NO_OUTCOME" },
+  { no: 2, name: "WIN_OUTCOME" },
+  { no: 3, name: "LOSE_OUTCOME" },
+  { no: 4, name: "REFUND_OUTCOME" },
+]);
+
+/**
  * PoolId uniquely identifies a pool via a rendezvous public key
  *
  * @generated from message flipcash.pool.v1.PoolId

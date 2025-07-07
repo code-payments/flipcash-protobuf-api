@@ -23,6 +23,66 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// UserOutcome is an enum of states for user outcomes in a pool
+type UserOutcome int32
+
+const (
+	UserOutcome_UNKNOWN_OUTCOE UserOutcome = 0
+	// Pool isn't resolved, so no user outcome is available
+	UserOutcome_NO_OUTCOME UserOutcome = 1
+	// User is a winner in the pool
+	UserOutcome_WIN_OUTCOME UserOutcome = 2
+	// User is a loser in the pool
+	UserOutcome_LOSE_OUTCOME UserOutcome = 3
+	// User was refunded
+	UserOutcome_REFUND_OUTCOME UserOutcome = 4
+)
+
+// Enum value maps for UserOutcome.
+var (
+	UserOutcome_name = map[int32]string{
+		0: "UNKNOWN_OUTCOE",
+		1: "NO_OUTCOME",
+		2: "WIN_OUTCOME",
+		3: "LOSE_OUTCOME",
+		4: "REFUND_OUTCOME",
+	}
+	UserOutcome_value = map[string]int32{
+		"UNKNOWN_OUTCOE": 0,
+		"NO_OUTCOME":     1,
+		"WIN_OUTCOME":    2,
+		"LOSE_OUTCOME":   3,
+		"REFUND_OUTCOME": 4,
+	}
+)
+
+func (x UserOutcome) Enum() *UserOutcome {
+	p := new(UserOutcome)
+	*p = x
+	return p
+}
+
+func (x UserOutcome) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (UserOutcome) Descriptor() protoreflect.EnumDescriptor {
+	return file_pool_v1_model_proto_enumTypes[0].Descriptor()
+}
+
+func (UserOutcome) Type() protoreflect.EnumType {
+	return &file_pool_v1_model_proto_enumTypes[0]
+}
+
+func (x UserOutcome) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use UserOutcome.Descriptor instead.
+func (UserOutcome) EnumDescriptor() ([]byte, []int) {
+	return file_pool_v1_model_proto_rawDescGZIP(), []int{0}
+}
+
 // PoolId uniquely identifies a pool via a rendezvous public key
 type PoolId struct {
 	state         protoimpl.MessageState
@@ -1288,15 +1348,22 @@ var file_pool_v1_model_proto_rawDesc = []byte{
 	0x75, 0x72, 0x65, 0x12, 0x2e, 0x0a, 0x13, 0x69, 0x73, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x6e, 0x74,
 	0x5f, 0x73, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x74, 0x65, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08,
 	0x52, 0x11, 0x69, 0x73, 0x49, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74,
-	0x74, 0x65, 0x64, 0x42, 0x7a, 0x0a, 0x20, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x69,
-	0x6e, 0x63, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x63, 0x61, 0x73, 0x68, 0x2e, 0x67, 0x65, 0x6e, 0x2e,
-	0x70, 0x6f, 0x6f, 0x6c, 0x2e, 0x76, 0x31, 0x5a, 0x4a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x64, 0x65, 0x2d, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74,
-	0x73, 0x2f, 0x66, 0x6c, 0x69, 0x70, 0x63, 0x61, 0x73, 0x68, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x62, 0x75, 0x66, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
-	0x64, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x2f, 0x76, 0x31, 0x3b, 0x70, 0x6f, 0x6f,
-	0x6c, 0x70, 0x62, 0xa2, 0x02, 0x09, 0x46, 0x50, 0x42, 0x50, 0x6f, 0x6f, 0x6c, 0x56, 0x31, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x65, 0x64, 0x2a, 0x68, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x4f, 0x75, 0x74, 0x63, 0x6f,
+	0x6d, 0x65, 0x12, 0x12, 0x0a, 0x0e, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x5f, 0x4f, 0x55,
+	0x54, 0x43, 0x4f, 0x45, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x4e, 0x4f, 0x5f, 0x4f, 0x55, 0x54,
+	0x43, 0x4f, 0x4d, 0x45, 0x10, 0x01, 0x12, 0x0f, 0x0a, 0x0b, 0x57, 0x49, 0x4e, 0x5f, 0x4f, 0x55,
+	0x54, 0x43, 0x4f, 0x4d, 0x45, 0x10, 0x02, 0x12, 0x10, 0x0a, 0x0c, 0x4c, 0x4f, 0x53, 0x45, 0x5f,
+	0x4f, 0x55, 0x54, 0x43, 0x4f, 0x4d, 0x45, 0x10, 0x03, 0x12, 0x12, 0x0a, 0x0e, 0x52, 0x45, 0x46,
+	0x55, 0x4e, 0x44, 0x5f, 0x4f, 0x55, 0x54, 0x43, 0x4f, 0x4d, 0x45, 0x10, 0x04, 0x42, 0x7a, 0x0a,
+	0x20, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x69, 0x6e, 0x63, 0x2e, 0x66, 0x6c, 0x69,
+	0x70, 0x63, 0x61, 0x73, 0x68, 0x2e, 0x67, 0x65, 0x6e, 0x2e, 0x70, 0x6f, 0x6f, 0x6c, 0x2e, 0x76,
+	0x31, 0x5a, 0x4a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f,
+	0x64, 0x65, 0x2d, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x2f, 0x66, 0x6c, 0x69, 0x70,
+	0x63, 0x61, 0x73, 0x68, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2d, 0x61, 0x70,
+	0x69, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x67, 0x6f, 0x2f, 0x70,
+	0x6f, 0x6f, 0x6c, 0x2f, 0x76, 0x31, 0x3b, 0x70, 0x6f, 0x6f, 0x6c, 0x70, 0x62, 0xa2, 0x02, 0x09,
+	0x46, 0x50, 0x42, 0x50, 0x6f, 0x6f, 0x6c, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -1311,62 +1378,64 @@ func file_pool_v1_model_proto_rawDescGZIP() []byte {
 	return file_pool_v1_model_proto_rawDescData
 }
 
+var file_pool_v1_model_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_pool_v1_model_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_pool_v1_model_proto_goTypes = []any{
-	(*PoolId)(nil),                        // 0: flipcash.pool.v1.PoolId
-	(*Resolution)(nil),                    // 1: flipcash.pool.v1.Resolution
-	(*SignedPoolMetadata)(nil),            // 2: flipcash.pool.v1.SignedPoolMetadata
-	(*PoolMetadata)(nil),                  // 3: flipcash.pool.v1.PoolMetadata
-	(*BetId)(nil),                         // 4: flipcash.pool.v1.BetId
-	(*BetOutcome)(nil),                    // 5: flipcash.pool.v1.BetOutcome
-	(*BetSummary)(nil),                    // 6: flipcash.pool.v1.BetSummary
-	(*UserPoolSummary)(nil),               // 7: flipcash.pool.v1.UserPoolSummary
-	(*SignedBetMetadata)(nil),             // 8: flipcash.pool.v1.SignedBetMetadata
-	(*BetMetadata)(nil),                   // 9: flipcash.pool.v1.BetMetadata
-	(*Resolution_Refund)(nil),             // 10: flipcash.pool.v1.Resolution.Refund
-	(*BetSummary_BooleanBetSummary)(nil),  // 11: flipcash.pool.v1.BetSummary.BooleanBetSummary
-	(*UserPoolSummary_NoOutcome)(nil),     // 12: flipcash.pool.v1.UserPoolSummary.NoOutcome
-	(*UserPoolSummary_WinOutcome)(nil),    // 13: flipcash.pool.v1.UserPoolSummary.WinOutcome
-	(*UserPoolSummary_LoseOutcome)(nil),   // 14: flipcash.pool.v1.UserPoolSummary.LoseOutcome
-	(*UserPoolSummary_RefundOutcome)(nil), // 15: flipcash.pool.v1.UserPoolSummary.RefundOutcome
-	(*v1.UserId)(nil),                     // 16: flipcash.common.v1.UserId
-	(*v1.FiatPaymentAmount)(nil),          // 17: flipcash.common.v1.FiatPaymentAmount
-	(*v1.PublicKey)(nil),                  // 18: flipcash.common.v1.PublicKey
-	(*timestamppb.Timestamp)(nil),         // 19: google.protobuf.Timestamp
-	(*v1.Signature)(nil),                  // 20: flipcash.common.v1.Signature
-	(*v1.PagingToken)(nil),                // 21: flipcash.common.v1.PagingToken
+	(UserOutcome)(0),                      // 0: flipcash.pool.v1.UserOutcome
+	(*PoolId)(nil),                        // 1: flipcash.pool.v1.PoolId
+	(*Resolution)(nil),                    // 2: flipcash.pool.v1.Resolution
+	(*SignedPoolMetadata)(nil),            // 3: flipcash.pool.v1.SignedPoolMetadata
+	(*PoolMetadata)(nil),                  // 4: flipcash.pool.v1.PoolMetadata
+	(*BetId)(nil),                         // 5: flipcash.pool.v1.BetId
+	(*BetOutcome)(nil),                    // 6: flipcash.pool.v1.BetOutcome
+	(*BetSummary)(nil),                    // 7: flipcash.pool.v1.BetSummary
+	(*UserPoolSummary)(nil),               // 8: flipcash.pool.v1.UserPoolSummary
+	(*SignedBetMetadata)(nil),             // 9: flipcash.pool.v1.SignedBetMetadata
+	(*BetMetadata)(nil),                   // 10: flipcash.pool.v1.BetMetadata
+	(*Resolution_Refund)(nil),             // 11: flipcash.pool.v1.Resolution.Refund
+	(*BetSummary_BooleanBetSummary)(nil),  // 12: flipcash.pool.v1.BetSummary.BooleanBetSummary
+	(*UserPoolSummary_NoOutcome)(nil),     // 13: flipcash.pool.v1.UserPoolSummary.NoOutcome
+	(*UserPoolSummary_WinOutcome)(nil),    // 14: flipcash.pool.v1.UserPoolSummary.WinOutcome
+	(*UserPoolSummary_LoseOutcome)(nil),   // 15: flipcash.pool.v1.UserPoolSummary.LoseOutcome
+	(*UserPoolSummary_RefundOutcome)(nil), // 16: flipcash.pool.v1.UserPoolSummary.RefundOutcome
+	(*v1.UserId)(nil),                     // 17: flipcash.common.v1.UserId
+	(*v1.FiatPaymentAmount)(nil),          // 18: flipcash.common.v1.FiatPaymentAmount
+	(*v1.PublicKey)(nil),                  // 19: flipcash.common.v1.PublicKey
+	(*timestamppb.Timestamp)(nil),         // 20: google.protobuf.Timestamp
+	(*v1.Signature)(nil),                  // 21: flipcash.common.v1.Signature
+	(*v1.PagingToken)(nil),                // 22: flipcash.common.v1.PagingToken
 }
 var file_pool_v1_model_proto_depIdxs = []int32{
-	10, // 0: flipcash.pool.v1.Resolution.refund_resolution:type_name -> flipcash.pool.v1.Resolution.Refund
-	0,  // 1: flipcash.pool.v1.SignedPoolMetadata.id:type_name -> flipcash.pool.v1.PoolId
-	16, // 2: flipcash.pool.v1.SignedPoolMetadata.creator:type_name -> flipcash.common.v1.UserId
-	17, // 3: flipcash.pool.v1.SignedPoolMetadata.buy_in:type_name -> flipcash.common.v1.FiatPaymentAmount
-	18, // 4: flipcash.pool.v1.SignedPoolMetadata.funding_destination:type_name -> flipcash.common.v1.PublicKey
-	1,  // 5: flipcash.pool.v1.SignedPoolMetadata.resolution:type_name -> flipcash.pool.v1.Resolution
-	19, // 6: flipcash.pool.v1.SignedPoolMetadata.created_at:type_name -> google.protobuf.Timestamp
-	19, // 7: flipcash.pool.v1.SignedPoolMetadata.closed_at:type_name -> google.protobuf.Timestamp
-	2,  // 8: flipcash.pool.v1.PoolMetadata.verified_metadata:type_name -> flipcash.pool.v1.SignedPoolMetadata
-	20, // 9: flipcash.pool.v1.PoolMetadata.rendezvous_signature:type_name -> flipcash.common.v1.Signature
-	9,  // 10: flipcash.pool.v1.PoolMetadata.bets:type_name -> flipcash.pool.v1.BetMetadata
-	6,  // 11: flipcash.pool.v1.PoolMetadata.bet_summary:type_name -> flipcash.pool.v1.BetSummary
-	7,  // 12: flipcash.pool.v1.PoolMetadata.user_summary:type_name -> flipcash.pool.v1.UserPoolSummary
-	21, // 13: flipcash.pool.v1.PoolMetadata.paging_token:type_name -> flipcash.common.v1.PagingToken
-	11, // 14: flipcash.pool.v1.BetSummary.boolean_summary:type_name -> flipcash.pool.v1.BetSummary.BooleanBetSummary
-	17, // 15: flipcash.pool.v1.BetSummary.total_amount_bet:type_name -> flipcash.common.v1.FiatPaymentAmount
-	12, // 16: flipcash.pool.v1.UserPoolSummary.none:type_name -> flipcash.pool.v1.UserPoolSummary.NoOutcome
-	13, // 17: flipcash.pool.v1.UserPoolSummary.win:type_name -> flipcash.pool.v1.UserPoolSummary.WinOutcome
-	14, // 18: flipcash.pool.v1.UserPoolSummary.lose:type_name -> flipcash.pool.v1.UserPoolSummary.LoseOutcome
-	15, // 19: flipcash.pool.v1.UserPoolSummary.refund:type_name -> flipcash.pool.v1.UserPoolSummary.RefundOutcome
-	4,  // 20: flipcash.pool.v1.SignedBetMetadata.bet_id:type_name -> flipcash.pool.v1.BetId
-	16, // 21: flipcash.pool.v1.SignedBetMetadata.user_id:type_name -> flipcash.common.v1.UserId
-	5,  // 22: flipcash.pool.v1.SignedBetMetadata.selected_outcome:type_name -> flipcash.pool.v1.BetOutcome
-	18, // 23: flipcash.pool.v1.SignedBetMetadata.payout_destination:type_name -> flipcash.common.v1.PublicKey
-	19, // 24: flipcash.pool.v1.SignedBetMetadata.ts:type_name -> google.protobuf.Timestamp
-	8,  // 25: flipcash.pool.v1.BetMetadata.verified_metadata:type_name -> flipcash.pool.v1.SignedBetMetadata
-	20, // 26: flipcash.pool.v1.BetMetadata.rendezvous_signature:type_name -> flipcash.common.v1.Signature
-	17, // 27: flipcash.pool.v1.UserPoolSummary.WinOutcome.amount_won:type_name -> flipcash.common.v1.FiatPaymentAmount
-	17, // 28: flipcash.pool.v1.UserPoolSummary.LoseOutcome.amount_lost:type_name -> flipcash.common.v1.FiatPaymentAmount
-	17, // 29: flipcash.pool.v1.UserPoolSummary.RefundOutcome.amount_refunded:type_name -> flipcash.common.v1.FiatPaymentAmount
+	11, // 0: flipcash.pool.v1.Resolution.refund_resolution:type_name -> flipcash.pool.v1.Resolution.Refund
+	1,  // 1: flipcash.pool.v1.SignedPoolMetadata.id:type_name -> flipcash.pool.v1.PoolId
+	17, // 2: flipcash.pool.v1.SignedPoolMetadata.creator:type_name -> flipcash.common.v1.UserId
+	18, // 3: flipcash.pool.v1.SignedPoolMetadata.buy_in:type_name -> flipcash.common.v1.FiatPaymentAmount
+	19, // 4: flipcash.pool.v1.SignedPoolMetadata.funding_destination:type_name -> flipcash.common.v1.PublicKey
+	2,  // 5: flipcash.pool.v1.SignedPoolMetadata.resolution:type_name -> flipcash.pool.v1.Resolution
+	20, // 6: flipcash.pool.v1.SignedPoolMetadata.created_at:type_name -> google.protobuf.Timestamp
+	20, // 7: flipcash.pool.v1.SignedPoolMetadata.closed_at:type_name -> google.protobuf.Timestamp
+	3,  // 8: flipcash.pool.v1.PoolMetadata.verified_metadata:type_name -> flipcash.pool.v1.SignedPoolMetadata
+	21, // 9: flipcash.pool.v1.PoolMetadata.rendezvous_signature:type_name -> flipcash.common.v1.Signature
+	10, // 10: flipcash.pool.v1.PoolMetadata.bets:type_name -> flipcash.pool.v1.BetMetadata
+	7,  // 11: flipcash.pool.v1.PoolMetadata.bet_summary:type_name -> flipcash.pool.v1.BetSummary
+	8,  // 12: flipcash.pool.v1.PoolMetadata.user_summary:type_name -> flipcash.pool.v1.UserPoolSummary
+	22, // 13: flipcash.pool.v1.PoolMetadata.paging_token:type_name -> flipcash.common.v1.PagingToken
+	12, // 14: flipcash.pool.v1.BetSummary.boolean_summary:type_name -> flipcash.pool.v1.BetSummary.BooleanBetSummary
+	18, // 15: flipcash.pool.v1.BetSummary.total_amount_bet:type_name -> flipcash.common.v1.FiatPaymentAmount
+	13, // 16: flipcash.pool.v1.UserPoolSummary.none:type_name -> flipcash.pool.v1.UserPoolSummary.NoOutcome
+	14, // 17: flipcash.pool.v1.UserPoolSummary.win:type_name -> flipcash.pool.v1.UserPoolSummary.WinOutcome
+	15, // 18: flipcash.pool.v1.UserPoolSummary.lose:type_name -> flipcash.pool.v1.UserPoolSummary.LoseOutcome
+	16, // 19: flipcash.pool.v1.UserPoolSummary.refund:type_name -> flipcash.pool.v1.UserPoolSummary.RefundOutcome
+	5,  // 20: flipcash.pool.v1.SignedBetMetadata.bet_id:type_name -> flipcash.pool.v1.BetId
+	17, // 21: flipcash.pool.v1.SignedBetMetadata.user_id:type_name -> flipcash.common.v1.UserId
+	6,  // 22: flipcash.pool.v1.SignedBetMetadata.selected_outcome:type_name -> flipcash.pool.v1.BetOutcome
+	19, // 23: flipcash.pool.v1.SignedBetMetadata.payout_destination:type_name -> flipcash.common.v1.PublicKey
+	20, // 24: flipcash.pool.v1.SignedBetMetadata.ts:type_name -> google.protobuf.Timestamp
+	9,  // 25: flipcash.pool.v1.BetMetadata.verified_metadata:type_name -> flipcash.pool.v1.SignedBetMetadata
+	21, // 26: flipcash.pool.v1.BetMetadata.rendezvous_signature:type_name -> flipcash.common.v1.Signature
+	18, // 27: flipcash.pool.v1.UserPoolSummary.WinOutcome.amount_won:type_name -> flipcash.common.v1.FiatPaymentAmount
+	18, // 28: flipcash.pool.v1.UserPoolSummary.LoseOutcome.amount_lost:type_name -> flipcash.common.v1.FiatPaymentAmount
+	18, // 29: flipcash.pool.v1.UserPoolSummary.RefundOutcome.amount_refunded:type_name -> flipcash.common.v1.FiatPaymentAmount
 	30, // [30:30] is the sub-list for method output_type
 	30, // [30:30] is the sub-list for method input_type
 	30, // [30:30] is the sub-list for extension type_name
@@ -1400,13 +1469,14 @@ func file_pool_v1_model_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pool_v1_model_proto_rawDesc,
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_pool_v1_model_proto_goTypes,
 		DependencyIndexes: file_pool_v1_model_proto_depIdxs,
+		EnumInfos:         file_pool_v1_model_proto_enumTypes,
 		MessageInfos:      file_pool_v1_model_proto_msgTypes,
 	}.Build()
 	File_pool_v1_model_proto = out.File

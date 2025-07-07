@@ -41,13 +41,14 @@ message Notification {
 
     // Additional metadata for this notification specific to the notification
     oneof additional_metadata {
-        WelcomeBonusNotificationMetadata  welcome_bonus  = 5;
-        GaveUsdcNotificationMetadata      gave_usdc      = 6;
-        ReceivedUsdcNotificationMetadata  received_usdc  = 7;
-        WithdrewUsdcNotificationMetadata  withdrew_usdc  = 8;
-        SentUsdcNotificationMetadata      sent_usdc      = 9;
-        DepositedUsdcNotificationMetadata deposited_usdc = 11;
-        PaidUsdcNotificationMetadata      paid_usdc      = 12;
+        WelcomeBonusNotificationMetadata    welcome_bonus    = 5;
+        GaveUsdcNotificationMetadata        gave_usdc        = 6;
+        ReceivedUsdcNotificationMetadata    received_usdc    = 7;
+        WithdrewUsdcNotificationMetadata    withdrew_usdc    = 8;
+        SentUsdcNotificationMetadata        sent_usdc        = 9;
+        DepositedUsdcNotificationMetadata   deposited_usdc   = 11;
+        PaidUsdcNotificationMetadata        paid_usdc        = 12;
+        DistributedUsdcNotificationMetadata distributed_usdc = 13;
     }
 }
 
@@ -85,6 +86,26 @@ message PaidUsdcNotificationMetadata {
     message PoolPaymentMetadata {
         // The pool that was entered for this payment
         pool.v1.PoolId pool_id = 1 [(validate.rules).message.required = true];
+    }
+}
+
+message DistributedUsdcNotificationMetadata {
+    oneof distribution_metadata {
+        option (validate.required) = true;
+
+        PoolDistributionMetadata pool = 1;
+    }
+
+    // Distribution metadata for betting pools
+    message PoolDistributionMetadata {
+        // The pool where funds were distributed from
+        pool.v1.PoolId pool_id = 1 [(validate.rules).message.required = true];
+
+        // The outcome for this pool for the user that indicates the reason for
+        // receiving the distribution.
+        pool.v1.UserOutcome outcome = 2 [(validate.rules).enum = {
+            in: [2, 4] // WIN_OUTCOME, REFUND_OUTCOME
+        }];
     }
 }
 

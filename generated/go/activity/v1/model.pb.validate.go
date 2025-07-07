@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	poolpb "github.com/code-payments/flipcash-protobuf-api/generated/go/pool/v1"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = poolpb.UserOutcome(0)
 )
 
 // Validate checks the field values on NotificationId with the rules defined in
@@ -552,6 +556,47 @@ func (m *Notification) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
 					field:  "PaidUsdc",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Notification_DistributedUsdc:
+		if v == nil {
+			err := NotificationValidationError{
+				field:  "AdditionalMetadata",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetDistributedUsdc()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, NotificationValidationError{
+						field:  "DistributedUsdc",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, NotificationValidationError{
+						field:  "DistributedUsdc",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetDistributedUsdc()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return NotificationValidationError{
+					field:  "DistributedUsdc",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1472,6 +1517,169 @@ var _ interface {
 	ErrorName() string
 } = PaidUsdcNotificationMetadataValidationError{}
 
+// Validate checks the field values on DistributedUsdcNotificationMetadata with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *DistributedUsdcNotificationMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DistributedUsdcNotificationMetadata
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// DistributedUsdcNotificationMetadataMultiError, or nil if none found.
+func (m *DistributedUsdcNotificationMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	oneofDistributionMetadataPresent := false
+	switch v := m.DistributionMetadata.(type) {
+	case *DistributedUsdcNotificationMetadata_Pool:
+		if v == nil {
+			err := DistributedUsdcNotificationMetadataValidationError{
+				field:  "DistributionMetadata",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofDistributionMetadataPresent = true
+
+		if all {
+			switch v := interface{}(m.GetPool()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DistributedUsdcNotificationMetadataValidationError{
+						field:  "Pool",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DistributedUsdcNotificationMetadataValidationError{
+						field:  "Pool",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPool()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DistributedUsdcNotificationMetadataValidationError{
+					field:  "Pool",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofDistributionMetadataPresent {
+		err := DistributedUsdcNotificationMetadataValidationError{
+			field:  "DistributionMetadata",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DistributedUsdcNotificationMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// DistributedUsdcNotificationMetadataMultiError is an error wrapping multiple
+// validation errors returned by
+// DistributedUsdcNotificationMetadata.ValidateAll() if the designated
+// constraints aren't met.
+type DistributedUsdcNotificationMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DistributedUsdcNotificationMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DistributedUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+
+// DistributedUsdcNotificationMetadataValidationError is the validation error
+// returned by DistributedUsdcNotificationMetadata.Validate if the designated
+// constraints aren't met.
+type DistributedUsdcNotificationMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DistributedUsdcNotificationMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DistributedUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DistributedUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DistributedUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DistributedUsdcNotificationMetadataValidationError) ErrorName() string {
+	return "DistributedUsdcNotificationMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DistributedUsdcNotificationMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDistributedUsdcNotificationMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DistributedUsdcNotificationMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DistributedUsdcNotificationMetadataValidationError{}
+
 // Validate checks the field values on
 // PaidUsdcNotificationMetadata_PoolPaymentMetadata with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -1624,3 +1832,177 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{}
+
+// Validate checks the field values on
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError, or
+// nil if none found.
+func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPoolId() == nil {
+		err := DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+			field:  "PoolId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPoolId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+					field:  "PoolId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+					field:  "PoolId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPoolId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+				field:  "PoolId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _DistributedUsdcNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup[m.GetOutcome()]; !ok {
+		err := DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+			field:  "Outcome",
+			reason: "value must be in list [WIN_OUTCOME REFUND_OUTCOME]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError is an
+// error wrapping multiple validation errors returned by
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadata.ValidateAll()
+// if the designated constraints aren't met.
+type DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError) AllErrors() []error {
+	return m
+}
+
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError
+// is the validation error returned by
+// DistributedUsdcNotificationMetadata_PoolDistributionMetadata.Validate if
+// the designated constraints aren't met.
+type DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Key() bool {
+	return e.key
+}
+
+// ErrorName returns error name.
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) ErrorName() string {
+	return "DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDistributedUsdcNotificationMetadata_PoolDistributionMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{}
+
+var _DistributedUsdcNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup = map[poolpb.UserOutcome]struct{}{
+	2: {},
+	4: {},
+}

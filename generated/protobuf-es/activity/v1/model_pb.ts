@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { PublicKey, UsdcPaymentAmount } from "../../common/v1/common_pb";
-import { PoolId } from "../../pool/v1/model_pb";
+import { PoolId, UserOutcome } from "../../pool/v1/model_pb";
 
 /**
  * ActivityFeedType enables multiple activity feeds, where notifications may be
@@ -193,6 +193,12 @@ export class Notification extends Message<Notification> {
      */
     value: PaidUsdcNotificationMetadata;
     case: "paidUsdc";
+  } | {
+    /**
+     * @generated from field: flipcash.activity.v1.DistributedUsdcNotificationMetadata distributed_usdc = 13;
+     */
+    value: DistributedUsdcNotificationMetadata;
+    case: "distributedUsdc";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Notification>) {
@@ -215,6 +221,7 @@ export class Notification extends Message<Notification> {
     { no: 9, name: "sent_usdc", kind: "message", T: SentUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 11, name: "deposited_usdc", kind: "message", T: DepositedUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 12, name: "paid_usdc", kind: "message", T: PaidUsdcNotificationMetadata, oneof: "additional_metadata" },
+    { no: 13, name: "distributed_usdc", kind: "message", T: DistributedUsdcNotificationMetadata, oneof: "additional_metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Notification {
@@ -517,6 +524,99 @@ export class PaidUsdcNotificationMetadata_PoolPaymentMetadata extends Message<Pa
 
   static equals(a: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined, b: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined): boolean {
     return proto3.util.equals(PaidUsdcNotificationMetadata_PoolPaymentMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.activity.v1.DistributedUsdcNotificationMetadata
+ */
+export class DistributedUsdcNotificationMetadata extends Message<DistributedUsdcNotificationMetadata> {
+  /**
+   * @generated from oneof flipcash.activity.v1.DistributedUsdcNotificationMetadata.distribution_metadata
+   */
+  distributionMetadata: {
+    /**
+     * @generated from field: flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata pool = 1;
+     */
+    value: DistributedUsdcNotificationMetadata_PoolDistributionMetadata;
+    case: "pool";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<DistributedUsdcNotificationMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.DistributedUsdcNotificationMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool", kind: "message", T: DistributedUsdcNotificationMetadata_PoolDistributionMetadata, oneof: "distribution_metadata" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedUsdcNotificationMetadata {
+    return new DistributedUsdcNotificationMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata {
+    return new DistributedUsdcNotificationMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata {
+    return new DistributedUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DistributedUsdcNotificationMetadata | PlainMessage<DistributedUsdcNotificationMetadata> | undefined, b: DistributedUsdcNotificationMetadata | PlainMessage<DistributedUsdcNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(DistributedUsdcNotificationMetadata, a, b);
+  }
+}
+
+/**
+ * Distribution metadata for betting pools
+ *
+ * @generated from message flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata
+ */
+export class DistributedUsdcNotificationMetadata_PoolDistributionMetadata extends Message<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> {
+  /**
+   * The pool where funds were distributed from
+   *
+   * @generated from field: flipcash.pool.v1.PoolId pool_id = 1;
+   */
+  poolId?: PoolId;
+
+  /**
+   * The outcome for this pool for the user that indicates the reason for
+   * receiving the distribution.
+   *
+   * @generated from field: flipcash.pool.v1.UserOutcome outcome = 2;
+   */
+  outcome = UserOutcome.UNKNOWN_OUTCOE;
+
+  constructor(data?: PartialMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool_id", kind: "message", T: PoolId },
+    { no: 2, name: "outcome", kind: "enum", T: proto3.getEnumType(UserOutcome) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DistributedUsdcNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> | undefined, b: DistributedUsdcNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> | undefined): boolean {
+    return proto3.util.equals(DistributedUsdcNotificationMetadata_PoolDistributionMetadata, a, b);
   }
 }
 
