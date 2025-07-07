@@ -46,6 +46,7 @@ message Notification {
         WithdrewUsdcNotificationMetadata  withdrew_usdc  = 8;
         SentUsdcNotificationMetadata      sent_usdc      = 9;
         DepositedUsdcNotificationMetadata deposited_usdc = 11;
+        PaidUsdcNotificationMetadata      paid_usdc      = 12;
     }
 }
 
@@ -70,6 +71,9 @@ message SentUsdcNotificationMetadata {
 }
 
 message DepositedUsdcNotificationMetadata {
+}
+
+message PaidUsdcNotificationMetadata {
 }
 
 // ActivityFeedType enables multiple activity feeds, where notifications may be

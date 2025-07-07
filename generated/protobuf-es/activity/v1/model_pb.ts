@@ -186,6 +186,12 @@ export class Notification extends Message<Notification> {
      */
     value: DepositedUsdcNotificationMetadata;
     case: "depositedUsdc";
+  } | {
+    /**
+     * @generated from field: flipcash.activity.v1.PaidUsdcNotificationMetadata paid_usdc = 12;
+     */
+    value: PaidUsdcNotificationMetadata;
+    case: "paidUsdc";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Notification>) {
@@ -207,6 +213,7 @@ export class Notification extends Message<Notification> {
     { no: 8, name: "withdrew_usdc", kind: "message", T: WithdrewUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 9, name: "sent_usdc", kind: "message", T: SentUsdcNotificationMetadata, oneof: "additional_metadata" },
     { no: 11, name: "deposited_usdc", kind: "message", T: DepositedUsdcNotificationMetadata, oneof: "additional_metadata" },
+    { no: 12, name: "paid_usdc", kind: "message", T: PaidUsdcNotificationMetadata, oneof: "additional_metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Notification {
@@ -425,6 +432,37 @@ export class DepositedUsdcNotificationMetadata extends Message<DepositedUsdcNoti
 
   static equals(a: DepositedUsdcNotificationMetadata | PlainMessage<DepositedUsdcNotificationMetadata> | undefined, b: DepositedUsdcNotificationMetadata | PlainMessage<DepositedUsdcNotificationMetadata> | undefined): boolean {
     return proto3.util.equals(DepositedUsdcNotificationMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.activity.v1.PaidUsdcNotificationMetadata
+ */
+export class PaidUsdcNotificationMetadata extends Message<PaidUsdcNotificationMetadata> {
+  constructor(data?: PartialMessage<PaidUsdcNotificationMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.PaidUsdcNotificationMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidUsdcNotificationMetadata {
+    return new PaidUsdcNotificationMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata {
+    return new PaidUsdcNotificationMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata {
+    return new PaidUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined, b: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(PaidUsdcNotificationMetadata, a, b);
   }
 }
 
