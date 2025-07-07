@@ -7,6 +7,7 @@ option java_package = "com.codeinc.flipcash.gen.activity.v1";
 option objc_class_prefix = "FCPBActivityV1";
 
 import "common/v1/common.proto";
+import "pool/v1/model.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
@@ -74,6 +75,17 @@ message DepositedUsdcNotificationMetadata {
 }
 
 message PaidUsdcNotificationMetadata {
+    oneof payment_metadata {
+        option (validate.required) = true;
+
+        PoolPaymentMetadata pool = 1;
+    }
+
+    // Payment metadata for betting pools
+    message PoolPaymentMetadata {
+        // The pool that was entered for this payment
+        pool.v1.PoolId pool_id = 1 [(validate.rules).message.required = true];
+    }
 }
 
 // ActivityFeedType enables multiple activity feeds, where notifications may be

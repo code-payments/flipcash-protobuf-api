@@ -6,6 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { PublicKey, UsdcPaymentAmount } from "../../common/v1/common_pb";
+import { PoolId } from "../../pool/v1/model_pb";
 
 /**
  * ActivityFeedType enables multiple activity feeds, where notifications may be
@@ -439,6 +440,17 @@ export class DepositedUsdcNotificationMetadata extends Message<DepositedUsdcNoti
  * @generated from message flipcash.activity.v1.PaidUsdcNotificationMetadata
  */
 export class PaidUsdcNotificationMetadata extends Message<PaidUsdcNotificationMetadata> {
+  /**
+   * @generated from oneof flipcash.activity.v1.PaidUsdcNotificationMetadata.payment_metadata
+   */
+  paymentMetadata: {
+    /**
+     * @generated from field: flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata pool = 1;
+     */
+    value: PaidUsdcNotificationMetadata_PoolPaymentMetadata;
+    case: "pool";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
   constructor(data?: PartialMessage<PaidUsdcNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -447,6 +459,7 @@ export class PaidUsdcNotificationMetadata extends Message<PaidUsdcNotificationMe
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.activity.v1.PaidUsdcNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool", kind: "message", T: PaidUsdcNotificationMetadata_PoolPaymentMetadata, oneof: "payment_metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidUsdcNotificationMetadata {
@@ -463,6 +476,47 @@ export class PaidUsdcNotificationMetadata extends Message<PaidUsdcNotificationMe
 
   static equals(a: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined, b: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined): boolean {
     return proto3.util.equals(PaidUsdcNotificationMetadata, a, b);
+  }
+}
+
+/**
+ * Payment metadata for betting pools
+ *
+ * @generated from message flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata
+ */
+export class PaidUsdcNotificationMetadata_PoolPaymentMetadata extends Message<PaidUsdcNotificationMetadata_PoolPaymentMetadata> {
+  /**
+   * The pool that was entered for this payment
+   *
+   * @generated from field: flipcash.pool.v1.PoolId pool_id = 1;
+   */
+  poolId?: PoolId;
+
+  constructor(data?: PartialMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool_id", kind: "message", T: PoolId },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
+    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
+    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
+    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined, b: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined): boolean {
+    return proto3.util.equals(PaidUsdcNotificationMetadata_PoolPaymentMetadata, a, b);
   }
 }
 
