@@ -2529,6 +2529,46 @@ func (m *UserPoolSummary_WinOutcome) validate(all bool) error {
 		}
 	}
 
+	if m.GetTotalAmountReceived() == nil {
+		err := UserPoolSummary_WinOutcomeValidationError{
+			field:  "TotalAmountReceived",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTotalAmountReceived()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserPoolSummary_WinOutcomeValidationError{
+					field:  "TotalAmountReceived",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserPoolSummary_WinOutcomeValidationError{
+					field:  "TotalAmountReceived",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTotalAmountReceived()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserPoolSummary_WinOutcomeValidationError{
+				field:  "TotalAmountReceived",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return UserPoolSummary_WinOutcomeMultiError(errors)
 	}

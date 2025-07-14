@@ -152,6 +152,8 @@ message UserPoolSummary {
     // User is a winner in the pool
     message WinOutcome {
         common.v1.FiatPaymentAmount amount_won = 1 [(validate.rules).message.required = true];
+
+        common.v1.FiatPaymentAmount total_amount_received = 2 [(validate.rules).message.required = true];
     }
 
     // User is a loser in the pool

@@ -677,6 +677,11 @@ export class UserPoolSummary_WinOutcome extends Message<UserPoolSummary_WinOutco
    */
   amountWon?: FiatPaymentAmount;
 
+  /**
+   * @generated from field: flipcash.common.v1.FiatPaymentAmount total_amount_received = 2;
+   */
+  totalAmountReceived?: FiatPaymentAmount;
+
   constructor(data?: PartialMessage<UserPoolSummary_WinOutcome>) {
     super();
     proto3.util.initPartial(data, this);
@@ -686,6 +691,7 @@ export class UserPoolSummary_WinOutcome extends Message<UserPoolSummary_WinOutco
   static readonly typeName = "flipcash.pool.v1.UserPoolSummary.WinOutcome";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "amount_won", kind: "message", T: FiatPaymentAmount },
+    { no: 2, name: "total_amount_received", kind: "message", T: FiatPaymentAmount },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserPoolSummary_WinOutcome {
