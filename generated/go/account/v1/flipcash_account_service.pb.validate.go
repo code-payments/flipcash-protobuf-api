@@ -968,6 +968,8 @@ func (m *UserFlags) validate(all bool) error {
 
 	// no validation rules for IsStaff
 
+	// no validation rules for RequiresIapForRegistration
+
 	if len(errors) > 0 {
 		return UserFlagsMultiError(errors)
 	}

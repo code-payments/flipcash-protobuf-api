@@ -367,6 +367,13 @@ export class UserFlags extends Message<UserFlags> {
    */
   isStaff = false;
 
+  /**
+   * Does this user require IAP for registration in the account creation flow?
+   *
+   * @generated from field: bool requires_iap_for_registration = 3;
+   */
+  requiresIapForRegistration = false;
+
   constructor(data?: PartialMessage<UserFlags>) {
     super();
     proto3.util.initPartial(data, this);
@@ -377,6 +384,7 @@ export class UserFlags extends Message<UserFlags> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "is_registered_account", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 2, name: "is_staff", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "requires_iap_for_registration", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserFlags {
