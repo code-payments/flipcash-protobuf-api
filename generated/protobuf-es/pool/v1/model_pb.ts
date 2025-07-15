@@ -6,6 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { FiatPaymentAmount, PagingToken, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
+import { UserProfile } from "../../profile/v1/model_pb";
 
 /**
  * UserOutcome is an enum of states for user outcomes in a pool
@@ -348,6 +349,13 @@ export class PoolMetadata extends Message<PoolMetadata> {
    */
   derivationIndex = protoInt64.zero;
 
+  /**
+   * The creator's user profile
+   *
+   * @generated from field: flipcash.profile.v1.UserProfile creator_profile = 9;
+   */
+  creatorProfile?: UserProfile;
+
   constructor(data?: PartialMessage<PoolMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -364,6 +372,7 @@ export class PoolMetadata extends Message<PoolMetadata> {
     { no: 4, name: "paging_token", kind: "message", T: PagingToken },
     { no: 5, name: "is_funding_destination_initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "derivation_index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: "creator_profile", kind: "message", T: UserProfile },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolMetadata {
@@ -886,6 +895,13 @@ export class BetMetadata extends Message<BetMetadata> {
    */
   isIntentSubmitted = false;
 
+  /**
+   * The better's user profile
+   *
+   * @generated from field: flipcash.profile.v1.UserProfile creator_profile = 4;
+   */
+  creatorProfile?: UserProfile;
+
   constructor(data?: PartialMessage<BetMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -897,6 +913,7 @@ export class BetMetadata extends Message<BetMetadata> {
     { no: 1, name: "verified_metadata", kind: "message", T: SignedBetMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "is_intent_submitted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "creator_profile", kind: "message", T: UserProfile },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetMetadata {

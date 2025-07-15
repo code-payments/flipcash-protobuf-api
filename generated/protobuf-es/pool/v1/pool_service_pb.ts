@@ -136,6 +136,8 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
   id?: PoolId;
 
   /**
+   * If true, only a consolidated bet summary will be provided
+   *
    * @generated from field: bool exclude_bets = 2;
    */
   excludeBets = false;
@@ -146,6 +148,13 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
    * @generated from field: flipcash.common.v1.Auth auth = 3;
    */
   auth?: Auth;
+
+  /**
+   * If true, user profiles will be provided alongside pools and bets
+   *
+   * @generated from field: bool include_user_profiles = 4;
+   */
+  includeUserProfiles = false;
 
   constructor(data?: PartialMessage<GetPoolRequest>) {
     super();
@@ -158,6 +167,7 @@ export class GetPoolRequest extends Message<GetPoolRequest> {
     { no: 1, name: "id", kind: "message", T: PoolId },
     { no: 2, name: "exclude_bets", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 3, name: "auth", kind: "message", T: Auth },
+    { no: 4, name: "include_user_profiles", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPoolRequest {

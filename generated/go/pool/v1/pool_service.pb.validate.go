@@ -443,6 +443,8 @@ func (m *GetPoolRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for IncludeUserProfiles
+
 	if len(errors) > 0 {
 		return GetPoolRequestMultiError(errors)
 	}

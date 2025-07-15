@@ -907,6 +907,35 @@ func (m *PoolMetadata) validate(all bool) error {
 
 	// no validation rules for DerivationIndex
 
+	if all {
+		switch v := interface{}(m.GetCreatorProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "CreatorProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolMetadataValidationError{
+					field:  "CreatorProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatorProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolMetadataValidationError{
+				field:  "CreatorProfile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return PoolMetadataMultiError(errors)
 	}
@@ -2078,6 +2107,35 @@ func (m *BetMetadata) validate(all bool) error {
 	}
 
 	// no validation rules for IsIntentSubmitted
+
+	if all {
+		switch v := interface{}(m.GetCreatorProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BetMetadataValidationError{
+					field:  "CreatorProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BetMetadataValidationError{
+					field:  "CreatorProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatorProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BetMetadataValidationError{
+				field:  "CreatorProfile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return BetMetadataMultiError(errors)
