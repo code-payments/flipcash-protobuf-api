@@ -213,5 +213,5 @@ message BetMetadata {
     bool is_intent_submitted = 3;
 
     // The better's user profile
-    profile.v1.UserProfile creator_profile = 4;
+    profile.v1.UserProfile better_profile = 4;
 }

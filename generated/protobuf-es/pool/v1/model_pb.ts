@@ -898,9 +898,9 @@ export class BetMetadata extends Message<BetMetadata> {
   /**
    * The better's user profile
    *
-   * @generated from field: flipcash.profile.v1.UserProfile creator_profile = 4;
+   * @generated from field: flipcash.profile.v1.UserProfile better_profile = 4;
    */
-  creatorProfile?: UserProfile;
+  betterProfile?: UserProfile;
 
   constructor(data?: PartialMessage<BetMetadata>) {
     super();
@@ -913,7 +913,7 @@ export class BetMetadata extends Message<BetMetadata> {
     { no: 1, name: "verified_metadata", kind: "message", T: SignedBetMetadata },
     { no: 2, name: "rendezvous_signature", kind: "message", T: Signature },
     { no: 3, name: "is_intent_submitted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "creator_profile", kind: "message", T: UserProfile },
+    { no: 4, name: "better_profile", kind: "message", T: UserProfile },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BetMetadata {
