@@ -14,6 +14,9 @@ import "validate/validate.proto";
 service EventStreaming {
     // StreamEvents streams events for the requesting user.
     rpc StreamEvents(stream StreamEventsRequest) returns (stream StreamEventsResponse);
+
+    // ForwardEvents is an internal RPC for forwarding events to another server.
+    rpc ForwardEvents(ForwardEventsRequest) returns (ForwardEventsResponse);
 }
 
 message StreamEventsRequest {
@@ -47,7 +50,20 @@ message StreamEventsResponse {
     message StreamError {
         Code code = 1;
         enum Code {
-            DENIED = 0;
+            DENIED            = 0;
+            INVALID_TIMESTAMP = 1;
         }
+    }
+}
+
+message ForwardEventsRequest {
+    UserEventBatch user_events = 1 [(validate.rules).message.required = true];
+}
+
+message ForwardEventsResponse {
+    Result result = 1;
+    enum Result {
+        OK     = 0;
+        DENIED = 1;
     }
 }

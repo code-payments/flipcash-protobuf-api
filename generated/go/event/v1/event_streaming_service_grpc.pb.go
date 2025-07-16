@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	EventStreaming_StreamEvents_FullMethodName = "/flipcash.event.v1.EventStreaming/StreamEvents"
+	EventStreaming_StreamEvents_FullMethodName  = "/flipcash.event.v1.EventStreaming/StreamEvents"
+	EventStreaming_ForwardEvents_FullMethodName = "/flipcash.event.v1.EventStreaming/ForwardEvents"
 )
 
 // EventStreamingClient is the client API for EventStreaming service.
@@ -28,6 +29,8 @@ const (
 type EventStreamingClient interface {
 	// StreamEvents streams events for the requesting user.
 	StreamEvents(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[StreamEventsRequest, StreamEventsResponse], error)
+	// ForwardEvents is an internal RPC for forwarding events to another server.
+	ForwardEvents(ctx context.Context, in *ForwardEventsRequest, opts ...grpc.CallOption) (*ForwardEventsResponse, error)
 }
 
 type eventStreamingClient struct {
@@ -51,12 +54,24 @@ func (c *eventStreamingClient) StreamEvents(ctx context.Context, opts ...grpc.Ca
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type EventStreaming_StreamEventsClient = grpc.BidiStreamingClient[StreamEventsRequest, StreamEventsResponse]
 
+func (c *eventStreamingClient) ForwardEvents(ctx context.Context, in *ForwardEventsRequest, opts ...grpc.CallOption) (*ForwardEventsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ForwardEventsResponse)
+	err := c.cc.Invoke(ctx, EventStreaming_ForwardEvents_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventStreamingServer is the server API for EventStreaming service.
 // All implementations must embed UnimplementedEventStreamingServer
 // for forward compatibility.
 type EventStreamingServer interface {
 	// StreamEvents streams events for the requesting user.
 	StreamEvents(grpc.BidiStreamingServer[StreamEventsRequest, StreamEventsResponse]) error
+	// ForwardEvents is an internal RPC for forwarding events to another server.
+	ForwardEvents(context.Context, *ForwardEventsRequest) (*ForwardEventsResponse, error)
 	mustEmbedUnimplementedEventStreamingServer()
 }
 
@@ -69,6 +84,9 @@ type UnimplementedEventStreamingServer struct{}
 
 func (UnimplementedEventStreamingServer) StreamEvents(grpc.BidiStreamingServer[StreamEventsRequest, StreamEventsResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method StreamEvents not implemented")
+}
+func (UnimplementedEventStreamingServer) ForwardEvents(context.Context, *ForwardEventsRequest) (*ForwardEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForwardEvents not implemented")
 }
 func (UnimplementedEventStreamingServer) mustEmbedUnimplementedEventStreamingServer() {}
 func (UnimplementedEventStreamingServer) testEmbeddedByValue()                        {}
@@ -98,13 +116,36 @@ func _EventStreaming_StreamEvents_Handler(srv interface{}, stream grpc.ServerStr
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type EventStreaming_StreamEventsServer = grpc.BidiStreamingServer[StreamEventsRequest, StreamEventsResponse]
 
+func _EventStreaming_ForwardEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForwardEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventStreamingServer).ForwardEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EventStreaming_ForwardEvents_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventStreamingServer).ForwardEvents(ctx, req.(*ForwardEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventStreaming_ServiceDesc is the grpc.ServiceDesc for EventStreaming service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var EventStreaming_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "flipcash.event.v1.EventStreaming",
 	HandlerType: (*EventStreamingServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ForwardEvents",
+			Handler:    _EventStreaming_ForwardEvents_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "StreamEvents",

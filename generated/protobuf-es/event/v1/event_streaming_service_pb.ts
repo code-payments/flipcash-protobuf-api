@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { Auth, ClientPong, ServerPing } from "../../common/v1/common_pb";
-import { EventBatch } from "./model_pb";
+import { EventBatch, UserEventBatch } from "./model_pb";
 
 /**
  * @generated from message flipcash.event.v1.StreamEventsRequest
@@ -208,9 +208,109 @@ export enum StreamEventsResponse_StreamError_Code {
    * @generated from enum value: DENIED = 0;
    */
   DENIED = 0,
+
+  /**
+   * @generated from enum value: INVALID_TIMESTAMP = 1;
+   */
+  INVALID_TIMESTAMP = 1,
 }
 // Retrieve enum metadata with: proto3.getEnumType(StreamEventsResponse_StreamError_Code)
 proto3.util.setEnumType(StreamEventsResponse_StreamError_Code, "flipcash.event.v1.StreamEventsResponse.StreamError.Code", [
   { no: 0, name: "DENIED" },
+  { no: 1, name: "INVALID_TIMESTAMP" },
+]);
+
+/**
+ * @generated from message flipcash.event.v1.ForwardEventsRequest
+ */
+export class ForwardEventsRequest extends Message<ForwardEventsRequest> {
+  /**
+   * @generated from field: flipcash.event.v1.UserEventBatch user_events = 1;
+   */
+  userEvents?: UserEventBatch;
+
+  constructor(data?: PartialMessage<ForwardEventsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.ForwardEventsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_events", kind: "message", T: UserEventBatch },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForwardEventsRequest {
+    return new ForwardEventsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForwardEventsRequest {
+    return new ForwardEventsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForwardEventsRequest {
+    return new ForwardEventsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForwardEventsRequest | PlainMessage<ForwardEventsRequest> | undefined, b: ForwardEventsRequest | PlainMessage<ForwardEventsRequest> | undefined): boolean {
+    return proto3.util.equals(ForwardEventsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.ForwardEventsResponse
+ */
+export class ForwardEventsResponse extends Message<ForwardEventsResponse> {
+  /**
+   * @generated from field: flipcash.event.v1.ForwardEventsResponse.Result result = 1;
+   */
+  result = ForwardEventsResponse_Result.OK;
+
+  constructor(data?: PartialMessage<ForwardEventsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.ForwardEventsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(ForwardEventsResponse_Result) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForwardEventsResponse {
+    return new ForwardEventsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForwardEventsResponse {
+    return new ForwardEventsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForwardEventsResponse {
+    return new ForwardEventsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForwardEventsResponse | PlainMessage<ForwardEventsResponse> | undefined, b: ForwardEventsResponse | PlainMessage<ForwardEventsResponse> | undefined): boolean {
+    return proto3.util.equals(ForwardEventsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.event.v1.ForwardEventsResponse.Result
+ */
+export enum ForwardEventsResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: DENIED = 1;
+   */
+  DENIED = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ForwardEventsResponse_Result)
+proto3.util.setEnumType(ForwardEventsResponse_Result, "flipcash.event.v1.ForwardEventsResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "DENIED" },
 ]);
 

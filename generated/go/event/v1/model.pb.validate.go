@@ -56,6 +56,64 @@ func (m *Event) validate(all bool) error {
 
 	var errors []error
 
+	oneofTypePresent := false
+	switch v := m.Type.(type) {
+	case *Event_Test:
+		if v == nil {
+			err := EventValidationError{
+				field:  "Type",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofTypePresent = true
+
+		if all {
+			switch v := interface{}(m.GetTest()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "Test",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "Test",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetTest()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "Test",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+	if !oneofTypePresent {
+		err := EventValidationError{
+			field:  "Type",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return EventMultiError(errors)
 	}
@@ -276,3 +334,440 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = EventBatchValidationError{}
+
+// Validate checks the field values on UserEvent with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserEvent with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserEventMultiError, or nil
+// if none found.
+func (m *UserEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() == nil {
+		err := UserEventValidationError{
+			field:  "UserId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserEventValidationError{
+					field:  "UserId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserEventValidationError{
+					field:  "UserId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserEventValidationError{
+				field:  "UserId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetEvent() == nil {
+		err := UserEventValidationError{
+			field:  "Event",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEvent()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserEventValidationError{
+					field:  "Event",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserEventValidationError{
+					field:  "Event",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEvent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserEventValidationError{
+				field:  "Event",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UserEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserEventMultiError is an error wrapping multiple validation errors returned
+// by UserEvent.ValidateAll() if the designated constraints aren't met.
+type UserEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserEventMultiError) AllErrors() []error { return m }
+
+// UserEventValidationError is the validation error returned by
+// UserEvent.Validate if the designated constraints aren't met.
+type UserEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserEventValidationError) ErrorName() string { return "UserEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserEventValidationError{}
+
+// Validate checks the field values on UserEventBatch with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserEventBatch) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserEventBatch with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserEventBatchMultiError,
+// or nil if none found.
+func (m *UserEventBatch) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserEventBatch) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := len(m.GetEvents()); l < 1 || l > 1024 {
+		err := UserEventBatchValidationError{
+			field:  "Events",
+			reason: "value must contain between 1 and 1024 items, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetEvents() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserEventBatchValidationError{
+						field:  fmt.Sprintf("Events[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserEventBatchValidationError{
+						field:  fmt.Sprintf("Events[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserEventBatchValidationError{
+					field:  fmt.Sprintf("Events[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UserEventBatchMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserEventBatchMultiError is an error wrapping multiple validation errors
+// returned by UserEventBatch.ValidateAll() if the designated constraints
+// aren't met.
+type UserEventBatchMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserEventBatchMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserEventBatchMultiError) AllErrors() []error { return m }
+
+// UserEventBatchValidationError is the validation error returned by
+// UserEventBatch.Validate if the designated constraints aren't met.
+type UserEventBatchValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserEventBatchValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserEventBatchValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserEventBatchValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserEventBatchValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserEventBatchValidationError) ErrorName() string { return "UserEventBatchValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserEventBatchValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserEventBatch.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserEventBatchValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserEventBatchValidationError{}
+
+// Validate checks the field values on Event_TestEvent with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *Event_TestEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Event_TestEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// Event_TestEventMultiError, or nil if none found.
+func (m *Event_TestEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Event_TestEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetSourceAddress()); l < 1 || l > 256 {
+		err := Event_TestEventValidationError{
+			field:  "SourceAddress",
+			reason: "value length must be between 1 and 256 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Nonce
+
+	if len(errors) > 0 {
+		return Event_TestEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// Event_TestEventMultiError is an error wrapping multiple validation errors
+// returned by Event_TestEvent.ValidateAll() if the designated constraints
+// aren't met.
+type Event_TestEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Event_TestEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Event_TestEventMultiError) AllErrors() []error { return m }
+
+// Event_TestEventValidationError is the validation error returned by
+// Event_TestEvent.Validate if the designated constraints aren't met.
+type Event_TestEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Event_TestEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Event_TestEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Event_TestEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Event_TestEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Event_TestEventValidationError) ErrorName() string { return "Event_TestEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e Event_TestEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEvent_TestEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Event_TestEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Event_TestEventValidationError{}

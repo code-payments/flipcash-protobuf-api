@@ -4,14 +4,26 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { UserId } from "../../common/v1/common_pb";
 
 /**
- * todo: define individual events
+ * todo: define additional events
  *
  * @generated from message flipcash.event.v1.Event
  */
 export class Event extends Message<Event> {
+  /**
+   * @generated from oneof flipcash.event.v1.Event.type
+   */
+  type: {
+    /**
+     * @generated from field: flipcash.event.v1.Event.TestEvent test = 1;
+     */
+    value: Event_TestEvent;
+    case: "test";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
   constructor(data?: PartialMessage<Event>) {
     super();
     proto3.util.initPartial(data, this);
@@ -20,6 +32,7 @@ export class Event extends Message<Event> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.event.v1.Event";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {
@@ -36,6 +49,49 @@ export class Event extends Message<Event> {
 
   static equals(a: Event | PlainMessage<Event> | undefined, b: Event | PlainMessage<Event> | undefined): boolean {
     return proto3.util.equals(Event, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.Event.TestEvent
+ */
+export class Event_TestEvent extends Message<Event_TestEvent> {
+  /**
+   * @generated from field: string source_address = 1;
+   */
+  sourceAddress = "";
+
+  /**
+   * @generated from field: uint64 nonce = 2;
+   */
+  nonce = protoInt64.zero;
+
+  constructor(data?: PartialMessage<Event_TestEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.Event.TestEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "source_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "nonce", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event_TestEvent {
+    return new Event_TestEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Event_TestEvent {
+    return new Event_TestEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Event_TestEvent {
+    return new Event_TestEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Event_TestEvent | PlainMessage<Event_TestEvent> | undefined, b: Event_TestEvent | PlainMessage<Event_TestEvent> | undefined): boolean {
+    return proto3.util.equals(Event_TestEvent, a, b);
   }
 }
 
@@ -73,6 +129,86 @@ export class EventBatch extends Message<EventBatch> {
 
   static equals(a: EventBatch | PlainMessage<EventBatch> | undefined, b: EventBatch | PlainMessage<EventBatch> | undefined): boolean {
     return proto3.util.equals(EventBatch, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.UserEvent
+ */
+export class UserEvent extends Message<UserEvent> {
+  /**
+   * @generated from field: flipcash.common.v1.UserId user_id = 1;
+   */
+  userId?: UserId;
+
+  /**
+   * @generated from field: flipcash.event.v1.Event event = 2;
+   */
+  event?: Event;
+
+  constructor(data?: PartialMessage<UserEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.UserEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_id", kind: "message", T: UserId },
+    { no: 2, name: "event", kind: "message", T: Event },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserEvent {
+    return new UserEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserEvent {
+    return new UserEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserEvent {
+    return new UserEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserEvent | PlainMessage<UserEvent> | undefined, b: UserEvent | PlainMessage<UserEvent> | undefined): boolean {
+    return proto3.util.equals(UserEvent, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.UserEventBatch
+ */
+export class UserEventBatch extends Message<UserEventBatch> {
+  /**
+   * @generated from field: repeated flipcash.event.v1.UserEvent events = 1;
+   */
+  events: UserEvent[] = [];
+
+  constructor(data?: PartialMessage<UserEventBatch>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.UserEventBatch";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "events", kind: "message", T: UserEvent, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserEventBatch {
+    return new UserEventBatch().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserEventBatch {
+    return new UserEventBatch().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserEventBatch {
+    return new UserEventBatch().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserEventBatch | PlainMessage<UserEventBatch> | undefined, b: UserEventBatch | PlainMessage<UserEventBatch> | undefined): boolean {
+    return proto3.util.equals(UserEventBatch, a, b);
   }
 }
 

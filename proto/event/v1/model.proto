@@ -6,14 +6,43 @@ option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go
 option java_package = "com.codeinc.flipcash.gen.events.v1";
 option objc_class_prefix = "FPBEventV1";
 
+import "common/v1/common.proto";
 import "validate/validate.proto";
 
+ // todo: define additional events
 message Event {
-    // todo: define individual events
+    oneof type {
+        option (validate.required) = true;
+
+        TestEvent test = 1;
+    }
+
+    message TestEvent {
+        string source_address = 1 [(validate.rules).string = {
+            min_len: 1
+            max_len: 256
+        }];
+
+
+        uint64 nonce = 2;
+    }
 }
 
 message EventBatch {
     repeated Event events = 1 [(validate.rules).repeated = {
+        min_items: 1
+        max_items: 1024 // Arbitrary
+    }];
+}
+
+message UserEvent {
+    common.v1.UserId user_id = 1 [(validate.rules).message.required = true];
+
+    Event event = 2 [(validate.rules).message.required = true];
+}
+
+message UserEventBatch {
+    repeated UserEvent events = 1 [(validate.rules).repeated = {
         min_items: 1
         max_items: 1024 // Arbitrary
     }];

@@ -481,6 +481,252 @@ var _ interface {
 	ErrorName() string
 } = StreamEventsResponseValidationError{}
 
+// Validate checks the field values on ForwardEventsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ForwardEventsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ForwardEventsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ForwardEventsRequestMultiError, or nil if none found.
+func (m *ForwardEventsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ForwardEventsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserEvents() == nil {
+		err := ForwardEventsRequestValidationError{
+			field:  "UserEvents",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserEvents()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ForwardEventsRequestValidationError{
+					field:  "UserEvents",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ForwardEventsRequestValidationError{
+					field:  "UserEvents",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserEvents()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ForwardEventsRequestValidationError{
+				field:  "UserEvents",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ForwardEventsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ForwardEventsRequestMultiError is an error wrapping multiple validation
+// errors returned by ForwardEventsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ForwardEventsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ForwardEventsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ForwardEventsRequestMultiError) AllErrors() []error { return m }
+
+// ForwardEventsRequestValidationError is the validation error returned by
+// ForwardEventsRequest.Validate if the designated constraints aren't met.
+type ForwardEventsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ForwardEventsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ForwardEventsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ForwardEventsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ForwardEventsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ForwardEventsRequestValidationError) ErrorName() string {
+	return "ForwardEventsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ForwardEventsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sForwardEventsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ForwardEventsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ForwardEventsRequestValidationError{}
+
+// Validate checks the field values on ForwardEventsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ForwardEventsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ForwardEventsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ForwardEventsResponseMultiError, or nil if none found.
+func (m *ForwardEventsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ForwardEventsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return ForwardEventsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ForwardEventsResponseMultiError is an error wrapping multiple validation
+// errors returned by ForwardEventsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ForwardEventsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ForwardEventsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ForwardEventsResponseMultiError) AllErrors() []error { return m }
+
+// ForwardEventsResponseValidationError is the validation error returned by
+// ForwardEventsResponse.Validate if the designated constraints aren't met.
+type ForwardEventsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ForwardEventsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ForwardEventsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ForwardEventsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ForwardEventsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ForwardEventsResponseValidationError) ErrorName() string {
+	return "ForwardEventsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ForwardEventsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sForwardEventsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ForwardEventsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ForwardEventsResponseValidationError{}
+
 // Validate checks the field values on StreamEventsRequest_Params with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

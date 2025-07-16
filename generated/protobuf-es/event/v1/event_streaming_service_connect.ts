@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { StreamEventsRequest, StreamEventsResponse } from "./event_streaming_service_pb";
+import { ForwardEventsRequest, ForwardEventsResponse, StreamEventsRequest, StreamEventsResponse } from "./event_streaming_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,6 +22,17 @@ export const EventStreaming = {
       I: StreamEventsRequest,
       O: StreamEventsResponse,
       kind: MethodKind.BiDiStreaming,
+    },
+    /**
+     * ForwardEvents is an internal RPC for forwarding events to another server.
+     *
+     * @generated from rpc flipcash.event.v1.EventStreaming.ForwardEvents
+     */
+    forwardEvents: {
+      name: "ForwardEvents",
+      I: ForwardEventsRequest,
+      O: ForwardEventsResponse,
+      kind: MethodKind.Unary,
     },
   }
 } as const;
