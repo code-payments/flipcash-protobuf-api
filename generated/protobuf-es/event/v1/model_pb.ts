@@ -8,17 +8,59 @@ import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
 import { UserId } from "../../common/v1/common_pb";
 
 /**
+ * @generated from message flipcash.event.v1.EventId
+ */
+export class EventId extends Message<EventId> {
+  /**
+   * @generated from field: bytes id = 1;
+   */
+  id = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<EventId>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.EventId";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventId {
+    return new EventId().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventId {
+    return new EventId().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventId {
+    return new EventId().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EventId | PlainMessage<EventId> | undefined, b: EventId | PlainMessage<EventId> | undefined): boolean {
+    return proto3.util.equals(EventId, a, b);
+  }
+}
+
+/**
  * todo: define additional events
  *
  * @generated from message flipcash.event.v1.Event
  */
 export class Event extends Message<Event> {
   /**
+   * @generated from field: flipcash.event.v1.EventId id = 1;
+   */
+  id?: EventId;
+
+  /**
    * @generated from oneof flipcash.event.v1.Event.type
    */
   type: {
     /**
-     * @generated from field: flipcash.event.v1.Event.TestEvent test = 1;
+     * @generated from field: flipcash.event.v1.Event.TestEvent test = 2;
      */
     value: Event_TestEvent;
     case: "test";
@@ -32,7 +74,8 @@ export class Event extends Message<Event> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.event.v1.Event";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
+    { no: 1, name: "id", kind: "message", T: EventId },
+    { no: 2, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {

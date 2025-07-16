@@ -9,12 +9,21 @@ option objc_class_prefix = "FPBEventV1";
 import "common/v1/common.proto";
 import "validate/validate.proto";
 
+message EventId {
+    bytes id = 1 [(validate.rules).bytes = {
+        min_len: 16
+        max_len: 16
+    }];
+}
+
  // todo: define additional events
 message Event {
+    EventId id = 1 [(validate.rules).message.required = true];
+
     oneof type {
         option (validate.required) = true;
 
-        TestEvent test = 1;
+        TestEvent test = 2;
     }
 
     message TestEvent {
