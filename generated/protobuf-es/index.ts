@@ -8,3 +8,5 @@ export * as Profile from './profile/v1';
 export * as Account from './account/v1';
 export * as Pool from './pool/v1';
 export * as Pool from './pool/v1';
+export * as Event from './event/v1';
+export * as Event from './event/v1';
