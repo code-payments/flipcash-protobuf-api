@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package flipcash.event.v1;
 
-option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/v/v1;eventpb";
+option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/event/v1;eventpb";
 option java_package = "com.codeinc.flipcash.gen.events.v1";
 option objc_class_prefix = "FPBEventV1";
 
@@ -34,6 +34,7 @@ message StreamEventsRequest {
         google.protobuf.Timestamp ts = 2 [(validate.rules).timestamp.required = true];
     }
 }
+
 message StreamEventsResponse {
     oneof type {
         option (validate.required) = true;
