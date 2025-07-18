@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { UserId } from "../../common/v1/common_pb";
 
 /**
@@ -56,11 +56,16 @@ export class Event extends Message<Event> {
   id?: EventId;
 
   /**
+   * @generated from field: google.protobuf.Timestamp ts = 2;
+   */
+  ts?: Timestamp;
+
+  /**
    * @generated from oneof flipcash.event.v1.Event.type
    */
   type: {
     /**
-     * @generated from field: flipcash.event.v1.Event.TestEvent test = 2;
+     * @generated from field: flipcash.event.v1.Event.TestEvent test = 3;
      */
     value: Event_TestEvent;
     case: "test";
@@ -75,7 +80,8 @@ export class Event extends Message<Event> {
   static readonly typeName = "flipcash.event.v1.Event";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: EventId },
-    { no: 2, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
+    { no: 2, name: "ts", kind: "message", T: Timestamp },
+    { no: 3, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {

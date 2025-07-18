@@ -205,6 +205,17 @@ func (m *Event) validate(all bool) error {
 		}
 	}
 
+	if m.GetTs() == nil {
+		err := EventValidationError{
+			field:  "Ts",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	oneofTypePresent := false
 	switch v := m.Type.(type) {
 	case *Event_Test:
