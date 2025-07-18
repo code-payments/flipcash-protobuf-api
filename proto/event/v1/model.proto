@@ -30,11 +30,7 @@ message Event {
     }
 
     message TestEvent {
-        string source_address = 1 [(validate.rules).string = {
-            min_len: 1
-            max_len: 256
-        }];
-
+        repeated string hops = 1;
 
         uint64 nonce = 2;
     }

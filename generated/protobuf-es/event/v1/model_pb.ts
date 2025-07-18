@@ -106,9 +106,9 @@ export class Event extends Message<Event> {
  */
 export class Event_TestEvent extends Message<Event_TestEvent> {
   /**
-   * @generated from field: string source_address = 1;
+   * @generated from field: repeated string hops = 1;
    */
-  sourceAddress = "";
+  hops: string[] = [];
 
   /**
    * @generated from field: uint64 nonce = 2;
@@ -123,7 +123,7 @@ export class Event_TestEvent extends Message<Event_TestEvent> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "flipcash.event.v1.Event.TestEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "source_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "hops", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 2, name: "nonce", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
   ]);
 

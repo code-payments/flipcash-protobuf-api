@@ -841,17 +841,6 @@ func (m *Event_TestEvent) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetSourceAddress()); l < 1 || l > 256 {
-		err := Event_TestEventValidationError{
-			field:  "SourceAddress",
-			reason: "value length must be between 1 and 256 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for Nonce
 
 	if len(errors) > 0 {
