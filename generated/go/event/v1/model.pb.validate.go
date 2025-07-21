@@ -260,6 +260,90 @@ func (m *Event) validate(all bool) error {
 			}
 		}
 
+	case *Event_PoolResolved:
+		if v == nil {
+			err := EventValidationError{
+				field:  "Type",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofTypePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPoolResolved()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "PoolResolved",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "PoolResolved",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPoolResolved()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "PoolResolved",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Event_PoolBetUpdate:
+		if v == nil {
+			err := EventValidationError{
+				field:  "Type",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		oneofTypePresent = true
+
+		if all {
+			switch v := interface{}(m.GetPoolBetUpdate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "PoolBetUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EventValidationError{
+						field:  "PoolBetUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPoolBetUpdate()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "PoolBetUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	default:
 		_ = v // ensures v is used
 	}
@@ -819,22 +903,22 @@ var _ interface {
 	ErrorName() string
 } = UserEventBatchValidationError{}
 
-// Validate checks the field values on Event_TestEvent with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *Event_TestEvent) Validate() error {
+// Validate checks the field values on TestEvent with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *TestEvent) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Event_TestEvent with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// Event_TestEventMultiError, or nil if none found.
-func (m *Event_TestEvent) ValidateAll() error {
+// ValidateAll checks the field values on TestEvent with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in TestEventMultiError, or nil
+// if none found.
+func (m *TestEvent) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Event_TestEvent) validate(all bool) error {
+func (m *TestEvent) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -844,19 +928,18 @@ func (m *Event_TestEvent) validate(all bool) error {
 	// no validation rules for Nonce
 
 	if len(errors) > 0 {
-		return Event_TestEventMultiError(errors)
+		return TestEventMultiError(errors)
 	}
 
 	return nil
 }
 
-// Event_TestEventMultiError is an error wrapping multiple validation errors
-// returned by Event_TestEvent.ValidateAll() if the designated constraints
-// aren't met.
-type Event_TestEventMultiError []error
+// TestEventMultiError is an error wrapping multiple validation errors returned
+// by TestEvent.ValidateAll() if the designated constraints aren't met.
+type TestEventMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m Event_TestEventMultiError) Error() string {
+func (m TestEventMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -865,11 +948,11 @@ func (m Event_TestEventMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m Event_TestEventMultiError) AllErrors() []error { return m }
+func (m TestEventMultiError) AllErrors() []error { return m }
 
-// Event_TestEventValidationError is the validation error returned by
-// Event_TestEvent.Validate if the designated constraints aren't met.
-type Event_TestEventValidationError struct {
+// TestEventValidationError is the validation error returned by
+// TestEvent.Validate if the designated constraints aren't met.
+type TestEventValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -877,22 +960,22 @@ type Event_TestEventValidationError struct {
 }
 
 // Field function returns field value.
-func (e Event_TestEventValidationError) Field() string { return e.field }
+func (e TestEventValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e Event_TestEventValidationError) Reason() string { return e.reason }
+func (e TestEventValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e Event_TestEventValidationError) Cause() error { return e.cause }
+func (e TestEventValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e Event_TestEventValidationError) Key() bool { return e.key }
+func (e TestEventValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e Event_TestEventValidationError) ErrorName() string { return "Event_TestEventValidationError" }
+func (e TestEventValidationError) ErrorName() string { return "TestEventValidationError" }
 
 // Error satisfies the builtin error interface
-func (e Event_TestEventValidationError) Error() string {
+func (e TestEventValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -904,14 +987,14 @@ func (e Event_TestEventValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sEvent_TestEvent.%s: %s%s",
+		"invalid %sTestEvent.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = Event_TestEventValidationError{}
+var _ error = TestEventValidationError{}
 
 var _ interface {
 	Field() string
@@ -919,4 +1002,408 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = Event_TestEventValidationError{}
+} = TestEventValidationError{}
+
+// Validate checks the field values on PoolResolvedEvent with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PoolResolvedEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PoolResolvedEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PoolResolvedEventMultiError, or nil if none found.
+func (m *PoolResolvedEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PoolResolvedEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPool() == nil {
+		err := PoolResolvedEventValidationError{
+			field:  "Pool",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPool()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "Pool",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "Pool",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPool()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolResolvedEventValidationError{
+				field:  "Pool",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetBetSummary() == nil {
+		err := PoolResolvedEventValidationError{
+			field:  "BetSummary",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBetSummary()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBetSummary()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolResolvedEventValidationError{
+				field:  "BetSummary",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetUserSummary() == nil {
+		err := PoolResolvedEventValidationError{
+			field:  "UserSummary",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserSummary()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "UserSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolResolvedEventValidationError{
+					field:  "UserSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserSummary()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolResolvedEventValidationError{
+				field:  "UserSummary",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PoolResolvedEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// PoolResolvedEventMultiError is an error wrapping multiple validation errors
+// returned by PoolResolvedEvent.ValidateAll() if the designated constraints
+// aren't met.
+type PoolResolvedEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PoolResolvedEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PoolResolvedEventMultiError) AllErrors() []error { return m }
+
+// PoolResolvedEventValidationError is the validation error returned by
+// PoolResolvedEvent.Validate if the designated constraints aren't met.
+type PoolResolvedEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PoolResolvedEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PoolResolvedEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PoolResolvedEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PoolResolvedEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PoolResolvedEventValidationError) ErrorName() string {
+	return "PoolResolvedEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PoolResolvedEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPoolResolvedEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PoolResolvedEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PoolResolvedEventValidationError{}
+
+// Validate checks the field values on PoolBetUpdateEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PoolBetUpdateEvent) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PoolBetUpdateEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PoolBetUpdateEventMultiError, or nil if none found.
+func (m *PoolBetUpdateEvent) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PoolBetUpdateEvent) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPoolId() == nil {
+		err := PoolBetUpdateEventValidationError{
+			field:  "PoolId",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPoolId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolBetUpdateEventValidationError{
+					field:  "PoolId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolBetUpdateEventValidationError{
+					field:  "PoolId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPoolId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolBetUpdateEventValidationError{
+				field:  "PoolId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetBetSummary() == nil {
+		err := PoolBetUpdateEventValidationError{
+			field:  "BetSummary",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBetSummary()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PoolBetUpdateEventValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PoolBetUpdateEventValidationError{
+					field:  "BetSummary",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBetSummary()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PoolBetUpdateEventValidationError{
+				field:  "BetSummary",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PoolBetUpdateEventMultiError(errors)
+	}
+
+	return nil
+}
+
+// PoolBetUpdateEventMultiError is an error wrapping multiple validation errors
+// returned by PoolBetUpdateEvent.ValidateAll() if the designated constraints
+// aren't met.
+type PoolBetUpdateEventMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PoolBetUpdateEventMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PoolBetUpdateEventMultiError) AllErrors() []error { return m }
+
+// PoolBetUpdateEventValidationError is the validation error returned by
+// PoolBetUpdateEvent.Validate if the designated constraints aren't met.
+type PoolBetUpdateEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PoolBetUpdateEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PoolBetUpdateEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PoolBetUpdateEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PoolBetUpdateEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PoolBetUpdateEventValidationError) ErrorName() string {
+	return "PoolBetUpdateEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PoolBetUpdateEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPoolBetUpdateEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PoolBetUpdateEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PoolBetUpdateEventValidationError{}

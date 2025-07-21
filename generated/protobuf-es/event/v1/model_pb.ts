@@ -6,6 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { UserId } from "../../common/v1/common_pb";
+import { BetSummary, PoolId, SignedPoolMetadata, UserPoolSummary } from "../../pool/v1/model_pb";
 
 /**
  * @generated from message flipcash.event.v1.EventId
@@ -65,10 +66,22 @@ export class Event extends Message<Event> {
    */
   type: {
     /**
-     * @generated from field: flipcash.event.v1.Event.TestEvent test = 3;
+     * @generated from field: flipcash.event.v1.TestEvent test = 3;
      */
-    value: Event_TestEvent;
+    value: TestEvent;
     case: "test";
+  } | {
+    /**
+     * @generated from field: flipcash.event.v1.PoolResolvedEvent pool_resolved = 100;
+     */
+    value: PoolResolvedEvent;
+    case: "poolResolved";
+  } | {
+    /**
+     * @generated from field: flipcash.event.v1.PoolBetUpdateEvent pool_bet_update = 101;
+     */
+    value: PoolBetUpdateEvent;
+    case: "poolBetUpdate";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Event>) {
@@ -81,7 +94,9 @@ export class Event extends Message<Event> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: EventId },
     { no: 2, name: "ts", kind: "message", T: Timestamp },
-    { no: 3, name: "test", kind: "message", T: Event_TestEvent, oneof: "type" },
+    { no: 3, name: "test", kind: "message", T: TestEvent, oneof: "type" },
+    { no: 100, name: "pool_resolved", kind: "message", T: PoolResolvedEvent, oneof: "type" },
+    { no: 101, name: "pool_bet_update", kind: "message", T: PoolBetUpdateEvent, oneof: "type" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {
@@ -98,49 +113,6 @@ export class Event extends Message<Event> {
 
   static equals(a: Event | PlainMessage<Event> | undefined, b: Event | PlainMessage<Event> | undefined): boolean {
     return proto3.util.equals(Event, a, b);
-  }
-}
-
-/**
- * @generated from message flipcash.event.v1.Event.TestEvent
- */
-export class Event_TestEvent extends Message<Event_TestEvent> {
-  /**
-   * @generated from field: repeated string hops = 1;
-   */
-  hops: string[] = [];
-
-  /**
-   * @generated from field: uint64 nonce = 2;
-   */
-  nonce = protoInt64.zero;
-
-  constructor(data?: PartialMessage<Event_TestEvent>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.event.v1.Event.TestEvent";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "hops", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 2, name: "nonce", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event_TestEvent {
-    return new Event_TestEvent().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Event_TestEvent {
-    return new Event_TestEvent().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Event_TestEvent {
-    return new Event_TestEvent().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Event_TestEvent | PlainMessage<Event_TestEvent> | undefined, b: Event_TestEvent | PlainMessage<Event_TestEvent> | undefined): boolean {
-    return proto3.util.equals(Event_TestEvent, a, b);
   }
 }
 
@@ -258,6 +230,155 @@ export class UserEventBatch extends Message<UserEventBatch> {
 
   static equals(a: UserEventBatch | PlainMessage<UserEventBatch> | undefined, b: UserEventBatch | PlainMessage<UserEventBatch> | undefined): boolean {
     return proto3.util.equals(UserEventBatch, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.TestEvent
+ */
+export class TestEvent extends Message<TestEvent> {
+  /**
+   * @generated from field: repeated string hops = 1;
+   */
+  hops: string[] = [];
+
+  /**
+   * @generated from field: uint64 nonce = 2;
+   */
+  nonce = protoInt64.zero;
+
+  constructor(data?: PartialMessage<TestEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.TestEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "hops", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "nonce", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TestEvent {
+    return new TestEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TestEvent {
+    return new TestEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TestEvent {
+    return new TestEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TestEvent | PlainMessage<TestEvent> | undefined, b: TestEvent | PlainMessage<TestEvent> | undefined): boolean {
+    return proto3.util.equals(TestEvent, a, b);
+  }
+}
+
+/**
+ * Event sent when a pool has been resolved
+ *
+ * @generated from message flipcash.event.v1.PoolResolvedEvent
+ */
+export class PoolResolvedEvent extends Message<PoolResolvedEvent> {
+  /**
+   * The latest signed pool metadata, which is guaranteed to contain a resolution
+   *
+   * @generated from field: flipcash.pool.v1.SignedPoolMetadata pool = 1;
+   */
+  pool?: SignedPoolMetadata;
+
+  /**
+   * The final bet summary for the pool
+   *
+   * @generated from field: flipcash.pool.v1.BetSummary bet_summary = 2;
+   */
+  betSummary?: BetSummary;
+
+  /**
+   * The user's outcome for the pool
+   *
+   * @generated from field: flipcash.pool.v1.UserPoolSummary user_summary = 3;
+   */
+  userSummary?: UserPoolSummary;
+
+  constructor(data?: PartialMessage<PoolResolvedEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.PoolResolvedEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool", kind: "message", T: SignedPoolMetadata },
+    { no: 2, name: "bet_summary", kind: "message", T: BetSummary },
+    { no: 3, name: "user_summary", kind: "message", T: UserPoolSummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolResolvedEvent {
+    return new PoolResolvedEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PoolResolvedEvent {
+    return new PoolResolvedEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PoolResolvedEvent {
+    return new PoolResolvedEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PoolResolvedEvent | PlainMessage<PoolResolvedEvent> | undefined, b: PoolResolvedEvent | PlainMessage<PoolResolvedEvent> | undefined): boolean {
+    return proto3.util.equals(PoolResolvedEvent, a, b);
+  }
+}
+
+/**
+ * Event sent when a bet is made against a pool
+ *
+ * @generated from message flipcash.event.v1.PoolBetUpdateEvent
+ */
+export class PoolBetUpdateEvent extends Message<PoolBetUpdateEvent> {
+  /**
+   * The pool ID the bet update is for
+   *
+   * @generated from field: flipcash.pool.v1.PoolId pool_id = 1;
+   */
+  poolId?: PoolId;
+
+  /**
+   * The latest bet summary for the pool
+   *
+   * @generated from field: flipcash.pool.v1.BetSummary bet_summary = 2;
+   */
+  betSummary?: BetSummary;
+
+  constructor(data?: PartialMessage<PoolBetUpdateEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.PoolBetUpdateEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pool_id", kind: "message", T: PoolId },
+    { no: 2, name: "bet_summary", kind: "message", T: BetSummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PoolBetUpdateEvent {
+    return new PoolBetUpdateEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PoolBetUpdateEvent {
+    return new PoolBetUpdateEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PoolBetUpdateEvent {
+    return new PoolBetUpdateEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PoolBetUpdateEvent | PlainMessage<PoolBetUpdateEvent> | undefined, b: PoolBetUpdateEvent | PlainMessage<PoolBetUpdateEvent> | undefined): boolean {
+    return proto3.util.equals(PoolBetUpdateEvent, a, b);
   }
 }
 
