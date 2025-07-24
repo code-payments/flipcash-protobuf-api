@@ -17,6 +17,13 @@ export class GetProfileRequest extends Message<GetProfileRequest> {
    */
   userId?: UserId;
 
+  /**
+   * Optional auth to retrieve private profile information for self
+   *
+   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   */
+  auth?: Auth;
+
   constructor(data?: PartialMessage<GetProfileRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -26,6 +33,7 @@ export class GetProfileRequest extends Message<GetProfileRequest> {
   static readonly typeName = "flipcash.profile.v1.GetProfileRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "user_id", kind: "message", T: UserId },
+    { no: 2, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetProfileRequest {

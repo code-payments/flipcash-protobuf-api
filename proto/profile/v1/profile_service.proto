@@ -24,6 +24,9 @@ service Profile {
 
 message GetProfileRequest {
 	common.v1.UserId user_id = 1 [(validate.rules).message.required = true];
+
+	// Optional auth to retrieve private profile information for self
+	common.v1.Auth auth = 2;
 }
 
 message GetProfileResponse {
