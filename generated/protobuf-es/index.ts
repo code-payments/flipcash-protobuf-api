@@ -5,6 +5,8 @@ export * as Iap from './iap/v1';
 export * as Common from './common/v1';
 export * as Profile from './profile/v1';
 export * as Profile from './profile/v1';
+export * as Phone from './phone/v1';
+export * as Phone from './phone/v1';
 export * as Account from './account/v1';
 export * as Pool from './pool/v1';
 export * as Pool from './pool/v1';

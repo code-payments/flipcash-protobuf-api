@@ -5,6 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
+import { PhoneNumber } from "../../phone/v1/model_pb";
 
 /**
  * @generated from message flipcash.profile.v1.UserProfile
@@ -24,6 +25,14 @@ export class UserProfile extends Message<UserProfile> {
    */
   socialProfiles: SocialProfile[] = [];
 
+  /**
+   * Phone number linked to this user. This is private and will only be returned
+   * when the requesting user asks for their own profile
+   *
+   * @generated from field: flipcash.phone.v1.PhoneNumber phone_number = 3;
+   */
+  phoneNumber?: PhoneNumber;
+
   constructor(data?: PartialMessage<UserProfile>) {
     super();
     proto3.util.initPartial(data, this);
@@ -34,6 +43,7 @@ export class UserProfile extends Message<UserProfile> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "display_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "social_profiles", kind: "message", T: SocialProfile, repeated: true },
+    { no: 3, name: "phone_number", kind: "message", T: PhoneNumber },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserProfile {

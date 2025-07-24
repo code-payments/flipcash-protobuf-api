@@ -11,6 +11,7 @@ The APIs and models for communication between Flipcash clients and server.
 - [Activity Feed](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/activity/v1/activity_feed_service.proto)
 - [Event Streaming](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/event/v1/event_streaming_service.proto)
 - [IAP](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/iap/v1/iap_service.proto)
+- [Phone Verification](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/phone/v1/phone_verification_service.proto)
 - [Pool](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/pool/v1/pool_service.proto)
 - [Profile](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/profile/v1/profile_service.proto)
 - [Push](https://github.com/code-payments/flipcash-protobuf-api/blob/main/proto/push/v1/push_service.proto)
