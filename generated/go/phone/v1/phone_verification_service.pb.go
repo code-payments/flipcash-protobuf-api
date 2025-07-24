@@ -151,7 +151,7 @@ type SendVerificationCodeRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The phone number to send a verification code over SMS to.
+	// The phone number to send a verification code over SMS to
 	PhoneNumber *PhoneNumber `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
 	Auth        *v1.Auth     `protobuf:"bytes,2,opt,name=auth,proto3" json:"auth,omitempty"`
 }

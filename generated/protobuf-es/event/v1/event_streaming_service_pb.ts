@@ -5,8 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Auth, ClientPong, ServerPing } from "../../common/v1/common_pb";
-import { EventBatch, UserEventBatch } from "./model_pb";
+import { ClientPong, EventBatch, ServerPing, UserEventBatch } from "./model_pb";
+import { Auth } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.event.v1.StreamEventsRequest
@@ -23,7 +23,7 @@ export class StreamEventsRequest extends Message<StreamEventsRequest> {
     case: "params";
   } | {
     /**
-     * @generated from field: flipcash.common.v1.ClientPong pong = 2;
+     * @generated from field: flipcash.event.v1.ClientPong pong = 2;
      */
     value: ClientPong;
     case: "pong";
@@ -115,7 +115,7 @@ export class StreamEventsResponse extends Message<StreamEventsResponse> {
    */
   type: {
     /**
-     * @generated from field: flipcash.common.v1.ServerPing ping = 1;
+     * @generated from field: flipcash.event.v1.ServerPing ping = 1;
      */
     value: ServerPing;
     case: "ping";

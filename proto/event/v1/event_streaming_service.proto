@@ -23,8 +23,8 @@ message StreamEventsRequest {
     oneof type {
         option (validate.required) = true;
 
-        Params params = 1;
-        common.v1.ClientPong pong = 2;
+        Params     params = 1;
+        ClientPong pong   = 2;
     }
 
     message Params {
@@ -42,9 +42,9 @@ message StreamEventsResponse {
     oneof type {
         option (validate.required) = true;
 
-        common.v1.ServerPing ping = 1;
-        StreamError error = 2;
-        EventBatch events = 3;
+        ServerPing  ping   = 1;
+        StreamError error  = 2;
+        EventBatch  events = 3;
     }
 
     message StreamError {

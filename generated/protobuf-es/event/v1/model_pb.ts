@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import { Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { UserId } from "../../common/v1/common_pb";
 import { BetSummary, PoolId, SignedPoolMetadata, UserPoolSummary } from "../../pool/v1/model_pb";
 
@@ -379,6 +379,94 @@ export class PoolBetUpdateEvent extends Message<PoolBetUpdateEvent> {
 
   static equals(a: PoolBetUpdateEvent | PlainMessage<PoolBetUpdateEvent> | undefined, b: PoolBetUpdateEvent | PlainMessage<PoolBetUpdateEvent> | undefined): boolean {
     return proto3.util.equals(PoolBetUpdateEvent, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.ServerPing
+ */
+export class ServerPing extends Message<ServerPing> {
+  /**
+   * Timestamp the ping was sent on the stream, for client to get a sense
+   * of potential network latency
+   *
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * The delay server will apply before sending the next ping
+   *
+   * @generated from field: google.protobuf.Duration ping_delay = 2;
+   */
+  pingDelay?: Duration;
+
+  constructor(data?: PartialMessage<ServerPing>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.ServerPing";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
+    { no: 2, name: "ping_delay", kind: "message", T: Duration },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ServerPing {
+    return new ServerPing().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ServerPing {
+    return new ServerPing().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ServerPing {
+    return new ServerPing().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ServerPing | PlainMessage<ServerPing> | undefined, b: ServerPing | PlainMessage<ServerPing> | undefined): boolean {
+    return proto3.util.equals(ServerPing, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.event.v1.ClientPong
+ */
+export class ClientPong extends Message<ClientPong> {
+  /**
+   * Timestamp the Pong was sent on the stream, for server to get a sense
+   * of potential network latency
+   *
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp;
+
+  constructor(data?: PartialMessage<ClientPong>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.event.v1.ClientPong";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientPong {
+    return new ClientPong().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientPong {
+    return new ClientPong().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientPong {
+    return new ClientPong().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientPong | PlainMessage<ClientPong> | undefined, b: ClientPong | PlainMessage<ClientPong> | undefined): boolean {
+    return proto3.util.equals(ClientPong, a, b);
   }
 }
 

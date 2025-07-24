@@ -13,7 +13,7 @@ import { Auth } from "../../common/v1/common_pb";
  */
 export class SendVerificationCodeRequest extends Message<SendVerificationCodeRequest> {
   /**
-   * The phone number to send a verification code over SMS to.
+   * The phone number to send a verification code over SMS to
    *
    * @generated from field: flipcash.phone.v1.PhoneNumber phone_number = 1;
    */

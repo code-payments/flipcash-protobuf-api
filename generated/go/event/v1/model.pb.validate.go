@@ -1407,3 +1407,234 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PoolBetUpdateEventValidationError{}
+
+// Validate checks the field values on ServerPing with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ServerPing) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ServerPing with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ServerPingMultiError, or
+// nil if none found.
+func (m *ServerPing) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ServerPing) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetTimestamp() == nil {
+		err := ServerPingValidationError{
+			field:  "Timestamp",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPingDelay() == nil {
+		err := ServerPingValidationError{
+			field:  "PingDelay",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ServerPingMultiError(errors)
+	}
+
+	return nil
+}
+
+// ServerPingMultiError is an error wrapping multiple validation errors
+// returned by ServerPing.ValidateAll() if the designated constraints aren't met.
+type ServerPingMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ServerPingMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ServerPingMultiError) AllErrors() []error { return m }
+
+// ServerPingValidationError is the validation error returned by
+// ServerPing.Validate if the designated constraints aren't met.
+type ServerPingValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServerPingValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServerPingValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServerPingValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServerPingValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServerPingValidationError) ErrorName() string { return "ServerPingValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServerPingValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServerPing.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServerPingValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServerPingValidationError{}
+
+// Validate checks the field values on ClientPong with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ClientPong) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ClientPong with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ClientPongMultiError, or
+// nil if none found.
+func (m *ClientPong) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ClientPong) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetTimestamp() == nil {
+		err := ClientPongValidationError{
+			field:  "Timestamp",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ClientPongMultiError(errors)
+	}
+
+	return nil
+}
+
+// ClientPongMultiError is an error wrapping multiple validation errors
+// returned by ClientPong.ValidateAll() if the designated constraints aren't met.
+type ClientPongMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ClientPongMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ClientPongMultiError) AllErrors() []error { return m }
+
+// ClientPongValidationError is the validation error returned by
+// ClientPong.Validate if the designated constraints aren't met.
+type ClientPongValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ClientPongValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ClientPongValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ClientPongValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ClientPongValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ClientPongValidationError) ErrorName() string { return "ClientPongValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ClientPongValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sClientPong.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ClientPongValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ClientPongValidationError{}
