@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
 import { PhoneNumber, VerificationCode } from "./model_pb";
-import { Auth } from "../../common/v1/common_pb";
+import { Auth, Platform } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.phone.v1.SendVerificationCodeRequest
@@ -20,7 +20,14 @@ export class SendVerificationCodeRequest extends Message<SendVerificationCodeReq
   phoneNumber?: PhoneNumber;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   * The app platform that's making this request
+   *
+   * @generated from field: flipcash.common.v1.Platform platform = 2;
+   */
+  platform = Platform.UNKNOWN;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 3;
    */
   auth?: Auth;
 
@@ -33,7 +40,8 @@ export class SendVerificationCodeRequest extends Message<SendVerificationCodeReq
   static readonly typeName = "flipcash.phone.v1.SendVerificationCodeRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "phone_number", kind: "message", T: PhoneNumber },
-    { no: 2, name: "auth", kind: "message", T: Auth },
+    { no: 2, name: "platform", kind: "enum", T: proto3.getEnumType(Platform) },
+    { no: 3, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendVerificationCodeRequest {

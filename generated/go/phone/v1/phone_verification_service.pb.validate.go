@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	commonpb "github.com/code-payments/flipcash-protobuf-api/generated/go/common/v1"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = commonpb.Platform(0)
 )
 
 // Validate checks the field values on SendVerificationCodeRequest with the
@@ -95,6 +99,17 @@ func (m *SendVerificationCodeRequest) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	if _, ok := _SendVerificationCodeRequest_Platform_InLookup[m.GetPlatform()]; !ok {
+		err := SendVerificationCodeRequestValidationError{
+			field:  "Platform",
+			reason: "value must be in list [APPLE GOOGLE]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetAuth() == nil {
@@ -217,6 +232,11 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SendVerificationCodeRequestValidationError{}
+
+var _SendVerificationCodeRequest_Platform_InLookup = map[commonpb.Platform]struct{}{
+	1: {},
+	2: {},
+}
 
 // Validate checks the field values on SendVerificationCodeResponse with the
 // rules defined in the proto definition for this message. If any rules are
