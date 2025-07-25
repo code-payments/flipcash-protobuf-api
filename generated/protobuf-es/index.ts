@@ -7,6 +7,8 @@ export * as Profile from './profile/v1';
 export * as Profile from './profile/v1';
 export * as Phone from './phone/v1';
 export * as Phone from './phone/v1';
+export * as Ramp from './ramp/v1';
+export * as Ramp from './ramp/v1';
 export * as Account from './account/v1';
 export * as Pool from './pool/v1';
 export * as Pool from './pool/v1';

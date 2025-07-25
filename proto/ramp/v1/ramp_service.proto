@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package flipcash.ramp.v1;
+
+option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/ramp/v1;ramppb";
+option java_package = "com.codeinc.flipcash.gen.ramp.v1";
+option objc_class_prefix = "FPBRampV1";
+
+import "common/v1/common.proto";
+import "ramp/v1/model.proto";
+import "validate/validate.proto";
+
+service Ramp {
+    // GetJwt gets a JWT for auth against an on/off ramp providers
+    rpc GetJwt(GetJwtRequest) returns (GetJwtResponse);
+}
+
+message GetJwtRequest {
+    ApiKey api_key = 1 [(validate.rules).message.required = true];
+    
+    common.v1.Auth auth = 2 [(validate.rules).message.required = true];
+}
+
+message GetJwtResponse {
+    Result result = 1;
+    enum Result {
+        OK                          = 0;
+        DENIED                      = 1;
+        UNSUPPORTED_PROVIDER        = 2;
+        INVALID_API_KEY             = 3;
+        PHONE_VERIFICATION_REQUIRED = 4;
+        EMAIL_VERIFICATION_REQUIRED = 5;
+    }
+
+    Jwt jwt = 2;
+}
