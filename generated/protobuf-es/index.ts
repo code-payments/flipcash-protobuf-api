@@ -12,3 +12,5 @@ export * as Pool from './pool/v1';
 export * as Pool from './pool/v1';
 export * as Event from './event/v1';
 export * as Event from './event/v1';
+export * as Email from './email/v1';
+export * as Email from './email/v1';
