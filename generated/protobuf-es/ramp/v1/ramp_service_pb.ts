@@ -18,7 +18,22 @@ export class GetJwtRequest extends Message<GetJwtRequest> {
   apiKey?: ApiKey;
 
   /**
-   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   * @generated from field: string method = 2;
+   */
+  method = "";
+
+  /**
+   * @generated from field: string host = 3;
+   */
+  host = "";
+
+  /**
+   * @generated from field: string path = 4;
+   */
+  path = "";
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 5;
    */
   auth?: Auth;
 
@@ -31,7 +46,10 @@ export class GetJwtRequest extends Message<GetJwtRequest> {
   static readonly typeName = "flipcash.ramp.v1.GetJwtRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "api_key", kind: "message", T: ApiKey },
-    { no: 2, name: "auth", kind: "message", T: Auth },
+    { no: 2, name: "method", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "host", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "auth", kind: "message", T: Auth },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetJwtRequest {

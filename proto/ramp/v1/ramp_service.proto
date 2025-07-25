@@ -18,7 +18,22 @@ service Ramp {
 message GetJwtRequest {
     ApiKey api_key = 1 [(validate.rules).message.required = true];
     
-    common.v1.Auth auth = 2 [(validate.rules).message.required = true];
+    string method = 2 [(validate.rules).string = {
+        min_len: 3
+        max_len: 4
+    }];
+
+    string host = 3 [(validate.rules).string = {
+        min_len: 1
+        max_len: 1024
+    }];
+
+    string path = 4 [(validate.rules).string = {
+        min_len: 1
+        max_len: 1024
+    }];
+
+    common.v1.Auth auth = 5 [(validate.rules).message.required = true];
 }
 
 message GetJwtResponse {

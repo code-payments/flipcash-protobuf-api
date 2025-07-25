@@ -97,6 +97,39 @@ func (m *GetJwtRequest) validate(all bool) error {
 		}
 	}
 
+	if l := utf8.RuneCountInString(m.GetMethod()); l < 3 || l > 4 {
+		err := GetJwtRequestValidationError{
+			field:  "Method",
+			reason: "value length must be between 3 and 4 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetHost()); l < 1 || l > 1024 {
+		err := GetJwtRequestValidationError{
+			field:  "Host",
+			reason: "value length must be between 1 and 1024 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 1024 {
+		err := GetJwtRequestValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 1024 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.GetAuth() == nil {
 		err := GetJwtRequestValidationError{
 			field:  "Auth",
