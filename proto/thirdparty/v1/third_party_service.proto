@@ -1,17 +1,17 @@
 syntax = "proto3";
 
-package flipcash.ramp.v1;
+package flipcash.thirdparty.v1;
 
-option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/ramp/v1;ramppb";
-option java_package = "com.codeinc.flipcash.gen.ramp.v1";
-option objc_class_prefix = "FPBRampV1";
+option go_package = "github.com/code-payments/flipcash-protobuf-api/generated/go/thirdparty/v1;thirdpartypb";
+option java_package = "com.codeinc.flipcash.gen.thirdparty.v1";
+option objc_class_prefix = "FPBThirdPartyV1";
 
 import "common/v1/common.proto";
-import "ramp/v1/model.proto";
+import "thirdparty/v1/model.proto";
 import "validate/validate.proto";
 
-service Ramp {
-    // GetJwt gets a JWT for auth against an on/off ramp providers
+service ThirdParty {
+    // GetJwt gets a JWT for auth against a third part
     rpc GetJwt(GetJwtRequest) returns (GetJwtResponse);
 }
 
