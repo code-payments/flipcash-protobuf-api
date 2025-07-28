@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Auth, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
+import { Auth, CountryCode, Platform, PublicKey, Signature, UserId } from "../../common/v1/common_pb";
 
 /**
  * @generated from message flipcash.account.v1.RegisterRequest
@@ -257,6 +257,16 @@ export class GetUserFlagsRequest extends Message<GetUserFlagsRequest> {
    */
   auth?: Auth;
 
+  /**
+   * @generated from field: flipcash.common.v1.Platform platform = 3;
+   */
+  platform = Platform.UNKNOWN;
+
+  /**
+   * @generated from field: flipcash.common.v1.CountryCode country_code = 4;
+   */
+  countryCode?: CountryCode;
+
   constructor(data?: PartialMessage<GetUserFlagsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -267,6 +277,8 @@ export class GetUserFlagsRequest extends Message<GetUserFlagsRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "user_id", kind: "message", T: UserId },
     { no: 2, name: "auth", kind: "message", T: Auth },
+    { no: 3, name: "platform", kind: "enum", T: proto3.getEnumType(Platform) },
+    { no: 4, name: "country_code", kind: "message", T: CountryCode },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserFlagsRequest {
@@ -374,6 +386,14 @@ export class UserFlags extends Message<UserFlags> {
    */
   requiresIapForRegistration = false;
 
+  /**
+   * The set of supported on ramp providers for the user, based on their platform
+   * and locale if provided
+   *
+   * @generated from field: repeated flipcash.account.v1.UserFlags.OnRampProvider supported_on_ramp_providers = 4;
+   */
+  supportedOnRampProviders: UserFlags_OnRampProvider[] = [];
+
   constructor(data?: PartialMessage<UserFlags>) {
     super();
     proto3.util.initPartial(data, this);
@@ -385,6 +405,7 @@ export class UserFlags extends Message<UserFlags> {
     { no: 1, name: "is_registered_account", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 2, name: "is_staff", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 3, name: "requires_iap_for_registration", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "supported_on_ramp_providers", kind: "enum", T: proto3.getEnumType(UserFlags_OnRampProvider), repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserFlags {
@@ -403,4 +424,24 @@ export class UserFlags extends Message<UserFlags> {
     return proto3.util.equals(UserFlags, a, b);
   }
 }
+
+/**
+ * @generated from enum flipcash.account.v1.UserFlags.OnRampProvider
+ */
+export enum UserFlags_OnRampProvider {
+  /**
+   * @generated from enum value: UNKNOWN = 0;
+   */
+  UNKNOWN = 0,
+
+  /**
+   * @generated from enum value: COINBASE = 1;
+   */
+  COINBASE = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserFlags_OnRampProvider)
+proto3.util.setEnumType(UserFlags_OnRampProvider, "flipcash.account.v1.UserFlags.OnRampProvider", [
+  { no: 0, name: "UNKNOWN" },
+  { no: 1, name: "COINBASE" },
+]);
 

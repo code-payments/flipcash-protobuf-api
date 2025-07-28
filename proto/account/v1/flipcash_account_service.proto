@@ -67,6 +67,10 @@ message GetUserFlagsRequest {
 	common.v1.UserId user_id = 1 [(validate.rules).message.required = true];
 
 	common.v1.Auth auth = 2 [(validate.rules).message.required = true];
+
+	common.v1.Platform platform = 3;
+
+	common.v1.CountryCode country_code = 4;
 }
 message GetUserFlagsResponse {
 	Result result = 1;
@@ -87,4 +91,15 @@ message UserFlags {
 
 	// Does this user require IAP for registration in the account creation flow?
 	bool requires_iap_for_registration = 3;
+
+	// The set of supported on ramp providers for the user, based on their platform
+	// and locale if provided
+	repeated OnRampProvider supported_on_ramp_providers = 4 [(validate.rules).repeated = {
+        min_items: 0
+        max_items: 1
+    }];
+	enum OnRampProvider {
+		UNKNOWN  = 0;
+		COINBASE = 1;
+	}
 }

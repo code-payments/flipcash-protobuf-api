@@ -1346,6 +1346,117 @@ var _ interface {
 	ErrorName() string
 } = ResponseValidationError{}
 
+// Validate checks the field values on CountryCode with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CountryCode) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CountryCode with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CountryCodeMultiError, or
+// nil if none found.
+func (m *CountryCode) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CountryCode) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetValue()) != 2 {
+		err := CountryCodeValidationError{
+			field:  "Value",
+			reason: "value length must be 2 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if len(errors) > 0 {
+		return CountryCodeMultiError(errors)
+	}
+
+	return nil
+}
+
+// CountryCodeMultiError is an error wrapping multiple validation errors
+// returned by CountryCode.ValidateAll() if the designated constraints aren't met.
+type CountryCodeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CountryCodeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CountryCodeMultiError) AllErrors() []error { return m }
+
+// CountryCodeValidationError is the validation error returned by
+// CountryCode.Validate if the designated constraints aren't met.
+type CountryCodeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CountryCodeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CountryCodeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CountryCodeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CountryCodeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CountryCodeValidationError) ErrorName() string { return "CountryCodeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CountryCodeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCountryCode.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CountryCodeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CountryCodeValidationError{}
+
 // Validate checks the field values on Auth_KeyPair with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

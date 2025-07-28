@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	commonpb "github.com/code-payments/flipcash-protobuf-api/generated/go/common/v1"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = commonpb.Platform(0)
 )
 
 // Validate checks the field values on RegisterRequest with the rules defined
@@ -729,6 +733,37 @@ func (m *GetUserFlagsRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Platform
+
+	if all {
+		switch v := interface{}(m.GetCountryCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetUserFlagsRequestValidationError{
+					field:  "CountryCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetUserFlagsRequestValidationError{
+					field:  "CountryCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCountryCode()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetUserFlagsRequestValidationError{
+				field:  "CountryCode",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return GetUserFlagsRequestMultiError(errors)
 	}
@@ -969,6 +1004,17 @@ func (m *UserFlags) validate(all bool) error {
 	// no validation rules for IsStaff
 
 	// no validation rules for RequiresIapForRegistration
+
+	if len(m.GetSupportedOnRampProviders()) > 1 {
+		err := UserFlagsValidationError{
+			field:  "SupportedOnRampProviders",
+			reason: "value must contain no more than 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UserFlagsMultiError(errors)

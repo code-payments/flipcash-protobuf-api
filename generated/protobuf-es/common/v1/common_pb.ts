@@ -632,3 +632,42 @@ proto3.util.setEnumType(Response_Result, "flipcash.common.v1.Response.Result", [
   { no: 1, name: "ERROR" },
 ]);
 
+/**
+ * @generated from message flipcash.common.v1.CountryCode
+ */
+export class CountryCode extends Message<CountryCode> {
+  /**
+   * ISO 3166-1 Alpha-2
+   *
+   * @generated from field: string value = 1;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<CountryCode>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.common.v1.CountryCode";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CountryCode {
+    return new CountryCode().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CountryCode {
+    return new CountryCode().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CountryCode {
+    return new CountryCode().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CountryCode | PlainMessage<CountryCode> | undefined, b: CountryCode | PlainMessage<CountryCode> | undefined): boolean {
+    return proto3.util.equals(CountryCode, a, b);
+  }
+}
+
