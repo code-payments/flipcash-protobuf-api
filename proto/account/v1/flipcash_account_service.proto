@@ -95,9 +95,9 @@ message UserFlags {
 	// The set of supported on ramp providers for the user, based on their platform
 	// and locale if provided
 	repeated OnRampProvider supported_on_ramp_providers = 4 [(validate.rules).repeated = {
-        min_items: 0
-        max_items: 1
-    }];
+		min_items: 0
+		max_items: 1
+	}];
 	enum OnRampProvider {
 		UNKNOWN  = 0;
 		COINBASE = 1;
