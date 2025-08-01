@@ -448,6 +448,16 @@ export enum UserFlags_OnRampProvider {
    * @generated from enum value: COINBASE_PHYSICAL_CREDIT = 3;
    */
   COINBASE_PHYSICAL_CREDIT = 3,
+
+  /**
+   * @generated from enum value: CRYPTO_WALLET = 4;
+   */
+  CRYPTO_WALLET = 4,
+
+  /**
+   * @generated from enum value: PHANTOM = 5;
+   */
+  PHANTOM = 5,
 }
 // Retrieve enum metadata with: proto3.getEnumType(UserFlags_OnRampProvider)
 proto3.util.setEnumType(UserFlags_OnRampProvider, "flipcash.account.v1.UserFlags.OnRampProvider", [
@@ -455,5 +465,7 @@ proto3.util.setEnumType(UserFlags_OnRampProvider, "flipcash.account.v1.UserFlags
   { no: 1, name: "COINBASE_VIRTUAL" },
   { no: 2, name: "COINBASE_PHYSICAL_DEBIT" },
   { no: 3, name: "COINBASE_PHYSICAL_CREDIT" },
+  { no: 4, name: "CRYPTO_WALLET" },
+  { no: 5, name: "PHANTOM" },
 ]);
 
