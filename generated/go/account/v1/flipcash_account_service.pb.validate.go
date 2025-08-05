@@ -1005,10 +1005,10 @@ func (m *UserFlags) validate(all bool) error {
 
 	// no validation rules for RequiresIapForRegistration
 
-	if len(m.GetSupportedOnRampProviders()) > 1 {
+	if len(m.GetSupportedOnRampProviders()) > 256 {
 		err := UserFlagsValidationError{
 			field:  "SupportedOnRampProviders",
-			reason: "value must contain no more than 1 item(s)",
+			reason: "value must contain no more than 256 item(s)",
 		}
 		if !all {
 			return err
