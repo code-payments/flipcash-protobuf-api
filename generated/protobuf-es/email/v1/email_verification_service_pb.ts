@@ -24,6 +24,13 @@ export class SendVerificationCodeRequest extends Message<SendVerificationCodeReq
    */
   auth?: Auth;
 
+  /**
+   * Additional client data that is sent in the deep link
+   *
+   * @generated from field: string client_data = 3;
+   */
+  clientData = "";
+
   constructor(data?: PartialMessage<SendVerificationCodeRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -34,6 +41,7 @@ export class SendVerificationCodeRequest extends Message<SendVerificationCodeReq
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "email_address", kind: "message", T: EmailAddress },
     { no: 2, name: "auth", kind: "message", T: Auth },
+    { no: 3, name: "client_data", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendVerificationCodeRequest {

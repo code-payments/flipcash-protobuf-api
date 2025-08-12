@@ -26,6 +26,11 @@ message SendVerificationCodeRequest {
     EmailAddress email_address = 1 [(validate.rules).message.required = true];
 
     common.v1.Auth auth = 2 [(validate.rules).message.required = true];
+
+    // Additional client data that is sent in the deep link
+    string client_data = 3 [(validate.rules).string = {
+        max_len: 1024
+    }];
 }
 
 message SendVerificationCodeResponse {

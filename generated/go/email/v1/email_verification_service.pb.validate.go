@@ -137,6 +137,17 @@ func (m *SendVerificationCodeRequest) validate(all bool) error {
 		}
 	}
 
+	if utf8.RuneCountInString(m.GetClientData()) > 1024 {
+		err := SendVerificationCodeRequestValidationError{
+			field:  "ClientData",
+			reason: "value length must be at most 1024 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SendVerificationCodeRequestMultiError(errors)
 	}
