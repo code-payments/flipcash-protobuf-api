@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	EmailVerification_SendVerificationCode_FullMethodName  = "/flipcash.email.v1.EmailVerification/SendVerificationCode"
 	EmailVerification_CheckVerificationCode_FullMethodName = "/flipcash.email.v1.EmailVerification/CheckVerificationCode"
+	EmailVerification_Unlink_FullMethodName                = "/flipcash.email.v1.EmailVerification/Unlink"
 )
 
 // EmailVerificationClient is the client API for EmailVerification service.
@@ -32,8 +33,10 @@ type EmailVerificationClient interface {
 	// resent.
 	SendVerificationCode(ctx context.Context, in *SendVerificationCodeRequest, opts ...grpc.CallOption) (*SendVerificationCodeResponse, error)
 	// CheckVerificationCode validates a verification code. On success, the email
-	// address is linked to the user.
+	// address is linked to the user. Any previous links are overwritten.
 	CheckVerificationCode(ctx context.Context, in *CheckVerificationCodeRequest, opts ...grpc.CallOption) (*CheckVerificationCodeResponse, error)
+	// Unlink removes the link of an email address from a user.
+	Unlink(ctx context.Context, in *UnlinkRequest, opts ...grpc.CallOption) (*UnlinkResponse, error)
 }
 
 type emailVerificationClient struct {
@@ -64,6 +67,16 @@ func (c *emailVerificationClient) CheckVerificationCode(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *emailVerificationClient) Unlink(ctx context.Context, in *UnlinkRequest, opts ...grpc.CallOption) (*UnlinkResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UnlinkResponse)
+	err := c.cc.Invoke(ctx, EmailVerification_Unlink_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EmailVerificationServer is the server API for EmailVerification service.
 // All implementations must embed UnimplementedEmailVerificationServer
 // for forward compatibility.
@@ -73,8 +86,10 @@ type EmailVerificationServer interface {
 	// resent.
 	SendVerificationCode(context.Context, *SendVerificationCodeRequest) (*SendVerificationCodeResponse, error)
 	// CheckVerificationCode validates a verification code. On success, the email
-	// address is linked to the user.
+	// address is linked to the user. Any previous links are overwritten.
 	CheckVerificationCode(context.Context, *CheckVerificationCodeRequest) (*CheckVerificationCodeResponse, error)
+	// Unlink removes the link of an email address from a user.
+	Unlink(context.Context, *UnlinkRequest) (*UnlinkResponse, error)
 	mustEmbedUnimplementedEmailVerificationServer()
 }
 
@@ -90,6 +105,9 @@ func (UnimplementedEmailVerificationServer) SendVerificationCode(context.Context
 }
 func (UnimplementedEmailVerificationServer) CheckVerificationCode(context.Context, *CheckVerificationCodeRequest) (*CheckVerificationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckVerificationCode not implemented")
+}
+func (UnimplementedEmailVerificationServer) Unlink(context.Context, *UnlinkRequest) (*UnlinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unlink not implemented")
 }
 func (UnimplementedEmailVerificationServer) mustEmbedUnimplementedEmailVerificationServer() {}
 func (UnimplementedEmailVerificationServer) testEmbeddedByValue()                           {}
@@ -148,6 +166,24 @@ func _EmailVerification_CheckVerificationCode_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EmailVerification_Unlink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnlinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailVerificationServer).Unlink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EmailVerification_Unlink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailVerificationServer).Unlink(ctx, req.(*UnlinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EmailVerification_ServiceDesc is the grpc.ServiceDesc for EmailVerification service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -162,6 +198,10 @@ var EmailVerification_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckVerificationCode",
 			Handler:    _EmailVerification_CheckVerificationCode_Handler,
+		},
+		{
+			MethodName: "Unlink",
+			Handler:    _EmailVerification_Unlink_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CheckVerificationCodeRequest, CheckVerificationCodeResponse, SendVerificationCodeRequest, SendVerificationCodeResponse } from "./phone_verification_service_pb";
+import { CheckVerificationCodeRequest, CheckVerificationCodeResponse, SendVerificationCodeRequest, SendVerificationCodeResponse, UnlinkRequest, UnlinkResponse } from "./phone_verification_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -27,7 +27,7 @@ export const PhoneVerification = {
     },
     /**
      * CheckVerificationCode validates a verification code. On success, the phone number
-     * is linked to the user.
+     * is linked to the user. Any previous links are overwritten.
      *
      * @generated from rpc flipcash.phone.v1.PhoneVerification.CheckVerificationCode
      */
@@ -35,6 +35,17 @@ export const PhoneVerification = {
       name: "CheckVerificationCode",
       I: CheckVerificationCodeRequest,
       O: CheckVerificationCodeResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Unlink removes the link of a phone number from a user.
+     *
+     * @generated from rpc flipcash.phone.v1.PhoneVerification.Unlink
+     */
+    unlink: {
+      name: "Unlink",
+      I: UnlinkRequest,
+      O: UnlinkResponse,
       kind: MethodKind.Unary,
     },
   }

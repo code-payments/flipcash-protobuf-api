@@ -276,3 +276,105 @@ proto3.util.setEnumType(CheckVerificationCodeResponse_Result, "flipcash.email.v1
   { no: 4, name: "NO_VERIFICATION" },
 ]);
 
+/**
+ * @generated from message flipcash.email.v1.UnlinkRequest
+ */
+export class UnlinkRequest extends Message<UnlinkRequest> {
+  /**
+   * The email address to unlink
+   *
+   * @generated from field: flipcash.email.v1.EmailAddress email_address = 1;
+   */
+  emailAddress?: EmailAddress;
+
+  /**
+   * @generated from field: flipcash.common.v1.Auth auth = 2;
+   */
+  auth?: Auth;
+
+  constructor(data?: PartialMessage<UnlinkRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.email.v1.UnlinkRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email_address", kind: "message", T: EmailAddress },
+    { no: 2, name: "auth", kind: "message", T: Auth },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UnlinkRequest {
+    return new UnlinkRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UnlinkRequest {
+    return new UnlinkRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UnlinkRequest {
+    return new UnlinkRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UnlinkRequest | PlainMessage<UnlinkRequest> | undefined, b: UnlinkRequest | PlainMessage<UnlinkRequest> | undefined): boolean {
+    return proto3.util.equals(UnlinkRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.email.v1.UnlinkResponse
+ */
+export class UnlinkResponse extends Message<UnlinkResponse> {
+  /**
+   * @generated from field: flipcash.email.v1.UnlinkResponse.Result result = 1;
+   */
+  result = UnlinkResponse_Result.OK;
+
+  constructor(data?: PartialMessage<UnlinkResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.email.v1.UnlinkResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(UnlinkResponse_Result) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UnlinkResponse {
+    return new UnlinkResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UnlinkResponse {
+    return new UnlinkResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UnlinkResponse {
+    return new UnlinkResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UnlinkResponse | PlainMessage<UnlinkResponse> | undefined, b: UnlinkResponse | PlainMessage<UnlinkResponse> | undefined): boolean {
+    return proto3.util.equals(UnlinkResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.email.v1.UnlinkResponse.Result
+ */
+export enum UnlinkResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: DENIED = 1;
+   */
+  DENIED = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UnlinkResponse_Result)
+proto3.util.setEnumType(UnlinkResponse_Result, "flipcash.email.v1.UnlinkResponse.Result", [
+  { no: 0, name: "OK" },
+  { no: 1, name: "DENIED" },
+]);
+

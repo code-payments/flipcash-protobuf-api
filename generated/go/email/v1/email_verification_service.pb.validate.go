@@ -661,3 +661,285 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CheckVerificationCodeResponseValidationError{}
+
+// Validate checks the field values on UnlinkRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UnlinkRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UnlinkRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UnlinkRequestMultiError, or
+// nil if none found.
+func (m *UnlinkRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UnlinkRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetEmailAddress() == nil {
+		err := UnlinkRequestValidationError{
+			field:  "EmailAddress",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetEmailAddress()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UnlinkRequestValidationError{
+					field:  "EmailAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UnlinkRequestValidationError{
+					field:  "EmailAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEmailAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UnlinkRequestValidationError{
+				field:  "EmailAddress",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetAuth() == nil {
+		err := UnlinkRequestValidationError{
+			field:  "Auth",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UnlinkRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UnlinkRequestValidationError{
+					field:  "Auth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UnlinkRequestValidationError{
+				field:  "Auth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UnlinkRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UnlinkRequestMultiError is an error wrapping multiple validation errors
+// returned by UnlinkRequest.ValidateAll() if the designated constraints
+// aren't met.
+type UnlinkRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UnlinkRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UnlinkRequestMultiError) AllErrors() []error { return m }
+
+// UnlinkRequestValidationError is the validation error returned by
+// UnlinkRequest.Validate if the designated constraints aren't met.
+type UnlinkRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UnlinkRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UnlinkRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UnlinkRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UnlinkRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UnlinkRequestValidationError) ErrorName() string { return "UnlinkRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UnlinkRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUnlinkRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UnlinkRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UnlinkRequestValidationError{}
+
+// Validate checks the field values on UnlinkResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UnlinkResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UnlinkResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UnlinkResponseMultiError,
+// or nil if none found.
+func (m *UnlinkResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UnlinkResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return UnlinkResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UnlinkResponseMultiError is an error wrapping multiple validation errors
+// returned by UnlinkResponse.ValidateAll() if the designated constraints
+// aren't met.
+type UnlinkResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UnlinkResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UnlinkResponseMultiError) AllErrors() []error { return m }
+
+// UnlinkResponseValidationError is the validation error returned by
+// UnlinkResponse.Validate if the designated constraints aren't met.
+type UnlinkResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UnlinkResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UnlinkResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UnlinkResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UnlinkResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UnlinkResponseValidationError) ErrorName() string { return "UnlinkResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UnlinkResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUnlinkResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UnlinkResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UnlinkResponseValidationError{}

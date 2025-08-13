@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	PhoneVerification_SendVerificationCode_FullMethodName  = "/flipcash.phone.v1.PhoneVerification/SendVerificationCode"
 	PhoneVerification_CheckVerificationCode_FullMethodName = "/flipcash.phone.v1.PhoneVerification/CheckVerificationCode"
+	PhoneVerification_Unlink_FullMethodName                = "/flipcash.phone.v1.PhoneVerification/Unlink"
 )
 
 // PhoneVerificationClient is the client API for PhoneVerification service.
@@ -32,8 +33,10 @@ type PhoneVerificationClient interface {
 	// will be resent.
 	SendVerificationCode(ctx context.Context, in *SendVerificationCodeRequest, opts ...grpc.CallOption) (*SendVerificationCodeResponse, error)
 	// CheckVerificationCode validates a verification code. On success, the phone number
-	// is linked to the user.
+	// is linked to the user. Any previous links are overwritten.
 	CheckVerificationCode(ctx context.Context, in *CheckVerificationCodeRequest, opts ...grpc.CallOption) (*CheckVerificationCodeResponse, error)
+	// Unlink removes the link of a phone number from a user.
+	Unlink(ctx context.Context, in *UnlinkRequest, opts ...grpc.CallOption) (*UnlinkResponse, error)
 }
 
 type phoneVerificationClient struct {
@@ -64,6 +67,16 @@ func (c *phoneVerificationClient) CheckVerificationCode(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *phoneVerificationClient) Unlink(ctx context.Context, in *UnlinkRequest, opts ...grpc.CallOption) (*UnlinkResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UnlinkResponse)
+	err := c.cc.Invoke(ctx, PhoneVerification_Unlink_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PhoneVerificationServer is the server API for PhoneVerification service.
 // All implementations must embed UnimplementedPhoneVerificationServer
 // for forward compatibility.
@@ -73,8 +86,10 @@ type PhoneVerificationServer interface {
 	// will be resent.
 	SendVerificationCode(context.Context, *SendVerificationCodeRequest) (*SendVerificationCodeResponse, error)
 	// CheckVerificationCode validates a verification code. On success, the phone number
-	// is linked to the user.
+	// is linked to the user. Any previous links are overwritten.
 	CheckVerificationCode(context.Context, *CheckVerificationCodeRequest) (*CheckVerificationCodeResponse, error)
+	// Unlink removes the link of a phone number from a user.
+	Unlink(context.Context, *UnlinkRequest) (*UnlinkResponse, error)
 	mustEmbedUnimplementedPhoneVerificationServer()
 }
 
@@ -90,6 +105,9 @@ func (UnimplementedPhoneVerificationServer) SendVerificationCode(context.Context
 }
 func (UnimplementedPhoneVerificationServer) CheckVerificationCode(context.Context, *CheckVerificationCodeRequest) (*CheckVerificationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckVerificationCode not implemented")
+}
+func (UnimplementedPhoneVerificationServer) Unlink(context.Context, *UnlinkRequest) (*UnlinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unlink not implemented")
 }
 func (UnimplementedPhoneVerificationServer) mustEmbedUnimplementedPhoneVerificationServer() {}
 func (UnimplementedPhoneVerificationServer) testEmbeddedByValue()                           {}
@@ -148,6 +166,24 @@ func _PhoneVerification_CheckVerificationCode_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PhoneVerification_Unlink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnlinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PhoneVerificationServer).Unlink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PhoneVerification_Unlink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PhoneVerificationServer).Unlink(ctx, req.(*UnlinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PhoneVerification_ServiceDesc is the grpc.ServiceDesc for PhoneVerification service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -162,6 +198,10 @@ var PhoneVerification_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckVerificationCode",
 			Handler:    _PhoneVerification_CheckVerificationCode_Handler,
+		},
+		{
+			MethodName: "Unlink",
+			Handler:    _PhoneVerification_Unlink_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

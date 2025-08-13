@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CheckVerificationCodeRequest, CheckVerificationCodeResponse, SendVerificationCodeRequest, SendVerificationCodeResponse } from "./email_verification_service_pb";
+import { CheckVerificationCodeRequest, CheckVerificationCodeResponse, SendVerificationCodeRequest, SendVerificationCodeResponse, UnlinkRequest, UnlinkResponse } from "./email_verification_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -27,7 +27,7 @@ export const EmailVerification = {
     },
     /**
      * CheckVerificationCode validates a verification code. On success, the email
-     * address is linked to the user.
+     * address is linked to the user. Any previous links are overwritten.
      *
      * @generated from rpc flipcash.email.v1.EmailVerification.CheckVerificationCode
      */
@@ -35,6 +35,17 @@ export const EmailVerification = {
       name: "CheckVerificationCode",
       I: CheckVerificationCodeRequest,
       O: CheckVerificationCodeResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Unlink removes the link of an email address from a user.
+     *
+     * @generated from rpc flipcash.email.v1.EmailVerification.Unlink
+     */
+    unlink: {
+      name: "Unlink",
+      I: UnlinkRequest,
+      O: UnlinkResponse,
       kind: MethodKind.Unary,
     },
   }
