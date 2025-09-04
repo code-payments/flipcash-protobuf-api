@@ -394,6 +394,14 @@ export class UserFlags extends Message<UserFlags> {
    */
   supportedOnRampProviders: UserFlags_OnRampProvider[] = [];
 
+  /**
+   * The preferred on ramp provider for this user. If the value is UNKNOWN, client
+   * should show the list of all supported providers.
+   *
+   * @generated from field: flipcash.account.v1.UserFlags.OnRampProvider preferred_on_ramp_provider = 5;
+   */
+  preferredOnRampProvider = UserFlags_OnRampProvider.UNKNOWN;
+
   constructor(data?: PartialMessage<UserFlags>) {
     super();
     proto3.util.initPartial(data, this);
@@ -406,6 +414,7 @@ export class UserFlags extends Message<UserFlags> {
     { no: 2, name: "is_staff", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 3, name: "requires_iap_for_registration", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "supported_on_ramp_providers", kind: "enum", T: proto3.getEnumType(UserFlags_OnRampProvider), repeated: true },
+    { no: 5, name: "preferred_on_ramp_provider", kind: "enum", T: proto3.getEnumType(UserFlags_OnRampProvider) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserFlags {
