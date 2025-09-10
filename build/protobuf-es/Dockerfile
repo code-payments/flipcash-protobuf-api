@@ -1,6 +1,6 @@
 # todo: We should version all of these dependencies.
 
-FROM node:16
+FROM node:16-bookworm
 
 # Base libraries
 RUN apt-get update
