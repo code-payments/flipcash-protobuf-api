@@ -97,7 +97,7 @@ message UserFlags {
 		COINBASE_VIRTUAL         = 1;
 		COINBASE_PHYSICAL_DEBIT  = 2;
 		COINBASE_PHYSICAL_CREDIT = 3;
-		CRYPTO_WALLET            = 4;
+		MANUAL_DEPOSIT           = 4;
 		PHANTOM                  = 5;
 		SOLFLARE                 = 6;
 		BACKPACK                 = 7;
