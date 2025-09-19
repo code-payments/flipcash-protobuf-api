@@ -316,7 +316,7 @@ func (m *Notification) validate(all bool) error {
 			}
 		}
 
-	case *Notification_GaveUsdc:
+	case *Notification_GaveCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -329,11 +329,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetGaveUsdc()).(type) {
+			switch v := interface{}(m.GetGaveCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "GaveUsdc",
+						field:  "GaveCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -341,23 +341,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "GaveUsdc",
+						field:  "GaveCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetGaveUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetGaveCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "GaveUsdc",
+					field:  "GaveCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_ReceivedUsdc:
+	case *Notification_ReceivedCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -370,11 +370,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetReceivedUsdc()).(type) {
+			switch v := interface{}(m.GetReceivedCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "ReceivedUsdc",
+						field:  "ReceivedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -382,23 +382,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "ReceivedUsdc",
+						field:  "ReceivedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetReceivedUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetReceivedCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "ReceivedUsdc",
+					field:  "ReceivedCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_WithdrewUsdc:
+	case *Notification_WithdrewCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -411,11 +411,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetWithdrewUsdc()).(type) {
+			switch v := interface{}(m.GetWithdrewCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "WithdrewUsdc",
+						field:  "WithdrewCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -423,23 +423,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "WithdrewUsdc",
+						field:  "WithdrewCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetWithdrewUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetWithdrewCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "WithdrewUsdc",
+					field:  "WithdrewCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_SentUsdc:
+	case *Notification_SentCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -452,11 +452,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetSentUsdc()).(type) {
+			switch v := interface{}(m.GetSentCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "SentUsdc",
+						field:  "SentCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -464,23 +464,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "SentUsdc",
+						field:  "SentCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetSentUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetSentCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "SentUsdc",
+					field:  "SentCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_DepositedUsdc:
+	case *Notification_DepositedCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -493,11 +493,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetDepositedUsdc()).(type) {
+			switch v := interface{}(m.GetDepositedCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "DepositedUsdc",
+						field:  "DepositedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -505,23 +505,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "DepositedUsdc",
+						field:  "DepositedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetDepositedUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetDepositedCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "DepositedUsdc",
+					field:  "DepositedCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_PaidUsdc:
+	case *Notification_PaidCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -534,11 +534,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetPaidUsdc()).(type) {
+			switch v := interface{}(m.GetPaidCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "PaidUsdc",
+						field:  "PaidCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -546,23 +546,23 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "PaidUsdc",
+						field:  "PaidCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetPaidUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetPaidCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "PaidUsdc",
+					field:  "PaidCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *Notification_DistributedUsdc:
+	case *Notification_DistributedCrypto:
 		if v == nil {
 			err := NotificationValidationError{
 				field:  "AdditionalMetadata",
@@ -575,11 +575,11 @@ func (m *Notification) validate(all bool) error {
 		}
 
 		if all {
-			switch v := interface{}(m.GetDistributedUsdc()).(type) {
+			switch v := interface{}(m.GetDistributedCrypto()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "DistributedUsdc",
+						field:  "DistributedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -587,16 +587,16 @@ func (m *Notification) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, NotificationValidationError{
-						field:  "DistributedUsdc",
+						field:  "DistributedCrypto",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetDistributedUsdc()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetDistributedCrypto()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return NotificationValidationError{
-					field:  "DistributedUsdc",
+					field:  "DistributedCrypto",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -793,22 +793,22 @@ var _ interface {
 	ErrorName() string
 } = WelcomeBonusNotificationMetadataValidationError{}
 
-// Validate checks the field values on GaveUsdcNotificationMetadata with the
+// Validate checks the field values on GaveCryptoNotificationMetadata with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GaveUsdcNotificationMetadata) Validate() error {
+func (m *GaveCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GaveUsdcNotificationMetadata with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// GaveUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *GaveUsdcNotificationMetadata) ValidateAll() error {
+// ValidateAll checks the field values on GaveCryptoNotificationMetadata with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GaveCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *GaveCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GaveUsdcNotificationMetadata) validate(all bool) error {
+func (m *GaveCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -816,19 +816,19 @@ func (m *GaveUsdcNotificationMetadata) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return GaveUsdcNotificationMetadataMultiError(errors)
+		return GaveCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// GaveUsdcNotificationMetadataMultiError is an error wrapping multiple
-// validation errors returned by GaveUsdcNotificationMetadata.ValidateAll() if
-// the designated constraints aren't met.
-type GaveUsdcNotificationMetadataMultiError []error
+// GaveCryptoNotificationMetadataMultiError is an error wrapping multiple
+// validation errors returned by GaveCryptoNotificationMetadata.ValidateAll()
+// if the designated constraints aren't met.
+type GaveCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GaveUsdcNotificationMetadataMultiError) Error() string {
+func (m GaveCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -837,12 +837,12 @@ func (m GaveUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GaveUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m GaveCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// GaveUsdcNotificationMetadataValidationError is the validation error returned
-// by GaveUsdcNotificationMetadata.Validate if the designated constraints
-// aren't met.
-type GaveUsdcNotificationMetadataValidationError struct {
+// GaveCryptoNotificationMetadataValidationError is the validation error
+// returned by GaveCryptoNotificationMetadata.Validate if the designated
+// constraints aren't met.
+type GaveCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -850,24 +850,24 @@ type GaveUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e GaveUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e GaveCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GaveUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e GaveCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GaveUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e GaveCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GaveUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e GaveCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GaveUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "GaveUsdcNotificationMetadataValidationError"
+func (e GaveCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "GaveCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GaveUsdcNotificationMetadataValidationError) Error() string {
+func (e GaveCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -879,14 +879,14 @@ func (e GaveUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGaveUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sGaveCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GaveUsdcNotificationMetadataValidationError{}
+var _ error = GaveCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -894,25 +894,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GaveUsdcNotificationMetadataValidationError{}
+} = GaveCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on ReceivedUsdcNotificationMetadata with
+// Validate checks the field values on ReceivedCryptoNotificationMetadata with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are
 // no violations.
-func (m *ReceivedUsdcNotificationMetadata) Validate() error {
+func (m *ReceivedCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ReceivedUsdcNotificationMetadata with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ReceivedUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *ReceivedUsdcNotificationMetadata) ValidateAll() error {
+// ValidateAll checks the field values on ReceivedCryptoNotificationMetadata
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReceivedCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *ReceivedCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ReceivedUsdcNotificationMetadata) validate(all bool) error {
+func (m *ReceivedCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -920,20 +920,20 @@ func (m *ReceivedUsdcNotificationMetadata) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return ReceivedUsdcNotificationMetadataMultiError(errors)
+		return ReceivedCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// ReceivedUsdcNotificationMetadataMultiError is an error wrapping multiple
+// ReceivedCryptoNotificationMetadataMultiError is an error wrapping multiple
 // validation errors returned by
-// ReceivedUsdcNotificationMetadata.ValidateAll() if the designated
+// ReceivedCryptoNotificationMetadata.ValidateAll() if the designated
 // constraints aren't met.
-type ReceivedUsdcNotificationMetadataMultiError []error
+type ReceivedCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ReceivedUsdcNotificationMetadataMultiError) Error() string {
+func (m ReceivedCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -942,12 +942,12 @@ func (m ReceivedUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ReceivedUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m ReceivedCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// ReceivedUsdcNotificationMetadataValidationError is the validation error
-// returned by ReceivedUsdcNotificationMetadata.Validate if the designated
+// ReceivedCryptoNotificationMetadataValidationError is the validation error
+// returned by ReceivedCryptoNotificationMetadata.Validate if the designated
 // constraints aren't met.
-type ReceivedUsdcNotificationMetadataValidationError struct {
+type ReceivedCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -955,24 +955,24 @@ type ReceivedUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e ReceivedUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e ReceivedCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ReceivedUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e ReceivedCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ReceivedUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e ReceivedCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ReceivedUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e ReceivedCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ReceivedUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "ReceivedUsdcNotificationMetadataValidationError"
+func (e ReceivedCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "ReceivedCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ReceivedUsdcNotificationMetadataValidationError) Error() string {
+func (e ReceivedCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -984,14 +984,14 @@ func (e ReceivedUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sReceivedUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sReceivedCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ReceivedUsdcNotificationMetadataValidationError{}
+var _ error = ReceivedCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -999,25 +999,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ReceivedUsdcNotificationMetadataValidationError{}
+} = ReceivedCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on WithdrewUsdcNotificationMetadata with
+// Validate checks the field values on WithdrewCryptoNotificationMetadata with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are
 // no violations.
-func (m *WithdrewUsdcNotificationMetadata) Validate() error {
+func (m *WithdrewCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on WithdrewUsdcNotificationMetadata with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// WithdrewUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *WithdrewUsdcNotificationMetadata) ValidateAll() error {
+// ValidateAll checks the field values on WithdrewCryptoNotificationMetadata
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// WithdrewCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *WithdrewCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *WithdrewUsdcNotificationMetadata) validate(all bool) error {
+func (m *WithdrewCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1025,20 +1025,20 @@ func (m *WithdrewUsdcNotificationMetadata) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return WithdrewUsdcNotificationMetadataMultiError(errors)
+		return WithdrewCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// WithdrewUsdcNotificationMetadataMultiError is an error wrapping multiple
+// WithdrewCryptoNotificationMetadataMultiError is an error wrapping multiple
 // validation errors returned by
-// WithdrewUsdcNotificationMetadata.ValidateAll() if the designated
+// WithdrewCryptoNotificationMetadata.ValidateAll() if the designated
 // constraints aren't met.
-type WithdrewUsdcNotificationMetadataMultiError []error
+type WithdrewCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m WithdrewUsdcNotificationMetadataMultiError) Error() string {
+func (m WithdrewCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1047,12 +1047,12 @@ func (m WithdrewUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m WithdrewUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m WithdrewCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// WithdrewUsdcNotificationMetadataValidationError is the validation error
-// returned by WithdrewUsdcNotificationMetadata.Validate if the designated
+// WithdrewCryptoNotificationMetadataValidationError is the validation error
+// returned by WithdrewCryptoNotificationMetadata.Validate if the designated
 // constraints aren't met.
-type WithdrewUsdcNotificationMetadataValidationError struct {
+type WithdrewCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1060,24 +1060,24 @@ type WithdrewUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e WithdrewUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e WithdrewCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e WithdrewUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e WithdrewCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e WithdrewUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e WithdrewCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e WithdrewUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e WithdrewCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e WithdrewUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "WithdrewUsdcNotificationMetadataValidationError"
+func (e WithdrewCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "WithdrewCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e WithdrewUsdcNotificationMetadataValidationError) Error() string {
+func (e WithdrewCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1089,14 +1089,14 @@ func (e WithdrewUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sWithdrewUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sWithdrewCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = WithdrewUsdcNotificationMetadataValidationError{}
+var _ error = WithdrewCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1104,24 +1104,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = WithdrewUsdcNotificationMetadataValidationError{}
+} = WithdrewCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on SentUsdcNotificationMetadata with the
+// Validate checks the field values on SentCryptoNotificationMetadata with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SentUsdcNotificationMetadata) Validate() error {
+func (m *SentCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SentUsdcNotificationMetadata with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SentUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *SentUsdcNotificationMetadata) ValidateAll() error {
+// ValidateAll checks the field values on SentCryptoNotificationMetadata with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// SentCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *SentCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SentUsdcNotificationMetadata) validate(all bool) error {
+func (m *SentCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1129,7 +1129,7 @@ func (m *SentUsdcNotificationMetadata) validate(all bool) error {
 	var errors []error
 
 	if m.GetVault() == nil {
-		err := SentUsdcNotificationMetadataValidationError{
+		err := SentCryptoNotificationMetadataValidationError{
 			field:  "Vault",
 			reason: "value is required",
 		}
@@ -1143,7 +1143,7 @@ func (m *SentUsdcNotificationMetadata) validate(all bool) error {
 		switch v := interface{}(m.GetVault()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SentUsdcNotificationMetadataValidationError{
+				errors = append(errors, SentCryptoNotificationMetadataValidationError{
 					field:  "Vault",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1151,7 +1151,7 @@ func (m *SentUsdcNotificationMetadata) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, SentUsdcNotificationMetadataValidationError{
+				errors = append(errors, SentCryptoNotificationMetadataValidationError{
 					field:  "Vault",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1160,7 +1160,7 @@ func (m *SentUsdcNotificationMetadata) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetVault()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SentUsdcNotificationMetadataValidationError{
+			return SentCryptoNotificationMetadataValidationError{
 				field:  "Vault",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1171,19 +1171,19 @@ func (m *SentUsdcNotificationMetadata) validate(all bool) error {
 	// no validation rules for CanInitiateCancelAction
 
 	if len(errors) > 0 {
-		return SentUsdcNotificationMetadataMultiError(errors)
+		return SentCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// SentUsdcNotificationMetadataMultiError is an error wrapping multiple
-// validation errors returned by SentUsdcNotificationMetadata.ValidateAll() if
-// the designated constraints aren't met.
-type SentUsdcNotificationMetadataMultiError []error
+// SentCryptoNotificationMetadataMultiError is an error wrapping multiple
+// validation errors returned by SentCryptoNotificationMetadata.ValidateAll()
+// if the designated constraints aren't met.
+type SentCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SentUsdcNotificationMetadataMultiError) Error() string {
+func (m SentCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1192,12 +1192,12 @@ func (m SentUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SentUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m SentCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// SentUsdcNotificationMetadataValidationError is the validation error returned
-// by SentUsdcNotificationMetadata.Validate if the designated constraints
-// aren't met.
-type SentUsdcNotificationMetadataValidationError struct {
+// SentCryptoNotificationMetadataValidationError is the validation error
+// returned by SentCryptoNotificationMetadata.Validate if the designated
+// constraints aren't met.
+type SentCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1205,24 +1205,24 @@ type SentUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e SentUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e SentCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SentUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e SentCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SentUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e SentCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SentUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e SentCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SentUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "SentUsdcNotificationMetadataValidationError"
+func (e SentCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "SentCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SentUsdcNotificationMetadataValidationError) Error() string {
+func (e SentCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1234,14 +1234,14 @@ func (e SentUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSentUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sSentCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SentUsdcNotificationMetadataValidationError{}
+var _ error = SentCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1249,25 +1249,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SentUsdcNotificationMetadataValidationError{}
+} = SentCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on DepositedUsdcNotificationMetadata with
+// Validate checks the field values on DepositedCryptoNotificationMetadata with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are
 // no violations.
-func (m *DepositedUsdcNotificationMetadata) Validate() error {
+func (m *DepositedCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DepositedUsdcNotificationMetadata
+// ValidateAll checks the field values on DepositedCryptoNotificationMetadata
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the result is a list of violation errors wrapped in
-// DepositedUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *DepositedUsdcNotificationMetadata) ValidateAll() error {
+// DepositedCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *DepositedCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DepositedUsdcNotificationMetadata) validate(all bool) error {
+func (m *DepositedCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1275,20 +1275,20 @@ func (m *DepositedUsdcNotificationMetadata) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return DepositedUsdcNotificationMetadataMultiError(errors)
+		return DepositedCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// DepositedUsdcNotificationMetadataMultiError is an error wrapping multiple
+// DepositedCryptoNotificationMetadataMultiError is an error wrapping multiple
 // validation errors returned by
-// DepositedUsdcNotificationMetadata.ValidateAll() if the designated
+// DepositedCryptoNotificationMetadata.ValidateAll() if the designated
 // constraints aren't met.
-type DepositedUsdcNotificationMetadataMultiError []error
+type DepositedCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DepositedUsdcNotificationMetadataMultiError) Error() string {
+func (m DepositedCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1297,12 +1297,12 @@ func (m DepositedUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DepositedUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m DepositedCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// DepositedUsdcNotificationMetadataValidationError is the validation error
-// returned by DepositedUsdcNotificationMetadata.Validate if the designated
+// DepositedCryptoNotificationMetadataValidationError is the validation error
+// returned by DepositedCryptoNotificationMetadata.Validate if the designated
 // constraints aren't met.
-type DepositedUsdcNotificationMetadataValidationError struct {
+type DepositedCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1310,24 +1310,24 @@ type DepositedUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e DepositedUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e DepositedCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DepositedUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e DepositedCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DepositedUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e DepositedCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DepositedUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e DepositedCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DepositedUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "DepositedUsdcNotificationMetadataValidationError"
+func (e DepositedCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "DepositedCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DepositedUsdcNotificationMetadataValidationError) Error() string {
+func (e DepositedCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1339,14 +1339,14 @@ func (e DepositedUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDepositedUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sDepositedCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DepositedUsdcNotificationMetadataValidationError{}
+var _ error = DepositedCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1354,24 +1354,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DepositedUsdcNotificationMetadataValidationError{}
+} = DepositedCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on PaidUsdcNotificationMetadata with the
+// Validate checks the field values on PaidCryptoNotificationMetadata with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *PaidUsdcNotificationMetadata) Validate() error {
+func (m *PaidCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on PaidUsdcNotificationMetadata with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// PaidUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *PaidUsdcNotificationMetadata) ValidateAll() error {
+// ValidateAll checks the field values on PaidCryptoNotificationMetadata with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// PaidCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *PaidCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
+func (m *PaidCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1380,9 +1380,9 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 
 	oneofPaymentMetadataPresent := false
 	switch v := m.PaymentMetadata.(type) {
-	case *PaidUsdcNotificationMetadata_Pool:
+	case *PaidCryptoNotificationMetadata_Pool:
 		if v == nil {
-			err := PaidUsdcNotificationMetadataValidationError{
+			err := PaidCryptoNotificationMetadataValidationError{
 				field:  "PaymentMetadata",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -1397,7 +1397,7 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 			switch v := interface{}(m.GetPool()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, PaidUsdcNotificationMetadataValidationError{
+					errors = append(errors, PaidCryptoNotificationMetadataValidationError{
 						field:  "Pool",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1405,7 +1405,7 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, PaidUsdcNotificationMetadataValidationError{
+					errors = append(errors, PaidCryptoNotificationMetadataValidationError{
 						field:  "Pool",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1414,7 +1414,7 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetPool()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return PaidUsdcNotificationMetadataValidationError{
+				return PaidCryptoNotificationMetadataValidationError{
 					field:  "Pool",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1426,7 +1426,7 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 		_ = v // ensures v is used
 	}
 	if !oneofPaymentMetadataPresent {
-		err := PaidUsdcNotificationMetadataValidationError{
+		err := PaidCryptoNotificationMetadataValidationError{
 			field:  "PaymentMetadata",
 			reason: "value is required",
 		}
@@ -1437,19 +1437,19 @@ func (m *PaidUsdcNotificationMetadata) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return PaidUsdcNotificationMetadataMultiError(errors)
+		return PaidCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// PaidUsdcNotificationMetadataMultiError is an error wrapping multiple
-// validation errors returned by PaidUsdcNotificationMetadata.ValidateAll() if
-// the designated constraints aren't met.
-type PaidUsdcNotificationMetadataMultiError []error
+// PaidCryptoNotificationMetadataMultiError is an error wrapping multiple
+// validation errors returned by PaidCryptoNotificationMetadata.ValidateAll()
+// if the designated constraints aren't met.
+type PaidCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m PaidUsdcNotificationMetadataMultiError) Error() string {
+func (m PaidCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1458,12 +1458,12 @@ func (m PaidUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m PaidUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m PaidCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// PaidUsdcNotificationMetadataValidationError is the validation error returned
-// by PaidUsdcNotificationMetadata.Validate if the designated constraints
-// aren't met.
-type PaidUsdcNotificationMetadataValidationError struct {
+// PaidCryptoNotificationMetadataValidationError is the validation error
+// returned by PaidCryptoNotificationMetadata.Validate if the designated
+// constraints aren't met.
+type PaidCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1471,24 +1471,24 @@ type PaidUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e PaidUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e PaidCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e PaidUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e PaidCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e PaidUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e PaidCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e PaidUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e PaidCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PaidUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "PaidUsdcNotificationMetadataValidationError"
+func (e PaidCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "PaidCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e PaidUsdcNotificationMetadataValidationError) Error() string {
+func (e PaidCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1500,14 +1500,14 @@ func (e PaidUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPaidUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sPaidCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PaidUsdcNotificationMetadataValidationError{}
+var _ error = PaidCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1515,25 +1515,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PaidUsdcNotificationMetadataValidationError{}
+} = PaidCryptoNotificationMetadataValidationError{}
 
-// Validate checks the field values on DistributedUsdcNotificationMetadata with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the first error encountered is returned, or nil if there are
-// no violations.
-func (m *DistributedUsdcNotificationMetadata) Validate() error {
+// Validate checks the field values on DistributedCryptoNotificationMetadata
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *DistributedCryptoNotificationMetadata) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DistributedUsdcNotificationMetadata
+// ValidateAll checks the field values on DistributedCryptoNotificationMetadata
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the result is a list of violation errors wrapped in
-// DistributedUsdcNotificationMetadataMultiError, or nil if none found.
-func (m *DistributedUsdcNotificationMetadata) ValidateAll() error {
+// DistributedCryptoNotificationMetadataMultiError, or nil if none found.
+func (m *DistributedCryptoNotificationMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
+func (m *DistributedCryptoNotificationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1542,9 +1542,9 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 
 	oneofDistributionMetadataPresent := false
 	switch v := m.DistributionMetadata.(type) {
-	case *DistributedUsdcNotificationMetadata_Pool:
+	case *DistributedCryptoNotificationMetadata_Pool:
 		if v == nil {
-			err := DistributedUsdcNotificationMetadataValidationError{
+			err := DistributedCryptoNotificationMetadataValidationError{
 				field:  "DistributionMetadata",
 				reason: "oneof value cannot be a typed-nil",
 			}
@@ -1559,7 +1559,7 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 			switch v := interface{}(m.GetPool()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, DistributedUsdcNotificationMetadataValidationError{
+					errors = append(errors, DistributedCryptoNotificationMetadataValidationError{
 						field:  "Pool",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1567,7 +1567,7 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, DistributedUsdcNotificationMetadataValidationError{
+					errors = append(errors, DistributedCryptoNotificationMetadataValidationError{
 						field:  "Pool",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1576,7 +1576,7 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetPool()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return DistributedUsdcNotificationMetadataValidationError{
+				return DistributedCryptoNotificationMetadataValidationError{
 					field:  "Pool",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1588,7 +1588,7 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 		_ = v // ensures v is used
 	}
 	if !oneofDistributionMetadataPresent {
-		err := DistributedUsdcNotificationMetadataValidationError{
+		err := DistributedCryptoNotificationMetadataValidationError{
 			field:  "DistributionMetadata",
 			reason: "value is required",
 		}
@@ -1599,20 +1599,20 @@ func (m *DistributedUsdcNotificationMetadata) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return DistributedUsdcNotificationMetadataMultiError(errors)
+		return DistributedCryptoNotificationMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// DistributedUsdcNotificationMetadataMultiError is an error wrapping multiple
-// validation errors returned by
-// DistributedUsdcNotificationMetadata.ValidateAll() if the designated
+// DistributedCryptoNotificationMetadataMultiError is an error wrapping
+// multiple validation errors returned by
+// DistributedCryptoNotificationMetadata.ValidateAll() if the designated
 // constraints aren't met.
-type DistributedUsdcNotificationMetadataMultiError []error
+type DistributedCryptoNotificationMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DistributedUsdcNotificationMetadataMultiError) Error() string {
+func (m DistributedCryptoNotificationMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1621,12 +1621,12 @@ func (m DistributedUsdcNotificationMetadataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DistributedUsdcNotificationMetadataMultiError) AllErrors() []error { return m }
+func (m DistributedCryptoNotificationMetadataMultiError) AllErrors() []error { return m }
 
-// DistributedUsdcNotificationMetadataValidationError is the validation error
-// returned by DistributedUsdcNotificationMetadata.Validate if the designated
-// constraints aren't met.
-type DistributedUsdcNotificationMetadataValidationError struct {
+// DistributedCryptoNotificationMetadataValidationError is the validation error
+// returned by DistributedCryptoNotificationMetadata.Validate if the
+// designated constraints aren't met.
+type DistributedCryptoNotificationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1634,24 +1634,24 @@ type DistributedUsdcNotificationMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e DistributedUsdcNotificationMetadataValidationError) Field() string { return e.field }
+func (e DistributedCryptoNotificationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DistributedUsdcNotificationMetadataValidationError) Reason() string { return e.reason }
+func (e DistributedCryptoNotificationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DistributedUsdcNotificationMetadataValidationError) Cause() error { return e.cause }
+func (e DistributedCryptoNotificationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DistributedUsdcNotificationMetadataValidationError) Key() bool { return e.key }
+func (e DistributedCryptoNotificationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DistributedUsdcNotificationMetadataValidationError) ErrorName() string {
-	return "DistributedUsdcNotificationMetadataValidationError"
+func (e DistributedCryptoNotificationMetadataValidationError) ErrorName() string {
+	return "DistributedCryptoNotificationMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DistributedUsdcNotificationMetadataValidationError) Error() string {
+func (e DistributedCryptoNotificationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1663,14 +1663,14 @@ func (e DistributedUsdcNotificationMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDistributedUsdcNotificationMetadata.%s: %s%s",
+		"invalid %sDistributedCryptoNotificationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DistributedUsdcNotificationMetadataValidationError{}
+var _ error = DistributedCryptoNotificationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1678,26 +1678,27 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DistributedUsdcNotificationMetadataValidationError{}
+} = DistributedCryptoNotificationMetadataValidationError{}
 
 // Validate checks the field values on
-// PaidUsdcNotificationMetadata_PoolPaymentMetadata with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) Validate() error {
+// PaidCryptoNotificationMetadata_PoolPaymentMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PaidCryptoNotificationMetadata_PoolPaymentMetadata) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// PaidUsdcNotificationMetadata_PoolPaymentMetadata with the rules defined in
-// the proto definition for this message. If any rules are violated, the
+// PaidCryptoNotificationMetadata_PoolPaymentMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
 // result is a list of violation errors wrapped in
-// PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError, or nil if none found.
-func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) ValidateAll() error {
+// PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError, or nil if
+// none found.
+func (m *PaidCryptoNotificationMetadata_PoolPaymentMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) error {
+func (m *PaidCryptoNotificationMetadata_PoolPaymentMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1705,7 +1706,7 @@ func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) er
 	var errors []error
 
 	if m.GetPoolId() == nil {
-		err := PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{
+		err := PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{
 			field:  "PoolId",
 			reason: "value is required",
 		}
@@ -1719,7 +1720,7 @@ func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) er
 		switch v := interface{}(m.GetPoolId()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{
+				errors = append(errors, PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{
 					field:  "PoolId",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1727,7 +1728,7 @@ func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) er
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{
+				errors = append(errors, PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{
 					field:  "PoolId",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1736,7 +1737,7 @@ func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) er
 		}
 	} else if v, ok := interface{}(m.GetPoolId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{
+			return PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{
 				field:  "PoolId",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1745,20 +1746,20 @@ func (m *PaidUsdcNotificationMetadata_PoolPaymentMetadata) validate(all bool) er
 	}
 
 	if len(errors) > 0 {
-		return PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError(errors)
+		return PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError is an error
+// PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError is an error
 // wrapping multiple validation errors returned by
-// PaidUsdcNotificationMetadata_PoolPaymentMetadata.ValidateAll() if the
+// PaidCryptoNotificationMetadata_PoolPaymentMetadata.ValidateAll() if the
 // designated constraints aren't met.
-type PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError []error
+type PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError) Error() string {
+func (m PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1767,13 +1768,13 @@ func (m PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError) Error() stri
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m PaidUsdcNotificationMetadata_PoolPaymentMetadataMultiError) AllErrors() []error { return m }
+func (m PaidCryptoNotificationMetadata_PoolPaymentMetadataMultiError) AllErrors() []error { return m }
 
-// PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError is the
+// PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError is the
 // validation error returned by
-// PaidUsdcNotificationMetadata_PoolPaymentMetadata.Validate if the designated
-// constraints aren't met.
-type PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError struct {
+// PaidCryptoNotificationMetadata_PoolPaymentMetadata.Validate if the
+// designated constraints aren't met.
+type PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1781,30 +1782,30 @@ type PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Field() string {
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) Field() string {
 	return e.field
 }
 
 // Reason function returns reason value.
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Reason() string {
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) Reason() string {
 	return e.reason
 }
 
 // Cause function returns cause value.
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Cause() error {
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) Cause() error {
 	return e.cause
 }
 
 // Key function returns key value.
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Key() bool { return e.key }
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) ErrorName() string {
-	return "PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError"
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) ErrorName() string {
+	return "PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Error() string {
+func (e PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1816,14 +1817,14 @@ func (e PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError) Error()
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPaidUsdcNotificationMetadata_PoolPaymentMetadata.%s: %s%s",
+		"invalid %sPaidCryptoNotificationMetadata_PoolPaymentMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{}
+var _ error = PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -1831,27 +1832,27 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PaidUsdcNotificationMetadata_PoolPaymentMetadataValidationError{}
+} = PaidCryptoNotificationMetadata_PoolPaymentMetadataValidationError{}
 
 // Validate checks the field values on
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadata with the rules
-// defined in the proto definition for this message. If any rules are
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadata with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) Validate() error {
+func (m *DistributedCryptoNotificationMetadata_PoolDistributionMetadata) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadata with the rules
-// defined in the proto definition for this message. If any rules are
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadata with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError, or
-// nil if none found.
-func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) ValidateAll() error {
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError,
+// or nil if none found.
+func (m *DistributedCryptoNotificationMetadata_PoolDistributionMetadata) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(all bool) error {
+func (m *DistributedCryptoNotificationMetadata_PoolDistributionMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1859,7 +1860,7 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 	var errors []error
 
 	if m.GetPoolId() == nil {
-		err := DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+		err := DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{
 			field:  "PoolId",
 			reason: "value is required",
 		}
@@ -1873,7 +1874,7 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 		switch v := interface{}(m.GetPoolId()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+				errors = append(errors, DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{
 					field:  "PoolId",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1881,7 +1882,7 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+				errors = append(errors, DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{
 					field:  "PoolId",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1890,7 +1891,7 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 		}
 	} else if v, ok := interface{}(m.GetPoolId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+			return DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{
 				field:  "PoolId",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1898,8 +1899,8 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 		}
 	}
 
-	if _, ok := _DistributedUsdcNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup[m.GetOutcome()]; !ok {
-		err := DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{
+	if _, ok := _DistributedCryptoNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup[m.GetOutcome()]; !ok {
+		err := DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{
 			field:  "Outcome",
 			reason: "value must be in list [WIN_OUTCOME REFUND_OUTCOME]",
 		}
@@ -1910,20 +1911,20 @@ func (m *DistributedUsdcNotificationMetadata_PoolDistributionMetadata) validate(
 	}
 
 	if len(errors) > 0 {
-		return DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError(errors)
+		return DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError(errors)
 	}
 
 	return nil
 }
 
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError is an
-// error wrapping multiple validation errors returned by
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadata.ValidateAll()
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError is
+// an error wrapping multiple validation errors returned by
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadata.ValidateAll()
 // if the designated constraints aren't met.
-type DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError []error
+type DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError) Error() string {
+func (m DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1932,15 +1933,15 @@ func (m DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError) 
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DistributedUsdcNotificationMetadata_PoolDistributionMetadataMultiError) AllErrors() []error {
+func (m DistributedCryptoNotificationMetadata_PoolDistributionMetadataMultiError) AllErrors() []error {
 	return m
 }
 
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError
 // is the validation error returned by
-// DistributedUsdcNotificationMetadata_PoolDistributionMetadata.Validate if
+// DistributedCryptoNotificationMetadata_PoolDistributionMetadata.Validate if
 // the designated constraints aren't met.
-type DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError struct {
+type DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1948,32 +1949,32 @@ type DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError
 }
 
 // Field function returns field value.
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Field() string {
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) Field() string {
 	return e.field
 }
 
 // Reason function returns reason value.
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Reason() string {
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) Reason() string {
 	return e.reason
 }
 
 // Cause function returns cause value.
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Cause() error {
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) Cause() error {
 	return e.cause
 }
 
 // Key function returns key value.
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Key() bool {
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) Key() bool {
 	return e.key
 }
 
 // ErrorName returns error name.
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) ErrorName() string {
-	return "DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError"
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) ErrorName() string {
+	return "DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError) Error() string {
+func (e DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1985,14 +1986,14 @@ func (e DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationEr
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDistributedUsdcNotificationMetadata_PoolDistributionMetadata.%s: %s%s",
+		"invalid %sDistributedCryptoNotificationMetadata_PoolDistributionMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{}
+var _ error = DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -2000,9 +2001,9 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DistributedUsdcNotificationMetadata_PoolDistributionMetadataValidationError{}
+} = DistributedCryptoNotificationMetadata_PoolDistributionMetadataValidationError{}
 
-var _DistributedUsdcNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup = map[poolpb.UserOutcome]struct{}{
+var _DistributedCryptoNotificationMetadata_PoolDistributionMetadata_Outcome_InLookup = map[poolpb.UserOutcome]struct{}{
 	2: {},
 	4: {},
 }

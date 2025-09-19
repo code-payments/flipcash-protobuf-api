@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { PublicKey, UsdcPaymentAmount } from "../../common/v1/common_pb";
+import { CryptoPaymentAmount, PublicKey } from "../../common/v1/common_pb";
 import { PoolId, UserOutcome } from "../../pool/v1/model_pb";
 
 /**
@@ -128,9 +128,9 @@ export class Notification extends Message<Notification> {
   /**
    * If a payment applies, the amount that was paid
    *
-   * @generated from field: flipcash.common.v1.UsdcPaymentAmount payment_amount = 3;
+   * @generated from field: flipcash.common.v1.CryptoPaymentAmount payment_amount = 3;
    */
-  paymentAmount?: UsdcPaymentAmount;
+  paymentAmount?: CryptoPaymentAmount;
 
   /**
    * The timestamp of this notification
@@ -159,46 +159,46 @@ export class Notification extends Message<Notification> {
     case: "welcomeBonus";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.GaveUsdcNotificationMetadata gave_usdc = 6;
+     * @generated from field: flipcash.activity.v1.GaveCryptoNotificationMetadata gave_crypto = 6;
      */
-    value: GaveUsdcNotificationMetadata;
-    case: "gaveUsdc";
+    value: GaveCryptoNotificationMetadata;
+    case: "gaveCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.ReceivedUsdcNotificationMetadata received_usdc = 7;
+     * @generated from field: flipcash.activity.v1.ReceivedCryptoNotificationMetadata received_crypto = 7;
      */
-    value: ReceivedUsdcNotificationMetadata;
-    case: "receivedUsdc";
+    value: ReceivedCryptoNotificationMetadata;
+    case: "receivedCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.WithdrewUsdcNotificationMetadata withdrew_usdc = 8;
+     * @generated from field: flipcash.activity.v1.WithdrewCryptoNotificationMetadata withdrew_crypto = 8;
      */
-    value: WithdrewUsdcNotificationMetadata;
-    case: "withdrewUsdc";
+    value: WithdrewCryptoNotificationMetadata;
+    case: "withdrewCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.SentUsdcNotificationMetadata sent_usdc = 9;
+     * @generated from field: flipcash.activity.v1.SentCryptoNotificationMetadata sent_crypto = 9;
      */
-    value: SentUsdcNotificationMetadata;
-    case: "sentUsdc";
+    value: SentCryptoNotificationMetadata;
+    case: "sentCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.DepositedUsdcNotificationMetadata deposited_usdc = 11;
+     * @generated from field: flipcash.activity.v1.DepositedCryptoNotificationMetadata deposited_crypto = 11;
      */
-    value: DepositedUsdcNotificationMetadata;
-    case: "depositedUsdc";
+    value: DepositedCryptoNotificationMetadata;
+    case: "depositedCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.PaidUsdcNotificationMetadata paid_usdc = 12;
+     * @generated from field: flipcash.activity.v1.PaidCryptoNotificationMetadata paid_crypto = 12;
      */
-    value: PaidUsdcNotificationMetadata;
-    case: "paidUsdc";
+    value: PaidCryptoNotificationMetadata;
+    case: "paidCrypto";
   } | {
     /**
-     * @generated from field: flipcash.activity.v1.DistributedUsdcNotificationMetadata distributed_usdc = 13;
+     * @generated from field: flipcash.activity.v1.DistributedCryptoNotificationMetadata distributed_crypto = 13;
      */
-    value: DistributedUsdcNotificationMetadata;
-    case: "distributedUsdc";
+    value: DistributedCryptoNotificationMetadata;
+    case: "distributedCrypto";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Notification>) {
@@ -211,17 +211,17 @@ export class Notification extends Message<Notification> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "message", T: NotificationId },
     { no: 2, name: "localized_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "payment_amount", kind: "message", T: UsdcPaymentAmount },
+    { no: 3, name: "payment_amount", kind: "message", T: CryptoPaymentAmount },
     { no: 4, name: "ts", kind: "message", T: Timestamp },
     { no: 10, name: "state", kind: "enum", T: proto3.getEnumType(NotificationState) },
     { no: 5, name: "welcome_bonus", kind: "message", T: WelcomeBonusNotificationMetadata, oneof: "additional_metadata" },
-    { no: 6, name: "gave_usdc", kind: "message", T: GaveUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 7, name: "received_usdc", kind: "message", T: ReceivedUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 8, name: "withdrew_usdc", kind: "message", T: WithdrewUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 9, name: "sent_usdc", kind: "message", T: SentUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 11, name: "deposited_usdc", kind: "message", T: DepositedUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 12, name: "paid_usdc", kind: "message", T: PaidUsdcNotificationMetadata, oneof: "additional_metadata" },
-    { no: 13, name: "distributed_usdc", kind: "message", T: DistributedUsdcNotificationMetadata, oneof: "additional_metadata" },
+    { no: 6, name: "gave_crypto", kind: "message", T: GaveCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 7, name: "received_crypto", kind: "message", T: ReceivedCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 8, name: "withdrew_crypto", kind: "message", T: WithdrewCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 9, name: "sent_crypto", kind: "message", T: SentCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 11, name: "deposited_crypto", kind: "message", T: DepositedCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 12, name: "paid_crypto", kind: "message", T: PaidCryptoNotificationMetadata, oneof: "additional_metadata" },
+    { no: 13, name: "distributed_crypto", kind: "message", T: DistributedCryptoNotificationMetadata, oneof: "additional_metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Notification {
@@ -273,102 +273,102 @@ export class WelcomeBonusNotificationMetadata extends Message<WelcomeBonusNotifi
 }
 
 /**
- * @generated from message flipcash.activity.v1.GaveUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.GaveCryptoNotificationMetadata
  */
-export class GaveUsdcNotificationMetadata extends Message<GaveUsdcNotificationMetadata> {
-  constructor(data?: PartialMessage<GaveUsdcNotificationMetadata>) {
+export class GaveCryptoNotificationMetadata extends Message<GaveCryptoNotificationMetadata> {
+  constructor(data?: PartialMessage<GaveCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.GaveUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.GaveCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GaveUsdcNotificationMetadata {
-    return new GaveUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GaveCryptoNotificationMetadata {
+    return new GaveCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GaveUsdcNotificationMetadata {
-    return new GaveUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GaveCryptoNotificationMetadata {
+    return new GaveCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GaveUsdcNotificationMetadata {
-    return new GaveUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GaveCryptoNotificationMetadata {
+    return new GaveCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GaveUsdcNotificationMetadata | PlainMessage<GaveUsdcNotificationMetadata> | undefined, b: GaveUsdcNotificationMetadata | PlainMessage<GaveUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(GaveUsdcNotificationMetadata, a, b);
+  static equals(a: GaveCryptoNotificationMetadata | PlainMessage<GaveCryptoNotificationMetadata> | undefined, b: GaveCryptoNotificationMetadata | PlainMessage<GaveCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(GaveCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.ReceivedUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.ReceivedCryptoNotificationMetadata
  */
-export class ReceivedUsdcNotificationMetadata extends Message<ReceivedUsdcNotificationMetadata> {
-  constructor(data?: PartialMessage<ReceivedUsdcNotificationMetadata>) {
+export class ReceivedCryptoNotificationMetadata extends Message<ReceivedCryptoNotificationMetadata> {
+  constructor(data?: PartialMessage<ReceivedCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.ReceivedUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.ReceivedCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReceivedUsdcNotificationMetadata {
-    return new ReceivedUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReceivedCryptoNotificationMetadata {
+    return new ReceivedCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReceivedUsdcNotificationMetadata {
-    return new ReceivedUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReceivedCryptoNotificationMetadata {
+    return new ReceivedCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReceivedUsdcNotificationMetadata {
-    return new ReceivedUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReceivedCryptoNotificationMetadata {
+    return new ReceivedCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ReceivedUsdcNotificationMetadata | PlainMessage<ReceivedUsdcNotificationMetadata> | undefined, b: ReceivedUsdcNotificationMetadata | PlainMessage<ReceivedUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(ReceivedUsdcNotificationMetadata, a, b);
+  static equals(a: ReceivedCryptoNotificationMetadata | PlainMessage<ReceivedCryptoNotificationMetadata> | undefined, b: ReceivedCryptoNotificationMetadata | PlainMessage<ReceivedCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(ReceivedCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.WithdrewUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.WithdrewCryptoNotificationMetadata
  */
-export class WithdrewUsdcNotificationMetadata extends Message<WithdrewUsdcNotificationMetadata> {
-  constructor(data?: PartialMessage<WithdrewUsdcNotificationMetadata>) {
+export class WithdrewCryptoNotificationMetadata extends Message<WithdrewCryptoNotificationMetadata> {
+  constructor(data?: PartialMessage<WithdrewCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.WithdrewUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.WithdrewCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WithdrewUsdcNotificationMetadata {
-    return new WithdrewUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WithdrewCryptoNotificationMetadata {
+    return new WithdrewCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WithdrewUsdcNotificationMetadata {
-    return new WithdrewUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WithdrewCryptoNotificationMetadata {
+    return new WithdrewCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WithdrewUsdcNotificationMetadata {
-    return new WithdrewUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WithdrewCryptoNotificationMetadata {
+    return new WithdrewCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: WithdrewUsdcNotificationMetadata | PlainMessage<WithdrewUsdcNotificationMetadata> | undefined, b: WithdrewUsdcNotificationMetadata | PlainMessage<WithdrewUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(WithdrewUsdcNotificationMetadata, a, b);
+  static equals(a: WithdrewCryptoNotificationMetadata | PlainMessage<WithdrewCryptoNotificationMetadata> | undefined, b: WithdrewCryptoNotificationMetadata | PlainMessage<WithdrewCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(WithdrewCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.SentUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.SentCryptoNotificationMetadata
  */
-export class SentUsdcNotificationMetadata extends Message<SentUsdcNotificationMetadata> {
+export class SentCryptoNotificationMetadata extends Message<SentCryptoNotificationMetadata> {
   /**
    * The vault of the gift card account that was created for the cash link
    *
@@ -383,115 +383,115 @@ export class SentUsdcNotificationMetadata extends Message<SentUsdcNotificationMe
    */
   canInitiateCancelAction = false;
 
-  constructor(data?: PartialMessage<SentUsdcNotificationMetadata>) {
+  constructor(data?: PartialMessage<SentCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.SentUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.SentCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "vault", kind: "message", T: PublicKey },
     { no: 2, name: "can_initiate_cancel_action", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SentUsdcNotificationMetadata {
-    return new SentUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SentCryptoNotificationMetadata {
+    return new SentCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SentUsdcNotificationMetadata {
-    return new SentUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SentCryptoNotificationMetadata {
+    return new SentCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SentUsdcNotificationMetadata {
-    return new SentUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SentCryptoNotificationMetadata {
+    return new SentCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SentUsdcNotificationMetadata | PlainMessage<SentUsdcNotificationMetadata> | undefined, b: SentUsdcNotificationMetadata | PlainMessage<SentUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(SentUsdcNotificationMetadata, a, b);
+  static equals(a: SentCryptoNotificationMetadata | PlainMessage<SentCryptoNotificationMetadata> | undefined, b: SentCryptoNotificationMetadata | PlainMessage<SentCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(SentCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.DepositedUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.DepositedCryptoNotificationMetadata
  */
-export class DepositedUsdcNotificationMetadata extends Message<DepositedUsdcNotificationMetadata> {
-  constructor(data?: PartialMessage<DepositedUsdcNotificationMetadata>) {
+export class DepositedCryptoNotificationMetadata extends Message<DepositedCryptoNotificationMetadata> {
+  constructor(data?: PartialMessage<DepositedCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.DepositedUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.DepositedCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DepositedUsdcNotificationMetadata {
-    return new DepositedUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DepositedCryptoNotificationMetadata {
+    return new DepositedCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DepositedUsdcNotificationMetadata {
-    return new DepositedUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DepositedCryptoNotificationMetadata {
+    return new DepositedCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DepositedUsdcNotificationMetadata {
-    return new DepositedUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DepositedCryptoNotificationMetadata {
+    return new DepositedCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DepositedUsdcNotificationMetadata | PlainMessage<DepositedUsdcNotificationMetadata> | undefined, b: DepositedUsdcNotificationMetadata | PlainMessage<DepositedUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(DepositedUsdcNotificationMetadata, a, b);
+  static equals(a: DepositedCryptoNotificationMetadata | PlainMessage<DepositedCryptoNotificationMetadata> | undefined, b: DepositedCryptoNotificationMetadata | PlainMessage<DepositedCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(DepositedCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.PaidUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.PaidCryptoNotificationMetadata
  */
-export class PaidUsdcNotificationMetadata extends Message<PaidUsdcNotificationMetadata> {
+export class PaidCryptoNotificationMetadata extends Message<PaidCryptoNotificationMetadata> {
   /**
-   * @generated from oneof flipcash.activity.v1.PaidUsdcNotificationMetadata.payment_metadata
+   * @generated from oneof flipcash.activity.v1.PaidCryptoNotificationMetadata.payment_metadata
    */
   paymentMetadata: {
     /**
-     * @generated from field: flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata pool = 1;
+     * @generated from field: flipcash.activity.v1.PaidCryptoNotificationMetadata.PoolPaymentMetadata pool = 1;
      */
-    value: PaidUsdcNotificationMetadata_PoolPaymentMetadata;
+    value: PaidCryptoNotificationMetadata_PoolPaymentMetadata;
     case: "pool";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
-  constructor(data?: PartialMessage<PaidUsdcNotificationMetadata>) {
+  constructor(data?: PartialMessage<PaidCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.PaidUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.PaidCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pool", kind: "message", T: PaidUsdcNotificationMetadata_PoolPaymentMetadata, oneof: "payment_metadata" },
+    { no: 1, name: "pool", kind: "message", T: PaidCryptoNotificationMetadata_PoolPaymentMetadata, oneof: "payment_metadata" },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidUsdcNotificationMetadata {
-    return new PaidUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidCryptoNotificationMetadata {
+    return new PaidCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata {
-    return new PaidUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidCryptoNotificationMetadata {
+    return new PaidCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata {
-    return new PaidUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidCryptoNotificationMetadata {
+    return new PaidCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined, b: PaidUsdcNotificationMetadata | PlainMessage<PaidUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(PaidUsdcNotificationMetadata, a, b);
+  static equals(a: PaidCryptoNotificationMetadata | PlainMessage<PaidCryptoNotificationMetadata> | undefined, b: PaidCryptoNotificationMetadata | PlainMessage<PaidCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(PaidCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
  * Payment metadata for betting pools
  *
- * @generated from message flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata
+ * @generated from message flipcash.activity.v1.PaidCryptoNotificationMetadata.PoolPaymentMetadata
  */
-export class PaidUsdcNotificationMetadata_PoolPaymentMetadata extends Message<PaidUsdcNotificationMetadata_PoolPaymentMetadata> {
+export class PaidCryptoNotificationMetadata_PoolPaymentMetadata extends Message<PaidCryptoNotificationMetadata_PoolPaymentMetadata> {
   /**
    * The pool that was entered for this payment
    *
@@ -499,83 +499,83 @@ export class PaidUsdcNotificationMetadata_PoolPaymentMetadata extends Message<Pa
    */
   poolId?: PoolId;
 
-  constructor(data?: PartialMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata>) {
+  constructor(data?: PartialMessage<PaidCryptoNotificationMetadata_PoolPaymentMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.PaidUsdcNotificationMetadata.PoolPaymentMetadata";
+  static readonly typeName = "flipcash.activity.v1.PaidCryptoNotificationMetadata.PoolPaymentMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "pool_id", kind: "message", T: PoolId },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
-    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaidCryptoNotificationMetadata_PoolPaymentMetadata {
+    return new PaidCryptoNotificationMetadata_PoolPaymentMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
-    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaidCryptoNotificationMetadata_PoolPaymentMetadata {
+    return new PaidCryptoNotificationMetadata_PoolPaymentMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidUsdcNotificationMetadata_PoolPaymentMetadata {
-    return new PaidUsdcNotificationMetadata_PoolPaymentMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaidCryptoNotificationMetadata_PoolPaymentMetadata {
+    return new PaidCryptoNotificationMetadata_PoolPaymentMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined, b: PaidUsdcNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidUsdcNotificationMetadata_PoolPaymentMetadata> | undefined): boolean {
-    return proto3.util.equals(PaidUsdcNotificationMetadata_PoolPaymentMetadata, a, b);
+  static equals(a: PaidCryptoNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidCryptoNotificationMetadata_PoolPaymentMetadata> | undefined, b: PaidCryptoNotificationMetadata_PoolPaymentMetadata | PlainMessage<PaidCryptoNotificationMetadata_PoolPaymentMetadata> | undefined): boolean {
+    return proto3.util.equals(PaidCryptoNotificationMetadata_PoolPaymentMetadata, a, b);
   }
 }
 
 /**
- * @generated from message flipcash.activity.v1.DistributedUsdcNotificationMetadata
+ * @generated from message flipcash.activity.v1.DistributedCryptoNotificationMetadata
  */
-export class DistributedUsdcNotificationMetadata extends Message<DistributedUsdcNotificationMetadata> {
+export class DistributedCryptoNotificationMetadata extends Message<DistributedCryptoNotificationMetadata> {
   /**
-   * @generated from oneof flipcash.activity.v1.DistributedUsdcNotificationMetadata.distribution_metadata
+   * @generated from oneof flipcash.activity.v1.DistributedCryptoNotificationMetadata.distribution_metadata
    */
   distributionMetadata: {
     /**
-     * @generated from field: flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata pool = 1;
+     * @generated from field: flipcash.activity.v1.DistributedCryptoNotificationMetadata.PoolDistributionMetadata pool = 1;
      */
-    value: DistributedUsdcNotificationMetadata_PoolDistributionMetadata;
+    value: DistributedCryptoNotificationMetadata_PoolDistributionMetadata;
     case: "pool";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
-  constructor(data?: PartialMessage<DistributedUsdcNotificationMetadata>) {
+  constructor(data?: PartialMessage<DistributedCryptoNotificationMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.DistributedUsdcNotificationMetadata";
+  static readonly typeName = "flipcash.activity.v1.DistributedCryptoNotificationMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pool", kind: "message", T: DistributedUsdcNotificationMetadata_PoolDistributionMetadata, oneof: "distribution_metadata" },
+    { no: 1, name: "pool", kind: "message", T: DistributedCryptoNotificationMetadata_PoolDistributionMetadata, oneof: "distribution_metadata" },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedUsdcNotificationMetadata {
-    return new DistributedUsdcNotificationMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedCryptoNotificationMetadata {
+    return new DistributedCryptoNotificationMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata {
-    return new DistributedUsdcNotificationMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedCryptoNotificationMetadata {
+    return new DistributedCryptoNotificationMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata {
-    return new DistributedUsdcNotificationMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedCryptoNotificationMetadata {
+    return new DistributedCryptoNotificationMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DistributedUsdcNotificationMetadata | PlainMessage<DistributedUsdcNotificationMetadata> | undefined, b: DistributedUsdcNotificationMetadata | PlainMessage<DistributedUsdcNotificationMetadata> | undefined): boolean {
-    return proto3.util.equals(DistributedUsdcNotificationMetadata, a, b);
+  static equals(a: DistributedCryptoNotificationMetadata | PlainMessage<DistributedCryptoNotificationMetadata> | undefined, b: DistributedCryptoNotificationMetadata | PlainMessage<DistributedCryptoNotificationMetadata> | undefined): boolean {
+    return proto3.util.equals(DistributedCryptoNotificationMetadata, a, b);
   }
 }
 
 /**
  * Distribution metadata for betting pools
  *
- * @generated from message flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata
+ * @generated from message flipcash.activity.v1.DistributedCryptoNotificationMetadata.PoolDistributionMetadata
  */
-export class DistributedUsdcNotificationMetadata_PoolDistributionMetadata extends Message<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> {
+export class DistributedCryptoNotificationMetadata_PoolDistributionMetadata extends Message<DistributedCryptoNotificationMetadata_PoolDistributionMetadata> {
   /**
    * The pool where funds were distributed from
    *
@@ -591,32 +591,32 @@ export class DistributedUsdcNotificationMetadata_PoolDistributionMetadata extend
    */
   outcome = UserOutcome.UNKNOWN_OUTCOE;
 
-  constructor(data?: PartialMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata>) {
+  constructor(data?: PartialMessage<DistributedCryptoNotificationMetadata_PoolDistributionMetadata>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "flipcash.activity.v1.DistributedUsdcNotificationMetadata.PoolDistributionMetadata";
+  static readonly typeName = "flipcash.activity.v1.DistributedCryptoNotificationMetadata.PoolDistributionMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "pool_id", kind: "message", T: PoolId },
     { no: 2, name: "outcome", kind: "enum", T: proto3.getEnumType(UserOutcome) },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
-    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DistributedCryptoNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedCryptoNotificationMetadata_PoolDistributionMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
-    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DistributedCryptoNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedCryptoNotificationMetadata_PoolDistributionMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedUsdcNotificationMetadata_PoolDistributionMetadata {
-    return new DistributedUsdcNotificationMetadata_PoolDistributionMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DistributedCryptoNotificationMetadata_PoolDistributionMetadata {
+    return new DistributedCryptoNotificationMetadata_PoolDistributionMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DistributedUsdcNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> | undefined, b: DistributedUsdcNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedUsdcNotificationMetadata_PoolDistributionMetadata> | undefined): boolean {
-    return proto3.util.equals(DistributedUsdcNotificationMetadata_PoolDistributionMetadata, a, b);
+  static equals(a: DistributedCryptoNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedCryptoNotificationMetadata_PoolDistributionMetadata> | undefined, b: DistributedCryptoNotificationMetadata_PoolDistributionMetadata | PlainMessage<DistributedCryptoNotificationMetadata_PoolDistributionMetadata> | undefined): boolean {
+    return proto3.util.equals(DistributedCryptoNotificationMetadata_PoolDistributionMetadata, a, b);
   }
 }
 
