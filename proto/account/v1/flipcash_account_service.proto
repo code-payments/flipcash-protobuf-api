@@ -101,6 +101,7 @@ message UserFlags {
 		PHANTOM                  = 5;
 		SOLFLARE                 = 6;
 		BACKPACK                 = 7;
+		BASE                     = 8;
 	}
 
 	// The set of supported on ramp providers for the user, based on their platform

@@ -477,6 +477,11 @@ export enum UserFlags_OnRampProvider {
    * @generated from enum value: BACKPACK = 7;
    */
   BACKPACK = 7,
+
+  /**
+   * @generated from enum value: BASE = 8;
+   */
+  BASE = 8,
 }
 // Retrieve enum metadata with: proto3.getEnumType(UserFlags_OnRampProvider)
 proto3.util.setEnumType(UserFlags_OnRampProvider, "flipcash.account.v1.UserFlags.OnRampProvider", [
@@ -488,5 +493,6 @@ proto3.util.setEnumType(UserFlags_OnRampProvider, "flipcash.account.v1.UserFlags
   { no: 5, name: "PHANTOM" },
   { no: 6, name: "SOLFLARE" },
   { no: 7, name: "BACKPACK" },
+  { no: 8, name: "BASE" },
 ]);
 
