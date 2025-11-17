@@ -362,6 +362,106 @@ proto3.util.setEnumType(GetUserFlagsResponse_Result, "flipcash.account.v1.GetUse
 ]);
 
 /**
+ * @generated from message flipcash.account.v1.GetUnauthenticatedUserFlagsRequest
+ */
+export class GetUnauthenticatedUserFlagsRequest extends Message<GetUnauthenticatedUserFlagsRequest> {
+  /**
+   * @generated from field: flipcash.common.v1.Platform platform = 1;
+   */
+  platform = Platform.UNKNOWN;
+
+  /**
+   * @generated from field: flipcash.common.v1.CountryCode country_code = 2;
+   */
+  countryCode?: CountryCode;
+
+  constructor(data?: PartialMessage<GetUnauthenticatedUserFlagsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.account.v1.GetUnauthenticatedUserFlagsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "platform", kind: "enum", T: proto3.getEnumType(Platform) },
+    { no: 2, name: "country_code", kind: "message", T: CountryCode },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUnauthenticatedUserFlagsRequest {
+    return new GetUnauthenticatedUserFlagsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUnauthenticatedUserFlagsRequest {
+    return new GetUnauthenticatedUserFlagsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUnauthenticatedUserFlagsRequest {
+    return new GetUnauthenticatedUserFlagsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUnauthenticatedUserFlagsRequest | PlainMessage<GetUnauthenticatedUserFlagsRequest> | undefined, b: GetUnauthenticatedUserFlagsRequest | PlainMessage<GetUnauthenticatedUserFlagsRequest> | undefined): boolean {
+    return proto3.util.equals(GetUnauthenticatedUserFlagsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message flipcash.account.v1.GetUnauthenticatedUserFlagsResponse
+ */
+export class GetUnauthenticatedUserFlagsResponse extends Message<GetUnauthenticatedUserFlagsResponse> {
+  /**
+   * @generated from field: flipcash.account.v1.GetUnauthenticatedUserFlagsResponse.Result result = 1;
+   */
+  result = GetUnauthenticatedUserFlagsResponse_Result.OK;
+
+  /**
+   * @generated from field: flipcash.account.v1.UserFlags user_flags = 2;
+   */
+  userFlags?: UserFlags;
+
+  constructor(data?: PartialMessage<GetUnauthenticatedUserFlagsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "flipcash.account.v1.GetUnauthenticatedUserFlagsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "result", kind: "enum", T: proto3.getEnumType(GetUnauthenticatedUserFlagsResponse_Result) },
+    { no: 2, name: "user_flags", kind: "message", T: UserFlags },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUnauthenticatedUserFlagsResponse {
+    return new GetUnauthenticatedUserFlagsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUnauthenticatedUserFlagsResponse {
+    return new GetUnauthenticatedUserFlagsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUnauthenticatedUserFlagsResponse {
+    return new GetUnauthenticatedUserFlagsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUnauthenticatedUserFlagsResponse | PlainMessage<GetUnauthenticatedUserFlagsResponse> | undefined, b: GetUnauthenticatedUserFlagsResponse | PlainMessage<GetUnauthenticatedUserFlagsResponse> | undefined): boolean {
+    return proto3.util.equals(GetUnauthenticatedUserFlagsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum flipcash.account.v1.GetUnauthenticatedUserFlagsResponse.Result
+ */
+export enum GetUnauthenticatedUserFlagsResponse_Result {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+}
+// Retrieve enum metadata with: proto3.getEnumType(GetUnauthenticatedUserFlagsResponse_Result)
+proto3.util.setEnumType(GetUnauthenticatedUserFlagsResponse_Result, "flipcash.account.v1.GetUnauthenticatedUserFlagsResponse.Result", [
+  { no: 0, name: "OK" },
+]);
+
+/**
  * @generated from message flipcash.account.v1.UserFlags
  */
 export class UserFlags extends Message<UserFlags> {

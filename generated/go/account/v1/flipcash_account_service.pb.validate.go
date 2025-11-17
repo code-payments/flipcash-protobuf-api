@@ -977,6 +977,278 @@ var _ interface {
 	ErrorName() string
 } = GetUserFlagsResponseValidationError{}
 
+// Validate checks the field values on GetUnauthenticatedUserFlagsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetUnauthenticatedUserFlagsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUnauthenticatedUserFlagsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetUnauthenticatedUserFlagsRequestMultiError, or nil if none found.
+func (m *GetUnauthenticatedUserFlagsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUnauthenticatedUserFlagsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Platform
+
+	if all {
+		switch v := interface{}(m.GetCountryCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetUnauthenticatedUserFlagsRequestValidationError{
+					field:  "CountryCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetUnauthenticatedUserFlagsRequestValidationError{
+					field:  "CountryCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCountryCode()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetUnauthenticatedUserFlagsRequestValidationError{
+				field:  "CountryCode",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetUnauthenticatedUserFlagsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUnauthenticatedUserFlagsRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// GetUnauthenticatedUserFlagsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetUnauthenticatedUserFlagsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUnauthenticatedUserFlagsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUnauthenticatedUserFlagsRequestMultiError) AllErrors() []error { return m }
+
+// GetUnauthenticatedUserFlagsRequestValidationError is the validation error
+// returned by GetUnauthenticatedUserFlagsRequest.Validate if the designated
+// constraints aren't met.
+type GetUnauthenticatedUserFlagsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUnauthenticatedUserFlagsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUnauthenticatedUserFlagsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUnauthenticatedUserFlagsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUnauthenticatedUserFlagsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUnauthenticatedUserFlagsRequestValidationError) ErrorName() string {
+	return "GetUnauthenticatedUserFlagsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUnauthenticatedUserFlagsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUnauthenticatedUserFlagsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUnauthenticatedUserFlagsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUnauthenticatedUserFlagsRequestValidationError{}
+
+// Validate checks the field values on GetUnauthenticatedUserFlagsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetUnauthenticatedUserFlagsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUnauthenticatedUserFlagsResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetUnauthenticatedUserFlagsResponseMultiError, or nil if none found.
+func (m *GetUnauthenticatedUserFlagsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUnauthenticatedUserFlagsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if all {
+		switch v := interface{}(m.GetUserFlags()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetUnauthenticatedUserFlagsResponseValidationError{
+					field:  "UserFlags",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetUnauthenticatedUserFlagsResponseValidationError{
+					field:  "UserFlags",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserFlags()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetUnauthenticatedUserFlagsResponseValidationError{
+				field:  "UserFlags",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetUnauthenticatedUserFlagsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUnauthenticatedUserFlagsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// GetUnauthenticatedUserFlagsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetUnauthenticatedUserFlagsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUnauthenticatedUserFlagsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUnauthenticatedUserFlagsResponseMultiError) AllErrors() []error { return m }
+
+// GetUnauthenticatedUserFlagsResponseValidationError is the validation error
+// returned by GetUnauthenticatedUserFlagsResponse.Validate if the designated
+// constraints aren't met.
+type GetUnauthenticatedUserFlagsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUnauthenticatedUserFlagsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUnauthenticatedUserFlagsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUnauthenticatedUserFlagsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUnauthenticatedUserFlagsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUnauthenticatedUserFlagsResponseValidationError) ErrorName() string {
+	return "GetUnauthenticatedUserFlagsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUnauthenticatedUserFlagsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUnauthenticatedUserFlagsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUnauthenticatedUserFlagsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUnauthenticatedUserFlagsResponseValidationError{}
+
 // Validate checks the field values on UserFlags with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

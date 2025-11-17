@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetUserFlagsRequest, GetUserFlagsResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "./flipcash_account_service_pb";
+import { GetUnauthenticatedUserFlagsRequest, GetUnauthenticatedUserFlagsResponse, GetUserFlagsRequest, GetUserFlagsResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "./flipcash_account_service_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -45,6 +45,17 @@ export const Account = {
       name: "GetUserFlags",
       I: GetUserFlagsRequest,
       O: GetUserFlagsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetUserFlags gets user flags for unauthenticated users
+     *
+     * @generated from rpc flipcash.account.v1.Account.GetUnauthenticatedUserFlags
+     */
+    getUnauthenticatedUserFlags: {
+      name: "GetUnauthenticatedUserFlags",
+      I: GetUnauthenticatedUserFlagsRequest,
+      O: GetUnauthenticatedUserFlagsResponse,
       kind: MethodKind.Unary,
     },
   }

@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Account_Register_FullMethodName     = "/flipcash.account.v1.Account/Register"
-	Account_Login_FullMethodName        = "/flipcash.account.v1.Account/Login"
-	Account_GetUserFlags_FullMethodName = "/flipcash.account.v1.Account/GetUserFlags"
+	Account_Register_FullMethodName                    = "/flipcash.account.v1.Account/Register"
+	Account_Login_FullMethodName                       = "/flipcash.account.v1.Account/Login"
+	Account_GetUserFlags_FullMethodName                = "/flipcash.account.v1.Account/GetUserFlags"
+	Account_GetUnauthenticatedUserFlags_FullMethodName = "/flipcash.account.v1.Account/GetUnauthenticatedUserFlags"
 )
 
 // AccountClient is the client API for Account service.
@@ -36,6 +37,8 @@ type AccountClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	// GetUserFlags gets user-specific flags.
 	GetUserFlags(ctx context.Context, in *GetUserFlagsRequest, opts ...grpc.CallOption) (*GetUserFlagsResponse, error)
+	// GetUserFlags gets user flags for unauthenticated users
+	GetUnauthenticatedUserFlags(ctx context.Context, in *GetUnauthenticatedUserFlagsRequest, opts ...grpc.CallOption) (*GetUnauthenticatedUserFlagsResponse, error)
 }
 
 type accountClient struct {
@@ -76,6 +79,16 @@ func (c *accountClient) GetUserFlags(ctx context.Context, in *GetUserFlagsReques
 	return out, nil
 }
 
+func (c *accountClient) GetUnauthenticatedUserFlags(ctx context.Context, in *GetUnauthenticatedUserFlagsRequest, opts ...grpc.CallOption) (*GetUnauthenticatedUserFlagsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUnauthenticatedUserFlagsResponse)
+	err := c.cc.Invoke(ctx, Account_GetUnauthenticatedUserFlags_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServer is the server API for Account service.
 // All implementations must embed UnimplementedAccountServer
 // for forward compatibility.
@@ -88,6 +101,8 @@ type AccountServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	// GetUserFlags gets user-specific flags.
 	GetUserFlags(context.Context, *GetUserFlagsRequest) (*GetUserFlagsResponse, error)
+	// GetUserFlags gets user flags for unauthenticated users
+	GetUnauthenticatedUserFlags(context.Context, *GetUnauthenticatedUserFlagsRequest) (*GetUnauthenticatedUserFlagsResponse, error)
 	mustEmbedUnimplementedAccountServer()
 }
 
@@ -106,6 +121,9 @@ func (UnimplementedAccountServer) Login(context.Context, *LoginRequest) (*LoginR
 }
 func (UnimplementedAccountServer) GetUserFlags(context.Context, *GetUserFlagsRequest) (*GetUserFlagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserFlags not implemented")
+}
+func (UnimplementedAccountServer) GetUnauthenticatedUserFlags(context.Context, *GetUnauthenticatedUserFlagsRequest) (*GetUnauthenticatedUserFlagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUnauthenticatedUserFlags not implemented")
 }
 func (UnimplementedAccountServer) mustEmbedUnimplementedAccountServer() {}
 func (UnimplementedAccountServer) testEmbeddedByValue()                 {}
@@ -182,6 +200,24 @@ func _Account_GetUserFlags_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Account_GetUnauthenticatedUserFlags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUnauthenticatedUserFlagsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).GetUnauthenticatedUserFlags(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Account_GetUnauthenticatedUserFlags_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).GetUnauthenticatedUserFlags(ctx, req.(*GetUnauthenticatedUserFlagsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Account_ServiceDesc is the grpc.ServiceDesc for Account service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -200,6 +236,10 @@ var Account_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserFlags",
 			Handler:    _Account_GetUserFlags_Handler,
+		},
+		{
+			MethodName: "GetUnauthenticatedUserFlags",
+			Handler:    _Account_GetUnauthenticatedUserFlags_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
