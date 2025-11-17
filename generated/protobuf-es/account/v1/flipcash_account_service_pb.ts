@@ -402,6 +402,14 @@ export class UserFlags extends Message<UserFlags> {
    */
   preferredOnRampProvider = UserFlags_OnRampProvider.UNKNOWN;
 
+  /**
+   * The minumum build number for this user. If their build number is less than the
+   * provided value, client should show a forced upgrade screen.
+   *
+   * @generated from field: uint32 min_build_number = 6;
+   */
+  minBuildNumber = 0;
+
   constructor(data?: PartialMessage<UserFlags>) {
     super();
     proto3.util.initPartial(data, this);
@@ -415,6 +423,7 @@ export class UserFlags extends Message<UserFlags> {
     { no: 3, name: "requires_iap_for_registration", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "supported_on_ramp_providers", kind: "enum", T: proto3.getEnumType(UserFlags_OnRampProvider), repeated: true },
     { no: 5, name: "preferred_on_ramp_provider", kind: "enum", T: proto3.getEnumType(UserFlags_OnRampProvider) },
+    { no: 6, name: "min_build_number", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserFlags {

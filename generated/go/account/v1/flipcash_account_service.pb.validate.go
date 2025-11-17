@@ -1018,6 +1018,8 @@ func (m *UserFlags) validate(all bool) error {
 
 	// no validation rules for PreferredOnRampProvider
 
+	// no validation rules for MinBuildNumber
+
 	if len(errors) > 0 {
 		return UserFlagsMultiError(errors)
 	}
